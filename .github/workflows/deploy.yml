@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions: 
+permissions:
   contents: read
   pages: write
   id-token: write
@@ -34,24 +34,20 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build -- --base="$ {{
-        steps.pages.outputs.base_path }}/"
+        run: npm run build -- --base="${{ steps.pages.outputs.base_path }}/"
 
-      - name: Upload artifact 
-        uses: actions/upload-pages-artifacts@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
-      deploy:
-        needs: build
-        runs-on: ubuntu-latest
-        enviroment: 
-          name: github-pages
-          url: $ {{ steps.deployment.outputs.page_url}}
-
-        steps: 
-         - name: Deploy
-           id: deployment
-           uses: actions/deploy-pages@v4
-         
-
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
