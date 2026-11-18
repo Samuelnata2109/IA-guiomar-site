@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem("ds-guiomar-theme");
+        } catch {}
+        if (theme !== "light" && theme !== "dark")
+          theme = matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    <style>
+      html {
+        background: #090514;
+      }
+      html[data-theme="light"] {
+        background: #f5f0fb;
+      }
+    </style>
+    <meta name="theme-color" content="#090514" />
+    <meta
+      name="description"
+      content="Explore o curso técnico em Desenvolvimento de Sistemas da EEEP Guiomar Belchior Aguiar, em Cariré–CE. Tecnologia, criatividade e novas possibilidades."
+    />
+    <link rel="icon" type="image/png" href="./assets/logo-ds-guiomar.png" />
+    <link rel="preload" as="image" href="./assets/hero.webp" />
+    <title>Desenvolvimento de Sistemas — EEEP Guiomar</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
