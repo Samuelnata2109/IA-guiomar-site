@@ -4,7 +4,8 @@
 | --- | --- | --- |
 | 01 — Análise e preparação do projeto | Documentação entregue, com análise do código bloqueada | Matriz e vídeo analisados. A cópia do código original é necessária para completar o mapa de arquivos e estabelecer o build de referência. |
 | 01.1 — Complementação da análise | Concluída | Código integrado, arquitetura e paleta mapeadas, build de referência aprovado. |
-| 02 — Alteração da paleta de cores | Aguardando autorização | Identificar estilos e cores no fonte antes da alteração. |
+| 02 — Alteração da paleta de cores | Concluída | Cores azuis aplicadas na interface e nas cenas gráficas. |
+| 02.1 — Refinamento da identidade visual | Build aprovado | Hero e SVGs recoloridos. Verificação visual em navegador desktop e mobile indisponível nesta sessão. |
 | 03 — Hero e apresentação do curso | Não iniciada | |
 | 04 — Adaptação dos cinco cards | Não iniciada | Seleção registrada em [MATRIZ_IA.md](MATRIZ_IA.md). |
 | 05 — Elementos gráficos e modelos 3D | Não iniciada | |
@@ -29,3 +30,10 @@
 - Em uma cópia temporária do commit, `npm ci` instalou 174 pacotes com Node.js 24.22.1 e npm 11.9.0. `npm run build` concluiu `tsc -b` e a compilação com Vite 7.3.8. A presença de `dist/index.html` foi verificada.
 - O Vite emitiu um aviso sobre três chunks acima de 500 kB após minificação, sem impedir o build. São a entrada principal (538,96 kB), Code Quest (585,31 kB) e React Three Fiber (882,15 kB).
 - Testes automatizados e validação em navegador ficaram fora desta rodada. Nenhum arquivo versionado foi modificado após a atualização do checkout. A etapa 02 aguarda autorização.
+
+## Continuação da etapa 02.1
+
+- O checkout permaneceu na branch `codex/etapa-02-1-refinamento-visual`, baseada na `main` remota em `c4b1f71`.
+- `npm ci --cache /tmp/guiomar-npm-cache --no-audit --no-fund` falhou com avisos de tarballs corrompidos e erros `TAR_ENTRY_ERROR ENOENT`, além de tentativa de criar `/home/agent/.npm/_cacache`. Nenhuma dependência ou lockfile foi alterado.
+- Com o Vite existente no ambiente, `npm run build` passou, executando `tsc -b` e Vite 7.3.8. O Vite manteve aviso sobre chunks acima de 500 kB.
+- A validação visual desktop/mobile em navegador não foi possível nesta sessão.
