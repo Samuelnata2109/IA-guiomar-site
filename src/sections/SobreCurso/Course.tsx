@@ -5,7 +5,13 @@ export default function Course() {
     <>
       <div className="discipline-strip" aria-label="Áreas do curso">
         <div>
-          {["ROBÓTICA", "PROGRAMAÇÃO", "DESIGN", "MANUTENÇÃO", "REDES"].map(
+          {[
+            "INTRODUÇÃO À IA",
+            "IA GENERATIVA",
+            "MACHINE LEARNING",
+            "VISÃO COMPUTACIONAL",
+            "AUTOMAÇÃO E AGENTES",
+          ].map(
             (t) => (
               <span key={t}>
                 {t}

@@ -63,9 +63,8 @@ export default function CourseModal({
             </div>
           </motion.div>
           <p className="education-note">
-            Conteúdos e atividades sugeridos para exploração. Não representam
-            confirmação da matriz curricular nem registros de trabalhos já
-            realizados pelos estudantes.
+            Os tópicos correspondem à matriz curricular. As atividades são
+            sugestões educativas, não registros de trabalhos já realizados.
           </p>
         </div>
         <motion.div variants={reveal} className="course-modal-gallery">
