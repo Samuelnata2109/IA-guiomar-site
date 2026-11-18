@@ -7,7 +7,7 @@
 | 02 — Alteração da paleta de cores | Concluída | Cores azuis aplicadas na interface e nas cenas gráficas. |
 | 02.1 — Refinamento da identidade visual | Build aprovado | Hero e SVGs recoloridos. Verificação visual em navegador desktop e mobile indisponível nesta sessão. |
 | 03 — Hero e apresentação do curso | Concluída, build aprovado | Conteúdo institucional adaptado para IA; captura visual em navegador limitada pelo Chromium headless. |
-| 04 — Adaptação dos cinco cards | Não iniciada | Seleção registrada em [MATRIZ_IA.md](MATRIZ_IA.md). |
+| 04 — Adaptação dos cinco cards | Conteúdo adaptado; build pendente | Cinco áreas da matriz aplicadas, com Machine Learning I e II no mesmo card. Build requer dependências já instaladas, conforme restrição da etapa. |
 | 05 — Elementos gráficos e modelos 3D | Não iniciada | |
 | 06 — Adaptação do Code Quest | Não iniciada | |
 | 07 — Laboratório interativo | Não iniciada | |
@@ -44,6 +44,13 @@
 - Hero usa os textos aprovados para o público iniciante e mantém a arte, destinos dos links e animações. Apresentação institucional reescrita com explicação acessível de IA, dados, padrões, aplicações, criatividade e uso responsável, orientada pela matriz documentada.
 - `npm ci --cache /tmp/ia-guiomar-npm-cache --no-audit --no-fund` instalou 174 pacotes sem mudanças nos manifestos. `npm run build` passou em TypeScript e Vite 7.3.8, com o aviso preexistente sobre chunks acima de 500 kB.
 - A captura Chromium headless em desktop excedeu o limite de execução e não gerou imagem; mobile também não foi validado visualmente. Sem screenshot, corte e overflow não puderam ser confirmados visualmente.
+
+## Etapa 04 — Adaptação dos cards das disciplinas
+
+- Os cinco cards e os conteúdos dos modais foram adaptados aos cinco grupos aprovados em MATRIZ_IA.md. Machine Learning I e II estão reunidos no card 03. A faixa introdutória acompanha os novos títulos.
+- Mantive os IDs internos existentes para preservar o vínculo entre cada card, sua imagem atual, seus estilos, galeria e interações. Nenhuma imagem foi substituída e nenhum componente visual foi reorganizado.
+- A conferência estática confirmou cinco entradas na lista `courses` e preservação dos IDs usados por `media` e `courseMedia`. Não foi possível executar validação interativa em navegador nesta sessão.
+- `npm run build` foi tentado e falhou imediatamente com `sh: 1: tsc: not found`, pois `node_modules` não está presente. A instalação de dependências não foi executada, em respeito à restrição explícita da etapa.
 
 ## Etapa 02.2 — Correção cromática dos cards
 
