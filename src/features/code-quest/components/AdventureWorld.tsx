@@ -72,22 +72,22 @@ function ContextGuard({ onFailure }: { onFailure: () => void }) {
 function TerrainScene({ world, level, state, active, reduced, onSettled }: Props & { reduced: boolean }) {
   return <>
     <ambientLight intensity={2} />
-    <directionalLight position={[2, 8, 5]} intensity={3} color="#f2e8ff" />
-    <pointLight position={[level.goal[0], 2, level.goal[1]]} intensity={5} color="#a855f7" />
+    <directionalLight position={[2, 8, 5]} intensity={3} color="#e8f2ff" />
+    <pointLight position={[level.goal[0], 2, level.goal[1]]} intensity={5} color="#5599f7" />
     {Array.from({ length: level.size * level.size }, (_, i) => {
       const x = i % level.size, z = Math.floor(i / level.size);
       return <mesh key={i} position={[x, -0.12, z]}>
         <boxGeometry args={[0.92, 0.18, 0.92]} />
-        <meshStandardMaterial color={(x + z) % 2 ? '#45216c' : '#32154f'} metalness={0.25} roughness={0.55} />
+        <meshStandardMaterial color={(x + z) % 2 ? '#21406c' : '#152d4f'} metalness={0.25} roughness={0.55} />
       </mesh>;
     })}
     {level.obstacles.map(([x, z]) => <mesh key={`${x}-${z}`} position={[x, 0.3, z]}>
       <boxGeometry args={[0.7, 0.7, 0.7]} />
-      <meshStandardMaterial color="#81579c" emissive="#6b218a" emissiveIntensity={0.3} wireframe={false} />
+      <meshStandardMaterial color="#57749c" emissive="#214d8a" emissiveIntensity={0.3} wireframe={false} />
     </mesh>)}
     <mesh position={[level.goal[0], 0.5, level.goal[1]]} rotation={[-Math.PI / 8, 0, 0]}>
       <torusGeometry args={[0.43, 0.055, 8, 32]} />
-      <meshStandardMaterial color="#d8b4fe" emissive="#a855f7" emissiveIntensity={3} />
+      <meshStandardMaterial color="#b4d3fe" emissive="#5599f7" emissiveIntensity={3} />
     </mesh>
     <MovingByte onSettled={onSettled} world={world} state={state} active={active} reduced={reduced} />
   </>;

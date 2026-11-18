@@ -46,7 +46,7 @@ export const courses: Course[] = [
     description: "Monte e programe robôs.",
     detail: "Explore o encontro entre programação e o mundo físico.",
     keywords: ["Lógica", "Sensores", "Movimento"],
-    color: "#a855f7",
+    color: "#5599f7",
     topics: [
       "Arduino",
       "Sensores e atuadores",
@@ -101,7 +101,7 @@ export const courses: Course[] = [
     description: "Crie telas e experiências digitais.",
     detail: "Dê forma à maneira como as pessoas interagem com a tecnologia.",
     keywords: ["Interfaces", "Cores", "Experiências"],
-    color: "#c084fc",
+    color: "#84b6fc",
     topics: [
       "UI/UX",
       "Teoria das cores",
@@ -131,7 +131,7 @@ export const courses: Course[] = [
     description: "Descubra como computadores funcionam.",
     detail: "Conheça o universo que existe por trás de cada tela.",
     keywords: ["Hardware", "Componentes", "Computadores"],
-    color: "#a78bfa",
+    color: "#8bb9fa",
     topics: [
       "Hardware e placas-mãe",
       "Processadores",
@@ -160,7 +160,7 @@ export const courses: Course[] = [
     description: "Conecte computadores e pessoas.",
     detail: "Explore as conexões que aproximam o mundo digital.",
     keywords: ["Conexões", "Dispositivos", "Comunicação"],
-    color: "#38bdf8",
+    color: "#376fa6",
     topics: [
       "Endereçamento IP",
       "Protocolos de rede",

@@ -30,7 +30,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.style.colorScheme = theme;
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", theme === "dark" ? "#090514" : "#f5f0fb");
+      ?.setAttribute("content", theme === "dark" ? "#050b14" : "#f0f5fb");
   }, [theme]);
   useEffect(() => {
     const system = window.matchMedia("(prefers-color-scheme: light)");
