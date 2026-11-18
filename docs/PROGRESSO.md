@@ -37,3 +37,10 @@
 - `npm ci --cache /tmp/guiomar-npm-cache --no-audit --no-fund` falhou com avisos de tarballs corrompidos e erros `TAR_ENTRY_ERROR ENOENT`, além de tentativa de criar `/home/agent/.npm/_cacache`. Nenhuma dependência ou lockfile foi alterado.
 - Com o Vite existente no ambiente, `npm run build` passou, executando `tsc -b` e Vite 7.3.8. O Vite manteve aviso sobre chunks acima de 500 kB.
 - A validação visual desktop/mobile em navegador não foi possível nesta sessão.
+
+## Etapa 02.2 — Correção cromática dos cards
+
+- Na branch iniciada da main em `dc13bd5`, a renderização dos cards foi rastreada de `InteractiveShowcase.tsx` para `CinematicMedia.tsx` e para os SVGs mapeados em `src/data/media.ts`. Os cinco recursos são SVGs da pasta `public/assets`, sem PNG, WebP ou modelo 3D nos cards. `--area-color` também colore halo e detalhes usando os dados de `src/data/courses.ts`.
+- A etapa 02.1 havia recolorido os SVGs, mas manteve cores de destaque por card, incluindo índigo `#818cf8` em Programação. Essa cor seguia tingindo o halo e a apresentação visual. Os SVGs e as cores temáticas agora usam a paleta azul moderada.
+- `npm ci --cache /tmp/ia-guiomar-npm-cache --no-audit --no-fund` instalou 174 pacotes sem alterar manifestos ou lockfile. `npm run build` passou com TypeScript e Vite 7.3.8. Vite ainda alerta sobre chunks acima de 500 kB.
+- Os cinco SVGs recoloridos foram confirmados em `dist/assets`. Não foi possível capturar imagens do site: o Chromium headless falhou ao criar o perfil temporário e não concluiu a segunda tentativa. Validação cromática visual em desktop e mobile permanece pendente.
