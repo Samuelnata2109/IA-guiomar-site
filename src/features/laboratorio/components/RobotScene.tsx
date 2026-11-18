@@ -149,7 +149,7 @@ export function Robot({
           <mesh>
             <boxGeometry args={[1.4, 1.05, 0.85]} />
             <meshStandardMaterial
-              color="#bbb1da"
+              color="#b1c2da"
               metalness={0.75}
               roughness={0.26}
             />
@@ -157,7 +157,7 @@ export function Robot({
           <mesh position={[0, 0.02, 0.44]}>
             <boxGeometry args={[1.18, 0.7, 0.05]} />
             <meshStandardMaterial
-              color="#100c22"
+              color="#0c1522"
               metalness={0.3}
               roughness={0.3}
             />
@@ -168,7 +168,7 @@ export function Robot({
                 <mesh key={x} position={[x, 0, 0]}>
                   <capsuleGeometry args={[0.065, 0.16, 6, 12]} />
                   <meshStandardMaterial
-                    color={glowing ? color : "#403454"}
+                    color={glowing ? color : "#344154"}
                     emissive={color}
                     emissiveIntensity={phase === "success" ? 5 : led ? 3 : 0}
                   />
@@ -178,7 +178,7 @@ export function Robot({
           </group>
           <mesh position={[0, 0.68, 0]}>
             <cylinderGeometry args={[0.025, 0.025, 0.35, 8]} />
-            <meshStandardMaterial color="#9b8bae" metalness={0.8} />
+            <meshStandardMaterial color="#8b9aae" metalness={0.8} />
           </mesh>
           <mesh position={[0, 0.87, 0]}>
             <sphereGeometry args={[0.075, 16, 16]} />
@@ -192,7 +192,7 @@ export function Robot({
         <mesh>
           <boxGeometry args={[0.8, 0.6, 0.65]} />
           <meshStandardMaterial
-            color="#433364"
+            color="#334764"
             metalness={0.7}
             roughness={0.25}
           />
@@ -202,7 +202,7 @@ export function Robot({
             <mesh key={x} position={[x, 0.02, 0]} rotation={[0, 0, x * 0.3]}>
               <capsuleGeometry args={[0.13, 0.35, 6, 12]} />
               <meshStandardMaterial
-                color="#a097bc"
+                color="#97a6bc"
                 metalness={0.8}
                 roughness={0.3}
               />
@@ -212,7 +212,7 @@ export function Robot({
         {[-0.27, 0.27].map((x) => (
           <mesh key={x} position={[x, -0.55, 0]} rotation={[Math.PI / 2, 0, 0]}>
             <cylinderGeometry args={[0.21, 0.21, 0.25, 24]} />
-            <meshStandardMaterial color="#20162f" roughness={0.5} />
+            <meshStandardMaterial color="#16202f" roughness={0.5} />
           </mesh>
         ))}
       </group>
@@ -237,13 +237,13 @@ export default function RobotScene(props: Props) {
       frameloop={props.animate ? "always" : "demand"}
     >
       <ambientLight intensity={1.3} />
-      <directionalLight position={[3, 5, 4]} intensity={3} color="#e3caff" />
-      <pointLight position={[-3, 2, 1]} intensity={15} color="#9333ea" />
+      <directionalLight position={[3, 5, 4]} intensity={3} color="#cae0ff" />
+      <pointLight position={[-3, 2, 1]} intensity={15} color="#337fea" />
       <pointLight position={[2, 0, 2]} intensity={8} color={props.color} />
       <Robot {...props} />
       <ContextMonitor onFailure={props.onFailure} />
       <gridHelper
-        args={[12, 24, "#543975", "#251b35"]}
+        args={[12, 24, "#395275", "#1b2635"]}
         position={[0, -0.8, 0]}
       />
     </Canvas>

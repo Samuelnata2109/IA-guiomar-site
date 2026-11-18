@@ -167,7 +167,7 @@ export default function InteractiveCodeDemo({ paused }: { paused: boolean }) {
         ? "robo.led.desligar();"
         : "robo.led.ligar();"
       : selected === 1
-        ? `interface.cor = "${color === "#a855f7" ? "ciano" : "violeta"}";`
+        ? `interface.cor = "${color === "#5599f7" ? "ciano" : "violeta"}";`
         : commands[selected].code;
   const effectivePhase =
     phase === "idle" && (hovered || focused) ? "hover" : phase;
@@ -309,7 +309,7 @@ export default function InteractiveCodeDemo({ paused }: { paused: boolean }) {
             <div
               className="robot-stage"
               role="img"
-              aria-label={`Robô digital. LED ${led ? "aceso" : "apagado"}, cor ${color === "#a855f7" ? "violeta" : "ciano"}, posição ${position}, rotações ${spin}.`}
+              aria-label={`Robô digital. LED ${led ? "aceso" : "apagado"}, cor ${color === "#5599f7" ? "violeta" : "ciano"}, posição ${position}, rotações ${spin}.`}
             >
               {webgl && inView ? (
                 <SceneBoundary

@@ -7,7 +7,7 @@ export type RobotState = {
 };
 export const initialRobot: RobotState = {
   led: false,
-  color: "#a855f7",
+  color: "#5599f7",
   position: 0,
   spin: 0,
 };
@@ -35,7 +35,7 @@ export function executeRobotCommand(
     code === 'interface.cor = "ciano";' ||
     code === 'interface.cor = "violeta";'
   ) {
-    next.color = code.includes("ciano") ? "#38bdf8" : "#a855f7";
+    next.color = code.includes("ciano") ? "#38bdf8" : "#5599f7";
     message =
       next.color === "#38bdf8"
         ? "Interface alterada para ciano."
