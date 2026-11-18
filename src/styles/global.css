@@ -3879,3 +3879,94 @@ body,
 }
 
 .activity-gallery h3{margin-bottom:16px}.activity-tabs{display:flex;gap:8px;margin-bottom:20px}.activity-tabs button{padding:12px 20px;border:1px solid var(--border);border-radius:12px;color:var(--text);background:var(--surface);cursor:pointer}.activity-tabs button[aria-selected=true]{background:#3a85ed;color:white}.activity-videos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.activity-videos button{min-width:0;text-align:left;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .2s}.activity-videos button:hover{border-color:#5599f7}.activity-videos strong,.activity-videos button>span:last-child{display:block;padding:8px 12px;overflow-wrap:anywhere}.activity-cover{display:grid;place-items:center;aspect-ratio:16/9;position:relative;background:linear-gradient(135deg,#3a85ed40,#337fea18)}.activity-cover img{width:100%;height:100%;object-fit:cover;position:absolute}.activity-cover svg{position:relative;background:#0a1524bb;border-radius:50%;padding:10px;width:44px;height:44px;color:white}.activity-player{padding:24px}.activity-player video{width:100%;max-height:65svh;border-radius:14px;background:#142b48}.activity-player figcaption{margin-top:16px;color:var(--muted)}.activity-tabs button:focus-visible,.activity-videos button:focus-visible{outline:2px solid var(--lavender);outline-offset:3px}@media(max-width:420px){.activity-videos{grid-template-columns:1fr}.activity-player{padding:12px}}@media(prefers-reduced-motion:reduce){.activity-videos button{transition:none}}
+
+/* Keep the artwork and copy in separate tracks as course titles wrap. */
+.areas-grid .area-panel {
+  --card-inset: clamp(23px, 3vw, 34px);
+  display: grid;
+  grid-template-rows: minmax(230px, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 52px var(--card-inset) 30px;
+}
+
+.areas-grid .area-copy,
+.areas-grid .area-visual {
+  position: relative;
+  inset: auto;
+  min-width: 0;
+}
+
+.areas-grid .area-copy {
+  grid-row: 2;
+  align-self: end;
+  max-width: min(100%, 420px);
+  overflow-wrap: anywhere;
+}
+
+.areas-grid .area-visual {
+  grid-row: 1;
+  justify-self: center;
+  width: min(100%, var(--art-width));
+  height: min(100%, var(--art-height));
+  margin-inline-start: var(--art-offset, 0px);
+}
+
+.area-robotica {
+  --art-width: 530px;
+  --art-height: 340px;
+}
+
+.area-programacao {
+  --art-width: 385px;
+  --art-height: 222px;
+  --art-offset: 16px;
+}
+
+.area-design {
+  --art-width: 405px;
+  --art-height: 240px;
+}
+
+.area-manutencao {
+  --art-width: 395px;
+  --art-height: 235px;
+  --art-offset: 18px;
+}
+
+.area-redes {
+  --art-width: 390px;
+  --art-height: 226px;
+  --art-offset: 10px;
+}
+
+@media (min-width: 701px) {
+  .areas-grid .area-wide {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    column-gap: 24px;
+    padding-inline: clamp(26px, 4vw, 50px);
+  }
+
+  .areas-grid .area-wide .area-copy {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: center;
+    max-width: 100%;
+  }
+
+  .areas-grid .area-wide .area-visual {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 700px) {
+  .areas-grid .area-panel {
+    grid-template-rows: minmax(195px, 1fr) auto;
+  }
+
+  .areas-grid .area-visual {
+    max-height: 215px;
+    margin-inline-start: 0;
+  }
+}

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" fill="none">
+  <defs>
+    <linearGradient id="metal" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#DCEAF5"/>
+      <stop offset=".38" stop-color="#76AFE3"/>
+      <stop offset="1" stop-color="#254D78"/>
+    </linearGradient>
+    <linearGradient id="face" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#254D78"/>
+      <stop offset="1" stop-color="#102039"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop stop-color="#427FB8" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#427FB8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="depth" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dy="15" stdDeviation="12" flood-color="#102039" flood-opacity=".65"/>
+    </filter>
+  </defs>
+  <ellipse cx="350" cy="264" rx="310" ry="218" fill="url(#halo)"/>
+  <g stroke="#76AFE3" stroke-opacity=".19">
+    <ellipse cx="350" cy="352" rx="247" ry="65"/>
+    <ellipse cx="350" cy="352" rx="185" ry="43"/>
+  </g>
+  <path d="M101 167h10m-5-5v10m473 118h10m-5-5v10M520 83h8m-4-4v8" stroke="#A6CFF3" stroke-opacity=".55"/>
+  <g transform="translate(350 238) rotate(-8)" filter="url(#depth)">
+    <path d="M-175-38h85m179 0h83M0 45v74m-103 0H103" stroke="#427FB8" stroke-width="8" stroke-linecap="round"/>
+    <path d="M-175-38h85m179 0h83M0 45v74m-103 0H103" stroke="#A6CFF3" stroke-width="2" stroke-dasharray="5 7"/>
+    <rect x="-85" y="-104" width="170" height="162" rx="28" fill="url(#metal)"/>
+    <rect x="-74" y="-94" width="148" height="137" rx="23" fill="url(#face)" stroke="#A6CFF3" stroke-width="2"/>
+    <path d="M0-104v-30" stroke="#76AFE3" stroke-width="5"/>
+    <circle cy="-136" r="8" fill="#A6CFF3"/>
+    <rect x="-49" y="-68" width="98" height="51" rx="15" fill="#102039" stroke="#76AFE3" stroke-width="2"/>
+    <path d="M-22-49v13m44-13v13M-20 9h40" stroke="#A6CFF3" stroke-width="6" stroke-linecap="round"/>
+    <g fill="url(#face)" stroke="url(#metal)" stroke-width="3">
+      <rect x="-216" y="-65" width="54" height="54" rx="10"/>
+      <rect x="162" y="-65" width="54" height="54" rx="10"/>
+      <rect x="-127" y="98" width="48" height="42" rx="8"/>
+      <rect x="79" y="98" width="48" height="42" rx="8"/>
+    </g>
+    <path d="m-200-38 8 8 15-16m356 8 7 8 15-16m-314 165h21m185 0h21" stroke="#A6CFF3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

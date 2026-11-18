@@ -8,7 +8,7 @@
 | 02.1 — Refinamento da identidade visual | Build aprovado | Hero e SVGs recoloridos. Verificação visual em navegador desktop e mobile indisponível nesta sessão. |
 | 03 — Hero e apresentação do curso | Concluída, build aprovado | Conteúdo institucional adaptado para IA; captura visual em navegador limitada pelo Chromium headless. |
 | 04 — Adaptação dos cinco cards | Conteúdo adaptado; build pendente | Cinco áreas da matriz aplicadas, com Machine Learning I e II no mesmo card. Build requer dependências já instaladas, conforme restrição da etapa. |
-| 05 — Elementos gráficos e modelos 3D | Não iniciada | |
+| 05 — Elementos gráficos dos cards e correção de composição | Concluída | Cinco ilustrações temáticas e composição validada em desktop e mobile. |
 | 06 — Adaptação do Code Quest | Não iniciada | |
 | 07 — Laboratório interativo | Não iniciada | |
 | 08 — Projetos e informações institucionais | Não iniciada | |
@@ -58,3 +58,10 @@
 - A etapa 02.1 havia recolorido os SVGs, mas manteve cores de destaque por card, incluindo índigo `#818cf8` em Programação. Essa cor seguia tingindo o halo e a apresentação visual. Os SVGs e as cores temáticas agora usam a paleta azul moderada.
 - `npm ci --cache /tmp/ia-guiomar-npm-cache --no-audit --no-fund` instalou 174 pacotes sem alterar manifestos ou lockfile. `npm run build` passou com TypeScript e Vite 7.3.8. Vite ainda alerta sobre chunks acima de 500 kB.
 - Os cinco SVGs recoloridos foram confirmados em `dist/assets`. Não foi possível capturar imagens do site: o Chromium headless falhou ao criar o perfil temporário e não concluiu a segunda tentativa. Validação cromática visual em desktop e mobile permanece pendente.
+
+## Etapa 05 — Elementos gráficos dos cards e correção de composição
+
+- Os cinco cards passaram a usar SVGs de chip inteligente, interface de prompt, rede neural, câmera com detecção e agente com fluxo automatizado. O catálogo de mídia mantém as chaves usadas pelos cards e pelas galerias.
+- A composição interna reserva espaços para a arte e o texto. O card de abertura usa colunas em desktop, e os demais mantêm a arte acima do texto com enquadramento individual. A grade externa, a numeração e os controles existentes foram preservados.
+- `npm ci` instalou as dependências do lockfile. `npm run build` gerou a distribuição com os cinco SVGs. Permaneceu o aviso do Vite sobre chunks acima de 500 kB.
+- Em Chromium headless, os cinco SVGs carregaram e os títulos couberam sem sobreposição com a arte em 1440, 1024, 768, 390 e 320 px. As capturas de 1440 e 390 px foram revisadas e os cinco modais abriram e fecharam. A conferência foi feita com a preferência de movimento reduzido para medir a composição estática.

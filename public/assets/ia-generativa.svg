@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" fill="none">
+  <defs>
+    <linearGradient id="metal" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#DCEAF5"/>
+      <stop offset=".38" stop-color="#76AFE3"/>
+      <stop offset="1" stop-color="#254D78"/>
+    </linearGradient>
+    <linearGradient id="face" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#254D78"/>
+      <stop offset="1" stop-color="#102039"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop stop-color="#427FB8" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#427FB8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="depth" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dy="15" stdDeviation="12" flood-color="#102039" flood-opacity=".65"/>
+    </filter>
+  </defs>
+  <ellipse cx="350" cy="264" rx="310" ry="218" fill="url(#halo)"/>
+  <g stroke="#76AFE3" stroke-opacity=".19">
+    <ellipse cx="350" cy="352" rx="247" ry="65"/>
+    <ellipse cx="350" cy="352" rx="185" ry="43"/>
+  </g>
+  <path d="M101 167h10m-5-5v10m473 118h10m-5-5v10M520 83h8m-4-4v8" stroke="#A6CFF3" stroke-opacity=".55"/>
+  <g transform="translate(347 240) rotate(-9)" filter="url(#depth)">
+    <rect x="-180" y="-130" width="359" height="251" rx="23" fill="url(#metal)"/>
+    <rect x="-173" y="-124" width="344" height="237" rx="20" fill="url(#face)" stroke="#76AFE3" stroke-width="2"/>
+    <path d="M-172-81h342" stroke="#427FB8" stroke-width="2"/>
+    <path d="M-146-103h.01m15 0h.01m15 0h.01" stroke="#A6CFF3" stroke-width="6" stroke-linecap="round"/>
+    <rect x="-144" y="-54" width="195" height="55" rx="12" fill="#254D78" stroke="#76AFE3" stroke-width="2"/>
+    <path d="m-126-33 9 8-9 8m17 0h12m12-8h108" stroke="#A6CFF3" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-137 32h113m-113 20h92m-92 20h108" stroke="#76AFE3" stroke-opacity=".65" stroke-width="4" stroke-linecap="round"/>
+    <g transform="translate(26 -24) rotate(15 80 72)">
+      <rect width="164" height="133" rx="13" fill="url(#face)" stroke="url(#metal)" stroke-width="4"/>
+      <circle cx="117" cy="39" r="13" fill="#DCEAF5"/>
+      <path d="m12 115 52-64 33 40 20-23 35 47Z" fill="url(#metal)"/>
+    </g>
+  </g>
+</svg>

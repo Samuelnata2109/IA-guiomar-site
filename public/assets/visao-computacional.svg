@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" fill="none">
+  <defs>
+    <linearGradient id="metal" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#DCEAF5"/>
+      <stop offset=".38" stop-color="#76AFE3"/>
+      <stop offset="1" stop-color="#254D78"/>
+    </linearGradient>
+    <linearGradient id="face" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#254D78"/>
+      <stop offset="1" stop-color="#102039"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop stop-color="#427FB8" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#427FB8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="depth" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dy="15" stdDeviation="12" flood-color="#102039" flood-opacity=".65"/>
+    </filter>
+  </defs>
+  <ellipse cx="350" cy="264" rx="310" ry="218" fill="url(#halo)"/>
+  <g stroke="#76AFE3" stroke-opacity=".19">
+    <ellipse cx="350" cy="352" rx="247" ry="65"/>
+    <ellipse cx="350" cy="352" rx="185" ry="43"/>
+  </g>
+  <path d="M101 167h10m-5-5v10m473 118h10m-5-5v10M520 83h8m-4-4v8" stroke="#A6CFF3" stroke-opacity=".55"/>
+  <g transform="translate(329 246) rotate(-10)" filter="url(#depth)">
+    <path d="M-158-77h41l25-33h115l24 33h94l36 29v122l-36 27h-299z" fill="url(#metal)"/>
+    <rect x="-161" y="-76" width="303" height="177" rx="24" fill="url(#face)" stroke="#76AFE3" stroke-width="3"/>
+    <rect x="-137" y="-57" width="36" height="15" rx="4" fill="#76AFE3"/>
+    <circle cx="-7" cy="12" r="77" fill="url(#metal)"/>
+    <circle cx="-7" cy="12" r="62" fill="url(#face)" stroke="#A6CFF3" stroke-width="3"/>
+    <circle cx="-7" cy="12" r="46" fill="#254D78" stroke="#427FB8" stroke-width="5"/>
+    <circle cx="-7" cy="12" r="24" fill="#102039"/>
+    <path d="M-39 2a34 34 0 0 1 31-22m9 53a24 24 0 0 0 17-16" stroke="#A6CFF3" stroke-width="5" stroke-linecap="round"/>
+    <path d="M79-37v-16h20m26 0h20v16m0 38v16h-20m-26 0H79V1" transform="translate(64 34)" stroke="#A6CFF3" stroke-width="4" stroke-linecap="round"/>
+    <path d="M139 17h76" stroke="#76AFE3" stroke-width="2"/>
+  </g>
+</svg>
