@@ -1,4 +1,4 @@
-import { ArrowUpRight, Braces, Lightbulb, Workflow } from "lucide-react";
+import { ArrowUpRight, BrainCircuit, Lightbulb, Workflow } from "lucide-react";
 import { SectionReveal, Eyebrow } from "../../components/animations/Shared";
 export default function Course() {
   return (
@@ -19,9 +19,9 @@ export default function Course() {
         <div className="course-title">
           <Eyebrow number="01">SEU PRÓXIMO UNIVERSO</Eyebrow>
           <h2 data-reveal>
-            MUITO ALÉM
+            INTELIGÊNCIA
             <br />
-            DE <span className="text-lavender">CÓDIGOS.</span>
+            <span className="text-lavender">QUE APRENDE.</span>
           </h2>
           <div className="course-symbol" aria-hidden="true" data-reveal>
             &lt;<span> / </span>&gt;
@@ -29,21 +29,22 @@ export default function Course() {
         </div>
         <div className="course-copy">
           <p className="lead" data-reveal>
-            Aprenda a criar, desenvolver e transformar ideias em soluções
-            tecnológicas.
+            Inteligência Artificial é uma tecnologia que aprende a reconhecer
+            padrões a partir de dados para ajudar a resolver problemas.
           </p>
           <p data-reveal>
-            Na EEEP Guiomar Belchior Aguiar, em Cariré, o ensino médio encontra
-            a formação técnica em Desenvolvimento de Sistemas. Um convite para
-            descobrir o que você pode criar.
+            No curso técnico da EEEP Guiomar Belchior Aguiar, em Cariré, você
+            vai explorar como a IA aparece no cotidiano e conhecer caminhos para
+            criar soluções inteligentes com criatividade, lógica e
+            responsabilidade.
           </p>
           <div className="course-points" data-reveal>
             <div>
-              <Braces />
+              <BrainCircuit />
               <span>
-                TECNOLOGIA
+                INTELIGÊNCIA ARTIFICIAL
                 <br />
-                <strong>Aprender fazendo.</strong>
+                <strong>Aprender com dados.</strong>
               </span>
             </div>
             <div>
@@ -51,20 +52,20 @@ export default function Course() {
               <span>
                 CRIATIVIDADE
                 <br />
-                <strong>Dar vida às ideias.</strong>
+                <strong>Imaginar novas soluções.</strong>
               </span>
             </div>
             <div>
               <Workflow />
               <span>
-                POSSIBILIDADES
+                USO RESPONSÁVEL
                 <br />
-                <strong>Conectar conhecimentos.</strong>
+                <strong>Pensar nos impactos.</strong>
               </span>
             </div>
           </div>
           <a href="#areas" className="inline-link" data-reveal>
-            Encontre o que move você <ArrowUpRight size={20} />
+            Explore as áreas do curso <ArrowUpRight size={20} />
           </a>
         </div>
       </SectionReveal>
