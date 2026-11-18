@@ -90,27 +90,31 @@ export default function CinematicHero() {
           </div>
           <h1 id="hero-title">
             <span className="title-line">
-              <span>GOSTA DE</span>
+              <span>E SE A</span>
             </span>
             <span className="title-line">
-              <span>TECNOLOGIA?</span>
+              <span>TECNOLOGIA</span>
+            </span>
+            <span className="title-line">
+              <span>PUDESSE APRENDER?</span>
             </span>
             <span className="hero-invitation">
-              VEM CRIAR
+              VENHA ENSINAR
               <br />
-              COM A GENTE<span className="purple-dot">.</span>
+              O FUTURO<span className="purple-dot">.</span>
             </span>
           </h1>
           <p className="hero-description">
-            Descubra o universo do Desenvolvimento de Sistemas e transforme suas
-            ideias em tecnologia.
+            Descubra o universo da Inteligência Artificial e aprenda a
+            transformar criatividade, dados e tecnologia em soluções
+            inteligentes.
           </p>
           <div className="hero-buttons">
             <a className="button button-primary" href="#curso">
-              EXPLORAR O CURSO <ArrowDown size={17} />
+              Conheça o curso <ArrowDown size={17} />
             </a>
             <a className="button button-text" href="#escola">
-              CONHECER A ESCOLA <ArrowUpRight size={17} />
+              Explore a IA <ArrowUpRight size={17} />
             </a>
           </div>
         </div>

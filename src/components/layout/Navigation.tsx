@@ -1,7 +1,7 @@
 import { ThemeToggle } from "./ThemeProvider";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, Menu, X, Pause, Play } from "lucide-react";
+import { ArrowUpRight, BrainCircuit, Menu, X, Pause, Play } from "lucide-react";
 export default function Navigation({
   paused,
   setPaused,
@@ -35,15 +35,15 @@ export default function Navigation({
         <a
           className="brand"
           href="#inicio"
-          aria-label="Desenvolvimento de Sistemas — início"
+          aria-label="Inteligência Artificial — início"
         >
           <span className="brand-icon" aria-hidden="true">
-            &lt;/&gt;
+            <BrainCircuit size={22} />
           </span>
           <span>
-            DESENVOLVIMENTO
+            INTELIGÊNCIA ARTIFICIAL
             <small>
-              DE SISTEMAS <i /> GUIOMAR
+              CURSO TÉCNICO <i /> GUIOMAR
             </small>
           </span>
         </a>

@@ -6,7 +6,7 @@
 | 01.1 — Complementação da análise | Concluída | Código integrado, arquitetura e paleta mapeadas, build de referência aprovado. |
 | 02 — Alteração da paleta de cores | Concluída | Cores azuis aplicadas na interface e nas cenas gráficas. |
 | 02.1 — Refinamento da identidade visual | Build aprovado | Hero e SVGs recoloridos. Verificação visual em navegador desktop e mobile indisponível nesta sessão. |
-| 03 — Hero e apresentação do curso | Não iniciada | |
+| 03 — Hero e apresentação do curso | Concluída, build aprovado | Conteúdo institucional adaptado para IA; captura visual em navegador limitada pelo Chromium headless. |
 | 04 — Adaptação dos cinco cards | Não iniciada | Seleção registrada em [MATRIZ_IA.md](MATRIZ_IA.md). |
 | 05 — Elementos gráficos e modelos 3D | Não iniciada | |
 | 06 — Adaptação do Code Quest | Não iniciada | |
@@ -37,6 +37,13 @@
 - `npm ci --cache /tmp/guiomar-npm-cache --no-audit --no-fund` falhou com avisos de tarballs corrompidos e erros `TAR_ENTRY_ERROR ENOENT`, além de tentativa de criar `/home/agent/.npm/_cacache`. Nenhuma dependência ou lockfile foi alterado.
 - Com o Vite existente no ambiente, `npm run build` passou, executando `tsc -b` e Vite 7.3.8. O Vite manteve aviso sobre chunks acima de 500 kB.
 - A validação visual desktop/mobile em navegador não foi possível nesta sessão.
+
+## Etapa 03 — Hero e apresentação do curso
+
+- Cabeçalho atualizado para Inteligência Artificial • Curso Técnico • Guiomar, com ícone BrainCircuit da biblioteca Lucide. Metadados de título e descrição SEO atualizados em index.html.
+- Hero usa os textos aprovados para o público iniciante e mantém a arte, destinos dos links e animações. Apresentação institucional reescrita com explicação acessível de IA, dados, padrões, aplicações, criatividade e uso responsável, orientada pela matriz documentada.
+- `npm ci --cache /tmp/ia-guiomar-npm-cache --no-audit --no-fund` instalou 174 pacotes sem mudanças nos manifestos. `npm run build` passou em TypeScript e Vite 7.3.8, com o aviso preexistente sobre chunks acima de 500 kB.
+- A captura Chromium headless em desktop excedeu o limite de execução e não gerou imagem; mobile também não foi validado visualmente. Sem screenshot, corte e overflow não puderam ser confirmados visualmente.
 
 ## Etapa 02.2 — Correção cromática dos cards
 
