@@ -10,7 +10,7 @@
 | 04 — Adaptação dos cinco cards | Conteúdo adaptado; build pendente | Cinco áreas da matriz aplicadas, com Machine Learning I e II no mesmo card. Build requer dependências já instaladas, conforme restrição da etapa. |
 | 05 — Elementos gráficos dos cards e correção de composição | Concluída | Cinco ilustrações temáticas e composição validada em desktop e mobile. |
 | 06 — Adaptação do Code Quest | Concluída | Seis missões de IA, com progressão, selos e modo JavaScript disponível. |
-| 07 — Laboratório interativo | Não iniciada | |
+| 07 — Laboratório interativo | Concluída | Seis tarefas de treinamento, métricas e cena 3D com alternativa 2D. |
 | 08 — Projetos e informações institucionais | Não iniciada | |
 | 09 — Responsividade e otimização | Não iniciada | O vídeo cobre somente a apresentação em desktop. |
 | 10 — Testes e documentação final | Não iniciada | |
@@ -86,3 +86,22 @@ As regras e o conteúdo ficam em `aiMissions.ts`. Os resultados são didáticos 
 - `npm ci` e `npm run build` passaram com o lockfile existente. O Vite manteve o aviso de chunks acima de 500 kB.
 - No Chromium, as seis missões passaram no fluxo completo com WebGL por software. Foram conferidos acertos, erros, reinício, bloqueio de missões, selos, retomada após fechar o jogo e acesso ao modo JavaScript. Tabuleiro e controles couberam em 1440, 390 e 320 px. Com WebGL desativado, a primeira missão também passou no tabuleiro 2D com movimento reduzido e tema escuro.
 - A suíte em execução sequencial teve 35 de 40 testes aprovados, incluindo os do Code Quest e da animação do Byte. As cinco falhas de cards, galerias, tema e projetos também ocorreram na `main`.
+
+## Etapa 07 — Ensine o Robô 3D
+
+O laboratório reutiliza a geometria e as animações do robô, a cena Three.js, a confirmação de ações pela renderização e a alternativa 2D. A interface apresenta o objetivo, recebe exemplos ou regras, executa a sequência, registra o resultado e permite corrigir a configuração. O terminal mantém os quatro comandos originais.
+
+| Tarefa | O que o estudante configura e observa |
+| --- | --- |
+| Classificação de objetos | Rotula exemplos e testa um categorizador local que usa o exemplo mais próximo por tamanho e formato. |
+| Desviando de obstáculos | Define se o robô para ou contorna uma barreira detectada pelo sensor simulado. |
+| Reconhecimento de padrões | Compara o resultado de poucos exemplos com o de um conjunto mais variado em objetos fora do conjunto de treino. |
+| Entrega inteligente | Define prioridade e sequência de análise, coleta e entrega. O leitor usa a etiqueta do objeto. |
+| Aprendendo com os erros | Compara duas rotas com recompensas de +4 e −3. Cada resultado concluído atualiza a média da rota testada e influencia a escolha seguinte. |
+| Robô autônomo | Combina percepção, desvio, classificação de novos objetos, transporte e entrega. Uma previsão errada leva ao destino errado. |
+
+O motor em `training.ts` calcula as etapas localmente. As métricas de classificação, desvio, entrega e recompensa são registradas quando cada ação termina. A interrupção cancela as etapas pendentes. As tarefas usam objetos sintéticos, regras programadas e uma simulação de reforço com duas rotas fixas. O progresso vale durante a sessão atual do laboratório e o reinício limpa a configuração e as métricas da tarefa.
+
+- `npm ci` e `npm run build` passaram com o lockfile existente. O Vite manteve o aviso de chunks acima de 500 kB.
+- Dez testes específicos passaram, incluindo confirmação de movimento e rotação em 3D, transporte, classificação, desvio, ordem dos comandos e aprendizagem por recompensa. A suíte sequencial aprovou 41 de 46 testes, incluindo o Code Quest. As cinco falhas preexistentes abrangem cards, galeria, tema e projetos.
+- O Chromium com WebGL por software passou pelas seis tarefas, incluindo erro, sucesso, interrupção, reinício, avanço e conferência dos resultados. O cenário e os controles couberam em 1440, 768, 390 e 320 px. As capturas de 1440 e 390 px foram revisadas. A primeira tarefa foi executada também com WebGL desativado. O percurso completo usou movimento reduzido após o teste de interrupção. A interpolação das animações foi verificada nos testes do renderizador 3D.

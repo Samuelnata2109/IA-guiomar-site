@@ -2,7 +2,8 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { Group, MathUtils } from "three";
 import type { RobotState, RobotFeedback } from "../game/robotExecution";
-type Props = RobotState & RobotFeedback & { onFailure: () => void };
+import { ArenaMeshes, coordinate, SampleMesh, type Arena } from "./TrainingArena";
+type Props = RobotState & RobotFeedback & { onFailure: () => void; arena?: Arena };
 
 export function Robot({
   led,
@@ -14,6 +15,7 @@ export function Robot({
   executionId,
   onApplied,
   onCelebrated,
+  arena,
 }: Props) {
   const root = useRef<Group>(null);
   const pose = useRef<Group>(null);
@@ -21,10 +23,14 @@ export function Robot({
   const eyes = useRef<Group>(null);
   const arms = useRef<Group>(null);
   const motion = useRef({ key: "", age: 0, applied: -1, celebrated: -1 });
+  const x = coordinate(arena?.robot.x ?? position);
+  const z = coordinate(arena?.robot.z ?? 0);
+  const rotation = arena?.heading ?? spin * Math.PI * 2;
+  const cargo = arena?.cargo;
   useEffect(() => {
     if (animate || !root.current) return;
-    root.current.position.set(position * 0.65, 0, 0);
-    root.current.rotation.set(0, spin * Math.PI * 2, 0);
+    root.current.position.set(x, 0, z);
+    root.current.rotation.set(0, rotation, 0);
     pose.current?.position.set(0, 0, 0);
     pose.current?.rotation.set(0, 0, 0);
     head.current?.rotation.set(0, 0, 0);
@@ -32,7 +38,7 @@ export function Robot({
     arms.current?.rotation.set(0, 0, 0);
     if (phase === "running") onApplied(executionId);
     if (phase === "success") onCelebrated(executionId);
-  }, [animate, phase, executionId, position, spin, onApplied, onCelebrated]);
+  }, [animate, phase, executionId, x, z, rotation, onApplied, onCelebrated]);
   useFrame(({ clock, pointer }, rawDelta) => {
     if (
       !animate ||
@@ -56,19 +62,20 @@ export function Robot({
     const success = phase === "success";
     const hover = phase === "hover";
     const error = phase === "error";
-    const targetX = position * 0.65;
+    const targetX = x;
     // Cursor motion is separate from command rotation so settling can be measured exactly.
-    const targetRotation = spin * Math.PI * 2;
+    const targetRotation = rotation;
     root.current.position.x = MathUtils.damp(
       root.current.position.x,
       targetX,
-      7,
+      arena ? 14 : 7,
       delta,
     );
+    root.current.position.z = MathUtils.damp(root.current.position.z, z, 14, delta);
     root.current.rotation.y = MathUtils.damp(
       root.current.rotation.y,
       targetRotation,
-      7,
+      arena ? 14 : 7,
       delta,
     );
     const reaction = running
@@ -125,10 +132,11 @@ export function Robot({
         : 0;
     const settled =
       Math.abs(root.current.position.x - targetX) < 0.003 &&
+      Math.abs(root.current.position.z - z) < 0.003 &&
       Math.abs(root.current.rotation.y - targetRotation) < 0.006;
     if (
       running &&
-      age >= 0.48 &&
+      age >= (arena ? 0.34 : 0.48) &&
       settled &&
       motion.current.applied !== executionId
     ) {
@@ -197,6 +205,7 @@ export function Robot({
             roughness={0.25}
           />
         </mesh>
+        {cargo && <SampleMesh sample={cargo} position={[0, -.25, .55]} />}
         <group ref={arms}>
           {[-0.59, 0.59].map((x) => (
             <mesh key={x} position={[x, 0.02, 0]} rotation={[0, 0, x * 0.3]}>
@@ -231,7 +240,7 @@ function ContextMonitor({ onFailure }: { onFailure: () => void }) {
 export default function RobotScene(props: Props) {
   return (
     <Canvas
-      camera={{ position: [2.8, 1.8, 5.7], fov: 35 }}
+      camera={props.arena ? { position: [3.4, 4.1, 6.3], fov: 40 } : { position: [2.8, 1.8, 5.7], fov: 35 }}
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       frameloop={props.animate ? "always" : "demand"}
@@ -240,6 +249,7 @@ export default function RobotScene(props: Props) {
       <directionalLight position={[3, 5, 4]} intensity={3} color="#cae0ff" />
       <pointLight position={[-3, 2, 1]} intensity={15} color="#337fea" />
       <pointLight position={[2, 0, 2]} intensity={8} color={props.color} />
+      {props.arena && <ArenaMeshes arena={props.arena} />}
       <Robot {...props} />
       <ContextMonitor onFailure={props.onFailure} />
       <gridHelper

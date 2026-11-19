@@ -98,6 +98,7 @@ test("ambient motion control emits requested state", () => {
 });
 test("all four programming commands update the live scene and reset", () => {
   render(<Demo paused={false} />);
+  fireEvent.click(screen.getByRole("button", { name: "Abrir terminal de comandos" }));
   const run = screen.getByRole("button", { name: "EXECUTAR CÓDIGO" });
   fireEvent.click(run);
   assert.match(
@@ -142,6 +143,7 @@ test("all four programming commands update the live scene and reset", () => {
 });
 test("robot attention follows pointer and keyboard focus without executing a command", () => {
   render(<Demo paused={false} />);
+  fireEvent.click(screen.getByRole("button", { name: "Abrir terminal de comandos" }));
   const button = screen.getByRole("button", { name: "EXECUTAR CÓDIGO" });
   const lab = document.querySelector(".code-lab")!;
   assert.equal(lab.getAttribute("data-robot-state"), "idle");

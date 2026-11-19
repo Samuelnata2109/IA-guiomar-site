@@ -1,19 +1,15 @@
-import RobotFallback from "./RobotFallback";
-import RobotParticles from "./RobotParticles";
+import RobotViewport from "./RobotViewport";
+import TrainingLab from "./TrainingLab";
 import {
   executeRobotCommand,
   initialRobot,
   type RobotPhase,
 } from "../game/robotExecution";
 import {
-  Component,
-  lazy,
-  Suspense,
   useEffect,
   useCallback,
   useRef,
   useState,
-  type ReactNode,
 } from "react";
 import { useReducedMotion } from "motion/react";
 import {
@@ -28,7 +24,6 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { SectionReveal, Eyebrow } from "../../../components/animations/Shared";
-const RobotScene = lazy(() => import("./RobotScene"));
 const commands = [
   {
     label: "Acender LED",
@@ -55,22 +50,7 @@ const commands = [
     explanation: "Uma sequência de mudanças cria uma animação.",
   },
 ];
-class SceneBoundary extends Component<
-  { children: ReactNode; fallback: ReactNode; onFailure: () => void },
-  { failed: boolean }
-> {
-  state = { failed: false };
-  static getDerivedStateFromError() {
-    return { failed: true };
-  }
-  componentDidCatch() {
-    this.props.onFailure();
-  }
-  render() {
-    return this.state.failed ? this.props.fallback : this.props.children;
-  }
-}
-export default function InteractiveCodeDemo({ paused }: { paused: boolean }) {
+function TerminalDemo({ paused }: { paused: boolean }) {
   const [selected, setSelected] = useState(0);
   const [robot, setRobot] = useState(initialRobot);
   const { led, color, position, spin } = robot;
@@ -81,37 +61,15 @@ export default function InteractiveCodeDemo({ paused }: { paused: boolean }) {
   const sequence = useRef(0);
   const pending = useRef<{ id: number; message: string } | null>(null);
   const mounted = useRef(true);
-  const [visible, setVisible] = useState(!document.hidden);
   const [result, setResult] = useState("Pronto para sua primeira ideia.");
   const [runs, setRuns] = useState(0);
-  const [inView, setInView] = useState(false);
-  const [webgl, setWebgl] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   useEffect(() => {
     mounted.current = true;
-    const visibility = () => setVisible(!document.hidden);
-    document.addEventListener("visibilitychange", visibility);
     return () => {
       mounted.current = false;
       pending.current = null;
-      document.removeEventListener("visibilitychange", visibility);
     };
-  }, []);
-  useEffect(() => {
-    try {
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("webgl2");
-      setWebgl(!!context);
-      context?.getExtension("WEBGL_lose_context")?.loseContext();
-    } catch {
-      setWebgl(false);
-    }
-    const obs = new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
-      rootMargin: "150px",
-    });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
   }, []);
   const applied = useCallback((id: number) => {
     if (!mounted.current || pending.current?.id !== id) return;
@@ -124,15 +82,6 @@ export default function InteractiveCodeDemo({ paused }: { paused: boolean }) {
   const celebrated = useCallback((id: number) => {
     if (!mounted.current || sequence.current !== id || pending.current) return;
     setPhase((current) => (current === "success" ? "idle" : current));
-  }, []);
-  const sceneFailure = useCallback(() => {
-    if (!mounted.current) return;
-    setWebgl(false);
-    if (pending.current) {
-      pending.current = null;
-      setPhase("error");
-      setResult("Não foi possível atualizar a cena. Tente executar novamente.");
-    }
   }, []);
   function run() {
     if (pending.current) return;
@@ -171,180 +120,149 @@ export default function InteractiveCodeDemo({ paused }: { paused: boolean }) {
         : commands[selected].code;
   const effectivePhase =
     phase === "idle" && (hovered || focused) ? "hover" : phase;
-  const animate = !paused && !reduce && inView && visible;
-  const feedback = {
-    phase: effectivePhase as RobotPhase,
-    executionId,
-    animate,
-    onApplied: applied,
-    onCelebrated: celebrated,
-  };
-  const fallback = <RobotFallback {...robot} {...feedback} />;
-  // Loading UI cannot acknowledge a command before the active renderer applies it.
-  const loadingFallback = (
-    <RobotFallback
-      {...robot}
-      {...feedback}
-      onApplied={() => {}}
-      onCelebrated={() => {}}
-    />
+  return (
+    <div className="code-lab" data-robot-state={effectivePhase}>
+      <div className="code-editor">
+        <div className="editor-top">
+          <span className="window-dots">
+            <i />
+            <i />
+            <i />
+          </span>
+          <span>minha-primeira-ideia.js</span>
+          <Terminal size={16} />
+        </div>
+        <div
+          className="command-list"
+          role="group"
+          aria-label="Escolher comando"
+        >
+          {commands.map((c, i) => (
+            <button
+              key={c.label}
+              onClick={() => setSelected(i)}
+              aria-pressed={selected === i}
+              className={selected === i ? "selected" : ""}
+            >
+              <c.icon size={16} />
+              {c.label}
+            </button>
+          ))}
+        </div>
+        <div className="code-lines">
+          <div>
+            <span>01</span>
+            <code className="code-comment">
+              // O futuro começa com uma ideia.
+            </code>
+          </div>
+          <div>
+            <span>02</span>
+            <code>
+              <b>const</b> robo = <em>criarRobo</em>();
+            </code>
+          </div>
+          <div>
+            <span>03</span>
+          </div>
+          <div className="active-code">
+            <span>04</span>
+            <code>
+              {code}
+              <i className="code-caret" />
+            </code>
+          </div>
+          <div>
+            <span>05</span>
+          </div>
+          <div>
+            <span>06</span>
+            <code className="code-comment">
+              // Agora é com você. Execute ↓
+            </code>
+          </div>
+        </div>
+        <p className="command-explanation">
+          {commands[selected].explanation}
+        </p>
+        <div className="editor-bottom">
+          <button
+            className="button button-primary execute-button"
+            onClick={run}
+            disabled={phase === "running"}
+            aria-busy={phase === "running"}
+            onPointerEnter={(e) => {
+              if (e.pointerType !== "touch") setHovered(true);
+            }}
+            onPointerLeave={() => setHovered(false)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+          >
+            <Play size={16} fill="currentColor" />
+            EXECUTAR CÓDIGO
+          </button>
+          <button
+            className="reset-button"
+            onClick={reset}
+            aria-label="Reiniciar experiência"
+          >
+            <RotateCcw size={19} />
+          </button>
+        </div>
+      </div>
+      <div
+        className="lab-preview"
+        style={{ "--lab-color": color } as React.CSSProperties}
+      >
+        <div className="preview-top">
+          <span>
+            <i /> RESULTADO EM TEMPO REAL
+          </span>
+          <span>JS → MUNDO</span>
+        </div>
+        <RobotViewport
+          robot={robot}
+          paused={paused}
+          phase={effectivePhase}
+          executionId={executionId}
+          onApplied={applied}
+          onCelebrated={celebrated}
+          label={`Robô digital. LED ${led ? "aceso" : "apagado"}, cor ${color === "#5599f7" ? "violeta" : "ciano"}, posição ${position}, rotações ${spin}.`}
+        />
+        <div className="preview-status" role="status">
+          {phase === "error" ? (
+            <AlertCircle size={15} />
+          ) : (
+            <Check size={15} />
+          )}
+          {result}
+        </div>
+        <div className="preview-bottom">
+          <span>DEMONSTRAÇÃO INTERATIVA</span>
+          <span>{String(runs).padStart(2, "0")} COMANDOS</span>
+        </div>
+      </div>
+    </div>
   );
+}
+
+export default function InteractiveCodeDemo({ paused }: { paused: boolean }) {
+  const [terminal, setTerminal] = useState(false);
   return (
     <SectionReveal id="laboratorio" className="section lab-section">
       <div className="container">
         <div className="lab-heading">
           <div>
-            <Eyebrow number="04">MENOS IMAGINAR. MAIS EXPERIMENTAR.</Eyebrow>
-            <h2 data-reveal>
-              VOCÊ TAMBÉM
-              <br />
-              PODE <span className="text-lavender">CRIAR.</span>
-            </h2>
+            <Eyebrow number="04">LABORATÓRIO INTERATIVO</Eyebrow>
+            <h2 data-reveal>ENSINE O <span className="text-lavender">ROBÔ 3D.</span></h2>
           </div>
-          <p data-reveal>
-            Uma ideia. Um comando. Uma descoberta.
-            <br />
-            Escolha uma ação e veja acontecer.
-          </p>
+          <p data-reveal>Dê exemplos, monte regras e veja como o robô reage a cada tentativa.</p>
         </div>
-        <div className="code-lab" ref={ref} data-robot-state={effectivePhase}>
-          <div className="code-editor">
-            <div className="editor-top">
-              <span className="window-dots">
-                <i />
-                <i />
-                <i />
-              </span>
-              <span>minha-primeira-ideia.js</span>
-              <Terminal size={16} />
-            </div>
-            <div
-              className="command-list"
-              role="group"
-              aria-label="Escolher comando"
-            >
-              {commands.map((c, i) => (
-                <button
-                  key={c.label}
-                  onClick={() => setSelected(i)}
-                  aria-pressed={selected === i}
-                  className={selected === i ? "selected" : ""}
-                >
-                  <c.icon size={16} />
-                  {c.label}
-                </button>
-              ))}
-            </div>
-            <div className="code-lines">
-              <div>
-                <span>01</span>
-                <code className="code-comment">
-                  // O futuro começa com uma ideia.
-                </code>
-              </div>
-              <div>
-                <span>02</span>
-                <code>
-                  <b>const</b> robo = <em>criarRobo</em>();
-                </code>
-              </div>
-              <div>
-                <span>03</span>
-              </div>
-              <div className="active-code">
-                <span>04</span>
-                <code>
-                  {code}
-                  <i className="code-caret" />
-                </code>
-              </div>
-              <div>
-                <span>05</span>
-              </div>
-              <div>
-                <span>06</span>
-                <code className="code-comment">
-                  // Agora é com você. Execute ↓
-                </code>
-              </div>
-            </div>
-            <p className="command-explanation">
-              {commands[selected].explanation}
-            </p>
-            <div className="editor-bottom">
-              <button
-                className="button button-primary execute-button"
-                onClick={run}
-                disabled={phase === "running"}
-                aria-busy={phase === "running"}
-                onPointerEnter={(e) => {
-                  if (e.pointerType !== "touch") setHovered(true);
-                }}
-                onPointerLeave={() => setHovered(false)}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-              >
-                <Play size={16} fill="currentColor" />
-                EXECUTAR CÓDIGO
-              </button>
-              <button
-                className="reset-button"
-                onClick={reset}
-                aria-label="Reiniciar experiência"
-              >
-                <RotateCcw size={19} />
-              </button>
-            </div>
-          </div>
-          <div
-            className="lab-preview"
-            style={{ "--lab-color": color } as React.CSSProperties}
-          >
-            <div className="preview-top">
-              <span>
-                <i /> RESULTADO EM TEMPO REAL
-              </span>
-              <span>JS → MUNDO</span>
-            </div>
-            <div
-              className="robot-stage"
-              role="img"
-              aria-label={`Robô digital. LED ${led ? "aceso" : "apagado"}, cor ${color === "#5599f7" ? "violeta" : "ciano"}, posição ${position}, rotações ${spin}.`}
-            >
-              {webgl && inView ? (
-                <SceneBoundary
-                  fallback={loadingFallback}
-                  onFailure={sceneFailure}
-                >
-                  <Suspense fallback={loadingFallback}>
-                    <RobotScene
-                      {...robot}
-                      {...feedback}
-                      onFailure={sceneFailure}
-                    />
-                  </Suspense>
-                </SceneBoundary>
-              ) : (
-                fallback
-              )}
-              {phase === "running" && animate && (
-                <RobotParticles executionId={executionId} />
-              )}
-            </div>
-            <div className="preview-status" role="status">
-              {phase === "error" ? (
-                <AlertCircle size={15} />
-              ) : (
-                <Check size={15} />
-              )}
-              {result}
-            </div>
-            <div className="preview-bottom">
-              <span>DEMONSTRAÇÃO INTERATIVA</span>
-              <span>{String(runs).padStart(2, "0")} COMANDOS</span>
-            </div>
-          </div>
-        </div>
+        <button type="button" className="button button-text lab-mode-button" onClick={() => setTerminal(!terminal)}>
+          <Terminal size={16} aria-hidden="true" />
+          {terminal ? "Voltar ao treinamento" : "Abrir terminal de comandos"}
+        </button>
+        {terminal ? <TerminalDemo paused={paused} /> : <TrainingLab paused={paused} />}
       </div>
     </SectionReveal>
   );
