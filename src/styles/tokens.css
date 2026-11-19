@@ -1,6 +1,6 @@
 /* Shared visual values. Section and game overrides stay with their styles. */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
   /* Palette and semantic roles */
   --blue-deep: #254d78;
@@ -9,22 +9,22 @@
   --blue-soft: #a6cff5;
   --blue-bright: #38bdf8;
   --white: #fff;
-  --bg: #102039;
-  --surface: #142b48;
-  --panel: #1a3657;
+  --bg: #f2f6fb;
+  --surface: var(--white);
+  --panel: var(--white);
   --panel-soft: var(--panel);
-  --text: var(--white);
-  --muted: #c4dff3;
-  --line: rgba(118, 175, 227, 0.2);
-  --border: #5599f73d;
-  --overlay: #142b48b8;
-  --control: #16263d;
-  --heading-accent: var(--blue-soft);
-  --focus-color: var(--blue-bright);
-  --nav-active-color: var(--blue-bright);
-  --nav-background: linear-gradient(#142b48d9, #142b4830);
-  --nav-border: #84b6fc16;
-  --panel-shadow: 0 28px 100px #0005;
+  --text: #112138;
+  --muted: #505e71;
+  --line: #426da82d;
+  --border: #547cb33d;
+  --overlay: #11233d66;
+  --control: #dce7f6;
+  --heading-accent: #3267b2;
+  --focus-color: #24589c;
+  --nav-active-color: #2565b5;
+  --nav-background: linear-gradient(#f0f5fbf0, #f0f5fb30);
+  --nav-border: var(--line);
+  --panel-shadow: 0 28px 90px #3b567c29;
 
   /* Legacy names used by the original sections and games */
   --purple: var(--blue-brand);
@@ -34,7 +34,7 @@
   --cyan: var(--blue-bright);
   --ink: var(--text);
   --ink-soft: var(--muted);
-  --glow: 0 0 60px #427fb824;
+  --glow: 0 0 40px #3a85ed14;
 
   /* Typography */
   --font-title: "Space Grotesk Variable", sans-serif;
@@ -78,8 +78,9 @@
   --button-primary-text: var(--white);
   --button-primary-shadow: 0 8px 38px #3a85ed30;
   --button-primary-hover-shadow: 0 8px 40px #5599f75c;
-  --button-text-color: #d0dae9;
-  --button-outline-bg: #0d192a;
+  --button-text-color: var(--text);
+  --button-outline-bg: #dee8f7;
+  --button-outline-text: #354d6f;
   --button-outline-border: #667c9b70;
   --button-white-text: #143d76;
   --button-hover-lift: -3px;
@@ -96,30 +97,6 @@
   --z-dialog-header: 10;
   --z-nav: 30;
   --z-skip-link: 100;
-}
-
-:root[data-theme="light"] {
-  color-scheme: light;
-  --bg: #f2f6fb;
-  --surface: var(--white);
-  --panel: var(--white);
-  --panel-soft: #e6eefa;
-  --text: #112138;
-  --muted: #505e71;
-  --line: #426da82d;
-  --border: #547cb33d;
-  --overlay: #11233d66;
-  --control: #dce7f6;
-  --heading-accent: #3267b2;
-  --focus-color: #24589c;
-  --nav-active-color: #2565b5;
-  --nav-background: linear-gradient(#f0f5fbf0, #f0f5fb30);
-  --nav-border: var(--line);
-  --panel-shadow: 0 28px 90px #3b567c29;
-  --glow: 0 0 40px #3a85ed14;
-  --button-text-color: var(--text);
-  --button-outline-bg: #dee8f7;
-  --button-outline-text: #354d6f;
 }
 
 /* CSS custom properties do not participate in media query conditions. */

@@ -5,27 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
       (() => {
-        let theme;
-        try {
-          theme = localStorage.getItem("ds-guiomar-theme");
-        } catch {}
-        if (theme !== "light" && theme !== "dark")
-          theme = matchMedia("(prefers-color-scheme: light)").matches
-            ? "light"
-            : "dark";
-        document.documentElement.dataset.theme = theme;
-        document.documentElement.style.colorScheme = theme;
+        document.documentElement.dataset.theme = "light";
+        document.documentElement.style.colorScheme = "light";
       })();
     </script>
     <style>
       html {
-        background: #050b14;
+        background: #f0f5fb;
       }
       html[data-theme="light"] {
         background: #f0f5fb;
       }
     </style>
-    <meta name="theme-color" content="#050b14" />
+    <meta name="theme-color" content="#f0f5fb" />
     <meta
       name="description"
       content="Conheça o curso técnico em Inteligência Artificial da EEEP Guiomar Belchior Aguiar, em Cariré–CE. Explore como a IA aprende com dados e como criar soluções inteligentes com criatividade e responsabilidade."

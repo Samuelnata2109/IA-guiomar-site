@@ -1,4 +1,3 @@
-import { ThemeToggle } from "./ThemeProvider";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, BrainCircuit, Menu, X, Pause, Play } from "lucide-react";
@@ -61,7 +60,6 @@ export default function Navigation({
           ))}
         </nav>
         <div className="nav-actions">
-          <ThemeToggle />
           <button
             className="motion-toggle"
             onClick={() => setPaused(!paused)}
