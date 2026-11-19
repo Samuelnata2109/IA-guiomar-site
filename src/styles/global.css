@@ -140,7 +140,7 @@ p {
   color: #c3d3e9;
 }
 .section-no {
-  color: var(--neon);
+  color: #76afe3;
   font-family: var(--font-title);
   font-size: 12px;
 }
@@ -1179,7 +1179,7 @@ h3 {
   font-family: monospace;
   font-size: 8px;
   letter-spacing: 0.09em;
-  color: #889ab4;
+  color: #a5b7d0;
   gap: 12px;
 }
 .preview-top > span:first-child {
@@ -1482,7 +1482,7 @@ h3 {
   gap: 20px;
   padding-block: 22px;
   border-top: 1px solid var(--line);
-  color: #77879d;
+  color: #96a7bc;
   font-size: 8px;
 }
 .footer-bottom > a {
@@ -2816,6 +2816,10 @@ body,
 [data-theme="light"] .discipline-strip span,
 [data-theme="light"] .course-points strong {
   color: #4a6283;
+}
+[data-theme="light"] .section-no,
+[data-theme="light"] .footer-bottom {
+  color: #445d7f;
 }
 [data-theme="light"] .course-copy > .lead,
 [data-theme="light"] .footer-main > p {

@@ -8,7 +8,10 @@ function Player({ item, active }: {item: ActivityMedia; active: boolean}) {
   const ref = useRef<HTMLVideoElement>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => { if (!active) ref.current?.pause(); }, [active]);
-  useEffect(() => { const video=ref.current; return () => { video?.pause(); video?.removeAttribute('src'); video?.load(); }; }, []);
+  useEffect(() => {
+    const video = ref.current;
+    return () => video?.pause();
+  }, []);
   return <figure className="activity-player">{failed ? <p role="status">Vídeo indisponível. Tente novamente mais tarde.</p> : <video ref={ref} controls playsInline preload="metadata" poster={item.poster ? mediaUrl(item.poster) : undefined} src={mediaUrl(item.src)} onError={() => setFailed(true)} aria-label={item.title}/>}<figcaption>{item.caption}</figcaption></figure>;
 }
 export default function ActivityGallery({course, active}: {course: Course; active: boolean}) {

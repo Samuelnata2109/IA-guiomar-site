@@ -261,10 +261,21 @@ test('all discipline galleries expose accessible photo/video tabs and honest emp
  const {default: Gallery}=await import('../src/components/ui/ActivityGallery');
  for(const course of courses){const view=render(<Gallery course={course} active/>);fireEvent.click(screen.getByRole('tab',{name:'Vídeos'}));assert.ok(screen.getByText('Em breve, vídeos das nossas atividades práticas!'));assert.equal(document.querySelector('video'),null);fireEvent.keyDown(screen.getByRole('tab',{name:'Vídeos'}),{key:'ArrowLeft'});assert.equal(screen.getByRole('tab',{name:'Fotografias'}).getAttribute('aria-selected'),'true');view.unmount();}
 });
-test('selected video uses native controls and pauses on closing parent', async()=>{
+test('selected video retains its source in Strict Mode and pauses on closing parent', async()=>{
  const {default: Gallery}=await import('../src/components/ui/ActivityGallery');const {courseMedia}=await import('../src/data/courseMedia');let pauses=0;win.HTMLMediaElement.prototype.pause=function(){pauses++;};win.HTMLMediaElement.prototype.load=function(){};
  courseMedia.robotica=[{id:'test-only',type:'video',src:'media/robotica/videos/test.webm',title:'Teste de player',caption:'Fixture de teste'}];
- try{const view=render(<Gallery course={courses[0]} active/>);fireEvent.click(screen.getByRole('tab',{name:'Vídeos'}));assert.equal(document.querySelector('video'),null);fireEvent.click(screen.getByRole('button',{name:'Reproduzir Teste de player'}));const video=document.querySelector('video')!;assert.ok(video.controls);assert.equal(video.autoplay,false);assert.equal(video.preload,'metadata');view.rerender(<Gallery course={courses[0]} active={false}/>);assert.ok(pauses>0);}finally{courseMedia.robotica=[];}
+ try{const view=render(<React.StrictMode><Gallery course={courses[0]} active/></React.StrictMode>);
+ fireEvent.click(screen.getByRole('tab',{name:'Vídeos'}));
+ assert.equal(document.querySelector('video'),null);
+ fireEvent.click(screen.getByRole('button',{name:'Reproduzir Teste de player'}));
+ const video=document.querySelector('video')!;
+ assert.match(video.src, /test\.webm$/);
+ assert.ok(video.controls);
+ assert.equal(video.autoplay,false);
+ assert.equal(video.preload,'metadata');
+ const pausesBeforeClose = pauses;
+ view.rerender(<React.StrictMode><Gallery course={courses[0]} active={false}/></React.StrictMode>);
+ assert.ok(pauses > pausesBeforeClose);}finally{courseMedia.robotica=[];}
 });
 
 test('workspace keeps scene editor controls and console together, with collapsible tools and keyboard resize',()=>{
