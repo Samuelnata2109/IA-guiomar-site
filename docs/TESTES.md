@@ -34,6 +34,19 @@ Para isolar um arquivo, rode `./node_modules/.bin/tsx --test tests/robot-trainin
 
 O build de produção e o build com base `/IA-guiomar-site/` passaram em Node.js 24.22.1 e npm 11.9.0. A suíte executou 46 testes, com 46 aprovados, 0 reprovados e 0 ignorados. O maior chunk JavaScript do build padrão mediu 430,44 kB minificado, 137,27 kB em gzip. O Vite não emitiu aviso de chunks acima de 500 kB.
 
+### Navegador e fluxos
+
+| Verificação no Chromium 156 | Resultado |
+| --- | --- |
+| Página institucional e responsividade | Larguras de 1920, 1440, 1366, 1024, 768, 430, 390, 360 e 320 px sem overflow horizontal. Cabeçalho, Hero, âncoras, apresentação, cinco cards, temas, escola e rodapé conferidos. A identificação pública usa o curso de IA. |
+| Galerias e projetos | Cinco modais, abas, navegação de fotos, ampliação, Escape e retorno de foco. Imagem carregada e WebM reproduzido com fixtures temporárias. Os catálogos de produção exibem estados vazios. |
+| Code Quest de IA | Seis missões exercitadas em WebGL por software e no mapa 2D, com entrada incompleta, reinício, avanço e selos. Persistência ao reabrir e recarregar na mesma sessão e reinício após a tela final. |
+| Aventura JavaScript | Primeira fase concluída em navegador nos dois modos gráficos. A suíte valida o intérprete e as soluções das dez fases. |
+| Ensine o Robô | Seis tarefas exercitadas com e sem WebGL, incluindo classificação, erros, desvio, entregas, recompensas e métricas. A 390 px foram conferidos robô de frente, arena visível durante a execução, pausa, interrupção, retomada, desmontagem fora da tela e preservação do resultado após perda de contexto. |
+| Caminho de publicação | Assets e chunks do build servidos sob `/IA-guiomar-site/`. Corrigido o 404 da tentativa automática de carregar `/favicon.ico`. A rodada final com WebGL não registrou exceções JavaScript nem erros no console. |
+
+### Segurança e limitações
+
 O `npm audit` retornou zero ocorrências conhecidas. A busca por padrões comuns de credenciais em arquivos rastreados não encontrou correspondências. O Code Quest usa a AST do Acorn com regras e limites de execução. A suíte inclui verificações de recusa de acesso a recursos do navegador e execução dinâmica. A verificação de padrões é restrita aos arquivos atuais do repositório.
 
 A informação oficial sobre calendário, recursos e acervo institucional depende da escola. O estado do workflow remoto e o conteúdo da URL de produção não puderam ser confirmados por causa do proxy. Firefox e WebKit não foram executados porque seus downloads retornaram 403. Celulares físicos, tecnologias assistivas e medição de desempenho em campo ficam pendentes.
