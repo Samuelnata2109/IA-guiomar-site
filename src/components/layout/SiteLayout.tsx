@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { MotionConfig } from "motion/react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "lenis/dist/lenis.css";
@@ -16,11 +16,24 @@ const legacyRoutes: Record<string, string> = {
   "#escola": "/escola",
 };
 
+const pageTitles: Record<string, string> = {
+  "/": "Início",
+  "/curso": "O curso",
+  "/areas": "Áreas",
+  "/code-quest": "Code Quest",
+  "/projetos": "Projetos",
+  "/escola": "A escola",
+};
+
 export default function SiteLayout() {
   const [paused, setPaused] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname, hash, key } = location;
+
+  useEffect(() => {
+    document.title = `${pageTitles[pathname] ?? "Página não encontrada"} | Inteligência Artificial · Guiomar`;
+  }, [pathname]);
 
   useLayoutEffect(() => {
     if (pathname === "/" && legacyRoutes[hash]) {
