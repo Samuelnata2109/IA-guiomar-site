@@ -6,7 +6,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AmbientMotionContext } from "./AmbientMotion";
 gsap.registerPlugin(ScrollTrigger);
 
-export default function SmoothScroll() {
+export default function SmoothScroll({
+  onAnchorComplete,
+}: { onAnchorComplete?: (hash: string) => void } = {}) {
   const reduced = useReducedMotion();
   const paused = useContext(AmbientMotionContext);
   useEffect(() => {
@@ -87,7 +89,8 @@ export default function SmoothScroll() {
         offset: -padding,
         onComplete: () => {
           if (disposed) return;
-          if (location.hash !== url.hash) history.pushState(null, "", url.hash);
+          if (onAnchorComplete) onAnchorComplete(url.hash);
+          else if (location.hash !== url.hash) history.pushState(null, "", url.hash);
           const temporaryTabIndex = !target.hasAttribute("tabindex");
           if (temporaryTabIndex) target.setAttribute("tabindex", "-1");
           target.focus({ preventScroll: true });
@@ -114,6 +117,6 @@ export default function SmoothScroll() {
       lenis.destroy();
       gsap.ticker.lagSmoothing(500, 33);
     };
-  }, [reduced, paused]);
+  }, [reduced, paused, onAnchorComplete]);
   return null;
 }
