@@ -4,6 +4,7 @@ import App from "./App";
 import "./styles/global.css";
 import "./features/code-quest/styles/adventure.css";
 import "./features/code-quest/styles/adventure-world.css";
+import "./features/code-quest/styles/ai-quest.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />

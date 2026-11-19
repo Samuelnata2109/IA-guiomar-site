@@ -1,0 +1,161 @@
+.ai-quest .adventure-progress {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  max-width: 360px;
+}
+.ai-quest .adventure-progress button {
+  width: 100%;
+  min-height: 44px;
+}
+.ai-quest .adventure-progress button[aria-current]:not(.button) {
+  background: #254d78;
+  color: #fff;
+}
+.ai-quest-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, var(--quest-split, 60%)) 12px minmax(0, 1fr);
+  height: clamp(320px, calc(var(--quest-viewport, 100dvh) - 240px), 560px);
+  min-width: 0;
+  gap: 4px;
+}
+.ai-quest-board, .ai-mission-panel {
+  min-width: 0;
+  min-height: 0;
+}
+.ai-quest-board .adventure-world {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: auto;
+}
+.ai-mission-panel {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.ai-mission-scroll, .ai-victory {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 12px;
+}
+.ai-instructions {
+  font-size: .94rem;
+  color: var(--text);
+}
+.ai-feedback:not(:empty), .ai-sequence {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.ai-feedback[data-result="error"] {
+  border-color: #ed6a78;
+}
+.ai-feedback[data-result="success"] {
+  border-color: #427fb8;
+}
+.ai-feedback p, .ai-victory li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ai-quest ul, .ai-sequence ol {
+  padding-inline-start: 22px;
+  margin-block: 8px;
+}
+.ai-simulation-note {
+  margin-block: 8px;
+  font-size: .85rem;
+}
+.ai-choices {
+  display: grid;
+  gap: 7px;
+  margin-block: 10px;
+}
+.ai-classifier {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding-block: 4px;
+}
+.ai-camera-frame {
+  display: block;
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 125px;
+}
+.ai-quest .ai-choices select,
+.ai-quest .ai-choices button {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.ai-quest .ai-choices button[aria-pressed="true"] {
+  background: #254d78;
+  border-color: #76afe3;
+  color: #fff;
+}
+.ai-hint summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-block: 9px;
+}
+.ai-mission-actions {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  border-top: 1px solid var(--border);
+  padding: 8px;
+}
+.ai-mission-actions .button,
+.ai-mission-actions .ai-reset {
+  min-height: 44px;
+}
+.ai-mission-actions .button,
+.ai-victory .button {
+  padding: 8px 12px;
+  font-size: .8rem;
+  justify-content: center;
+}
+.ai-quest .adventure-save {
+  padding-top: 8px;
+}
+.ai-victory li {
+  margin-bottom: 8px;
+}
+.ai-victory ul {
+  padding-inline-start: 0;
+}
+.ai-victory svg, .ai-feedback svg {
+  color: #76afe3;
+}
+
+@media (max-width: 900px) {
+  .ai-quest-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: clamp(116px, 25dvh, 220px) minmax(0, 1fr);
+    height: clamp(315px, calc(var(--quest-viewport, 100dvh) - 185px), 700px);
+    gap: 8px;
+  }
+  .ai-quest-board .adventure-world > div:not(.adventure-map) {
+    bottom: 16px !important;
+  }
+  .ai-quest-board .adventure-map {
+    width: auto;
+    max-width: 96%;
+  }
+  .ai-mission-scroll {
+    padding: 9px;
+  }
+  .ai-quest .ai-choices select {
+    font-size: 16px;
+  }
+}
