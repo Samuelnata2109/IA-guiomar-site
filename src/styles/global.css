@@ -291,6 +291,12 @@ h3 {
 .desktop-nav a:hover {
   color: white;
 }
+.desktop-nav a[aria-current="page"] {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
+}
 .nav-actions {
   display: flex;
   align-items: center;
@@ -1667,6 +1673,10 @@ h3 {
     padding: 15px 9px;
     border-bottom: 1px solid var(--line);
   }
+  .mobile-nav a[aria-current="page"] {
+    color: var(--cyan);
+    box-shadow: inset 2px 0 var(--cyan);
+  }
   .mobile-nav a:last-child {
     border-bottom: 0;
   }
@@ -2806,6 +2816,10 @@ body,
 [data-theme="light"] .menu-button,
 [data-theme="light"] .nav-cta {
   color: var(--text);
+}
+[data-theme="light"] .desktop-nav a[aria-current="page"],
+[data-theme="light"] .mobile-nav a[aria-current="page"] {
+  color: #2565b5;
 }
 [data-theme="light"] .mobile-nav {
   background: #f0f5fbf5;

@@ -1,5 +1,6 @@
 import { ArrowUpRight, BrainCircuit, Lightbulb, Workflow } from "lucide-react";
 import { SectionReveal, Eyebrow } from "../../components/animations/Shared";
+import { Link } from "react-router-dom";
 export default function Course() {
   return (
     <>
@@ -70,9 +71,9 @@ export default function Course() {
               </span>
             </div>
           </div>
-          <a href="#areas" className="inline-link" data-reveal>
+          <Link to="/areas" className="inline-link" data-reveal>
             Explore as áreas do curso <ArrowUpRight size={20} />
-          </a>
+          </Link>
         </div>
       </SectionReveal>
     </>

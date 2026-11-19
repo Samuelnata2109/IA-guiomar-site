@@ -1,6 +1,7 @@
 import { ArrowUpRight, MapPin, Phone, ExternalLink } from "lucide-react";
 import { SectionReveal, Eyebrow, AnimatedGradient } from "../../components/animations/Shared";
 import { mapLink } from "../../data/content";
+import { Link } from "react-router-dom";
 export function Enrollment() {
   return (
     <SectionReveal id="matriculas" className="enrollment-wrap container">
@@ -109,22 +110,22 @@ export function Footer() {
   return (
     <footer className="footer container">
       <div className="footer-main">
-        <a className="brand" href="#inicio">
+        <Link className="brand" to="/">
           <span>
             INTELIGÊNCIA ARTIFICIAL
             <small>
               CURSO TÉCNICO <i /> GUIOMAR
             </small>
           </span>
-        </a>
+        </Link>
         <p>
           Ideias locais.
           <br />
           <span>Possibilidades sem limites.</span>
         </p>
-        <a className="back-top" href="#inicio">
+        <Link className="back-top" to="/">
           VOLTAR AO TOPO <ArrowUpRight size={19} />
-        </a>
+        </Link>
       </div>
       <div className="footer-bottom">
         <span>EEEP Guiomar Belchior Aguiar · Cariré–CE</span>

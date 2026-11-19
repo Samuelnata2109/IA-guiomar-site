@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ArrowDown, ArrowUpRight, ChevronRight } from "lucide-react";
 import { AnimatedGradient } from "../../components/animations/Shared";
+import { Link } from "react-router-dom";
 export function FloatingObjects() {
   return (
     <div className="floating-details" aria-hidden="true">
@@ -110,21 +111,21 @@ export default function CinematicHero() {
             inteligentes.
           </p>
           <div className="hero-buttons">
-            <a className="button button-primary" href="#curso">
+            <Link className="button button-primary" to="/curso">
               Conheça o curso <ArrowDown size={17} />
-            </a>
-            <a className="button button-text" href="#escola">
+            </Link>
+            <Link className="button button-text" to="/areas">
               Explore a IA <ArrowUpRight size={17} />
-            </a>
+            </Link>
           </div>
         </div>
         <div className="hero-bottom">
-          <a href="#curso" className="scroll-cue">
+          <Link to="/curso" className="scroll-cue">
             <span>
               <ArrowDown size={17} />
             </span>
             ROLE PARA DESCOBRIR
-          </a>
+          </Link>
           <div className="hero-location">
             DO INTERIOR DO CEARÁ.
             <br />
