@@ -130,3 +130,24 @@ test("success celebrates once and reduced motion applies commands without runnin
   assert.equal(root.children[0].position.y, 0);
   await renderer.unmount();
 });
+
+test("training motion settles on both axes and turns while carrying the selected object", async () => {
+  const applied: number[] = [];
+  const renderer = await ReactThreeTestRenderer.create(
+    <Robot {...base} phase="running" arena={{
+      robot: { x: -1, z: 2 }, heading: -Math.PI / 2, barrier: true, destinations: true,
+      cargo: { id: "A", shape: "bloco", category: "peça", size: 1 },
+    }} onApplied={id => applied.push(id)} />,
+  );
+  const root = renderer.scene.children[0].instance as Group;
+  await renderer.advanceFrames(8, 1 / 60);
+  assert.ok(root.position.z > 0 && root.position.z < 1.3);
+  assert.deepEqual(applied, []);
+  await renderer.advanceFrames(80, 1 / 60);
+  assert.ok(Math.abs(root.position.x + .65) < .003);
+  assert.ok(Math.abs(root.position.z - 1.3) < .003);
+  assert.ok(Math.abs(root.rotation.y + Math.PI / 2) < .006);
+  assert.deepEqual(applied, [1]);
+  assert.ok(root.children[0].children.some(object => object.type === "Mesh" && object.position.z === .55));
+  await renderer.unmount();
+});
