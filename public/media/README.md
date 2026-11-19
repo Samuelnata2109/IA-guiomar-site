@@ -16,4 +16,4 @@ Use IDs únicos. Não inclua `public/` no caminho. MP4 e WebM são aceitos pelo 
 
 Os placeholders de fotos anteriores continuam aparecendo enquanto não há fotos cadastradas aqui. Ao cadastrar fotos, elas passam a compor a galeria da disciplina. Fotos antigas reais, caso cadastradas em courses.ts, devem ser mantidas: a galeria também as inclui.
 
-Após alterações: `npm install`, `npm run build`. Para desenvolvimento: `npm run dev`.
+Depois de alterar o catálogo, rode `npm test` e `npm run build`. Para conferir localmente, use `npm run dev`.
