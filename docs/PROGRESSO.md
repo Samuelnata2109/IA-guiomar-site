@@ -11,7 +11,7 @@
 | 05 — Elementos gráficos dos cards e correção de composição | Concluída | Cinco ilustrações temáticas e composição validada em desktop e mobile. |
 | 06 — Adaptação do Code Quest | Concluída | Seis missões de IA, com progressão, selos e modo JavaScript disponível. |
 | 07 — Laboratório interativo | Concluída | Seis tarefas de treinamento, métricas e cena 3D com alternativa 2D. |
-| 08 — Projetos e informações institucionais | Não iniciada | |
+| 08 — Projetos e informações institucionais | Concluída, implementação sem build/testes nesta sessão | Conteúdo institucional alinhado a IA, galeria reutilizável e vazia até a escola fornecer projetos verificados. Pendente validação de build/testes e confirmação dos dados institucionais indicados abaixo. |
 | 09 — Responsividade e otimização | Não iniciada | O vídeo cobre somente a apresentação em desktop. |
 | 10 — Testes e documentação final | Não iniciada | |
 
@@ -111,3 +111,10 @@ O motor em `training.ts` calcula as etapas localmente. As métricas de classific
 - A geometria do rosto está voltada para +Z e a câmera observa a cena pelo lado +Z. O estado inicial apontava para −Z (`Math.PI`), deixando o robô de costas. Ajustei somente o heading inicial da arena e da simulação para `0`; a rotação do modelo continua acompanhando o heading lógico nas tarefas, sem offset visual fixo.
 - `npm ci` foi executado sem alterar `package.json` ou `package-lock.json`; `npm run build` passou, com o aviso já conhecido de chunks acima de 500 kB. Capturas do cenário inicial em Chromium com WebGL por software confirmaram o rosto visível em desktop (1440 px) e mobile (390 px), sem overflow horizontal. A alteração também vale para reinício e troca de tarefa porque ambos recriam a arena por `startArena`.
 - Os 10 testes focados de movimento 3D e treinamento passaram. As animações e trajetórias existentes continuam determinadas pelos headings de cada passo.
+
+## Etapa 08 — Informações institucionais e projetos
+
+- Rodapé identifica o curso técnico de Inteligência Artificial e a escola. A galeria não usa mais o endereço do site de Desenvolvimento de Sistemas; não havia um endereço institucional confirmado específico para IA.
+- `src/data/content.ts` centraliza os projetos verificados. Cada entrada pode incluir mídia (imagens ou vídeos, texto alternativo, legenda e pôster), descrição, tecnologias, detalhes e URL. Para cadastrar um projeto, adicione uma entrada em `projects` com `id` único, `title`, uma `category` correspondente a uma área em `courses.ts` e uma `description`. Informe `media` com caminho público, `type`, `alt` descritivo, legenda opcional e pôster para vídeo. Preencha `technologies`, `details` e `url` somente quando confirmados. Mantenha a lista vazia enquanto não houver projetos de IA autorizados e comprovados.
+- Permanecem para confirmação da escola o endereço institucional próprio do curso de IA, os canais oficiais de matrícula e o edital vigente, os textos institucionais aprovados, os recursos tecnológicos efetivamente usados nas aulas e os projetos/mídias autorizados para publicação. A descrição de possibilidades profissionais deve ser entendida como áreas de desenvolvimento, sem promessa de emprego ou qualificação.
+- A lista de projetos permanece vazia, então a apresentação do estado vazio foi conferida por inspeção do fluxo existente. A validação real de galerias com imagens e vídeos requer fixtures autorizadas, que não foram fornecidas. Build e testes devem ser registrados após execução em ambiente disponível.

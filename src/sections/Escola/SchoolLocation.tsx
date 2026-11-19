@@ -1,6 +1,6 @@
 import { ArrowUpRight, MapPin, Phone, ExternalLink } from "lucide-react";
 import { SectionReveal, Eyebrow, AnimatedGradient } from "../../components/animations/Shared";
-import { mapLink, officialSite } from "../../data/content";
+import { mapLink } from "../../data/content";
 export function Enrollment() {
   return (
     <SectionReveal id="matriculas" className="enrollment-wrap container">
@@ -134,9 +134,6 @@ export function Footer() {
       </div>
       <div className="footer-bottom">
         <span>EEEP Guiomar Belchior Aguiar · Cariré–CE</span>
-        <a href={officialSite} target="_blank" rel="noopener noreferrer">
-          Site institucional da escola <ArrowUpRight size={13} />
-        </a>
         <span>
           FEITO PARA QUEM QUER CRIAR <span className="purple-dot">✳</span>
         </span>
