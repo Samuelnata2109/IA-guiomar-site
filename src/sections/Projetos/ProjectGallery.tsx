@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, Braces, X } from "lucide-react";
 import { areas, projects, type Project } from "../../data/content";
@@ -6,6 +6,7 @@ import { SectionReveal, Eyebrow } from "../../components/animations/Shared";
 export default function ProjectGallery() {
   const [filter, setFilter] = useState("Todos");
   const [selected, setSelected] = useState<Project | null>(null);
+  const titleId = useId();
   const dialog = useRef<HTMLDialogElement>(null);
   const filtered = projects.filter(
     (p) => filter === "Todos" || p.category === filter,
@@ -50,27 +51,29 @@ export default function ProjectGallery() {
           >
             {filtered.length ? (
               <div className="projects-grid">
-                {filtered.map((p) => (
-                  <button
-                    className="project-card"
-                    key={p.id}
-                    onClick={() => {
-                      setSelected(p);
-                      dialog.current?.showModal();
-                    }}
-                  >
-                    {p.media?.[0]?.type === "image" ? (
-                      <img src={p.media[0].src} alt={p.media[0].alt} loading="lazy" />
-                    ) : p.media?.[0]?.type === "video" ? (
-                      <video src={p.media[0].src} poster={p.media[0].poster} aria-label={p.media[0].alt} muted playsInline preload="metadata" />
-                    ) : (
-                      <span>{p.media?.length ? "Prévia do vídeo" : "Mídia ainda não disponibilizada"}</span>
-                    )}
-                    <small>{p.category}</small>
-                    <h3>{p.title}</h3>
-                    <p>{p.description}</p>
-                  </button>
-                ))}
+                {filtered.map((p) => {
+                  const cover = p.media?.[0];
+                  const preview = cover?.type === "image" ? cover.src : cover?.poster;
+                  return (
+                    <button
+                      className="project-card"
+                      key={p.id}
+                      onClick={() => {
+                        setSelected(p);
+                        dialog.current?.showModal();
+                      }}
+                    >
+                      {preview ? (
+                        <img src={preview} alt={cover?.alt ?? ""} loading="lazy" />
+                      ) : (
+                        <span>{cover ? "Vídeo nos detalhes" : "Mídia ainda não disponibilizada"}</span>
+                      )}
+                      <small>{p.category}</small>
+                      <h3>{p.title}</h3>
+                      <p>{p.description}</p>
+                    </button>
+                  );
+                })}
               </div>
             ) : (
               <div className="empty-projects">
@@ -110,6 +113,8 @@ export default function ProjectGallery() {
       <dialog
         ref={dialog}
         className="project-dialog"
+        aria-labelledby={selected ? titleId : undefined}
+        data-lenis-prevent
         onClick={(e) => {
           if (e.target === e.currentTarget) dialog.current?.close();
         }}
@@ -125,10 +130,10 @@ export default function ProjectGallery() {
         {selected && (
           <>
             <span className="eyebrow">{selected.category}</span>
-            <h3>{selected.title}</h3>
+            <h3 id={titleId}>{selected.title}</h3>
             {selected.media?.map((media) => (
               <figure key={media.src}>
-                {media.type === "image" ? <img src={media.src} alt={media.alt} loading="lazy" /> : <video controls preload="metadata" src={media.src} poster={media.poster} aria-label={media.alt} />}
+                {media.type === "image" ? <img src={media.src} alt={media.alt} loading="lazy" /> : <video controls playsInline preload="metadata" src={media.src} poster={media.poster} aria-label={media.alt} />}
                 {media.caption && <figcaption>{media.caption}</figcaption>}
               </figure>
             ))}

@@ -51,13 +51,13 @@ win.HTMLDialogElement.prototype.close = function () {
 };
 (globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;
 const React = await import("react");
-const { render, screen, cleanup, fireEvent } = await import(
+const { render, screen, cleanup, fireEvent, within } = await import(
   "@testing-library/react"
 );
 const { default: Navigation } = await import("../src/components/layout/Navigation");
 const { default: Demo } = await import("../src/features/laboratorio/components/InteractiveCodeDemo");
 const { default: Gallery } = await import("../src/sections/Projetos/ProjectGallery");
-const { default: School, Enrollment } = await import(
+const { default: School, Enrollment, Footer } = await import(
   "../src/sections/Escola/SchoolLocation"
 );
 const { projects } = await import("../src/data/content");
@@ -162,15 +162,15 @@ test("robot attention follows pointer and keyboard focus without executing a com
 test("project filters preserve truthful empty states", () => {
   render(<Gallery />);
   assert.match(
-    screen.getByText(/Os projetos dos estudantes ainda/).textContent!,
+    screen.getByText(/Os projetos de Inteligência Artificial ainda/).textContent!,
     /ainda não foram publicados/,
   );
   for (const name of [
-    "Robótica",
-    "Programação",
-    "Design",
-    "Manutenção",
-    "Redes",
+    "Introdução à Inteligência Artificial",
+    "IA Generativa e Engenharia de Prompts",
+    "Machine Learning",
+    "Visão Computacional",
+    "Automação e Agentes de IA",
   ]) {
     fireEvent.click(screen.getByRole("button", { name, exact: true }));
     assert.equal(
@@ -186,15 +186,27 @@ test("gallery data supports filtered project details without publishing fixtures
   projects.push({
     id: "test",
     title: "Fixture de teste",
-    category: "Robótica",
+    category: "Visão Computacional",
     description: "Conteúdo exclusivo do teste automatizado.",
+    media: [
+      { type: "image", src: "./assets/visao-computacional.svg", alt: "Imagem da atividade" },
+      { type: "video", src: "./media/fixture.webm", alt: "Vídeo da atividade", caption: "Demonstração" },
+    ],
+    technologies: ["Visão computacional"],
+    details: ["Informação complementar da atividade."],
   });
   render(<Gallery />);
   fireEvent.click(
-    screen.getByRole("button", { name: "Robótica", exact: true }),
+    screen.getByRole("button", { name: "Visão Computacional", exact: true }),
   );
   fireEvent.click(screen.getByRole("button", { name: /Fixture de teste/ }));
-  assert.ok(screen.getByRole("dialog").hasAttribute("open"));
+  const dialog = screen.getByRole("dialog", { name: "Fixture de teste" });
+  assert.ok(dialog.hasAttribute("open"));
+  assert.ok(within(dialog).getByRole("img", { name: "Imagem da atividade" }));
+  assert.ok(dialog.querySelector<HTMLVideoElement>('video[aria-label="Vídeo da atividade"]')?.controls);
+  assert.ok(within(dialog).getByText("Demonstração"));
+  assert.match(within(dialog).getByText("Tecnologias:").parentElement!.textContent!, /Visão computacional/);
+  assert.ok(within(dialog).getByText("Informação complementar da atividade."));
   fireEvent.click(screen.getByRole("button", { name: "Fechar detalhes" }));
   assert.equal(document.querySelector("dialog")?.hasAttribute("open"), false);
 });
@@ -203,8 +215,14 @@ test("institutional contact, map and enrollment link remain exact and secure", (
     <>
       <School />
       <Enrollment />
+      <Footer />
     </>,
   );
+  const footer = within(screen.getByRole("contentinfo"));
+  assert.ok(footer.getByRole("link", { name: /Inteligência Artificial/i }));
+  assert.ok(footer.getByText(/EEEP Guiomar Belchior Aguiar/));
+  assert.equal(footer.queryByText(/Desenvolvimento de Sistemas/i), null);
+  assert.equal(footer.getByRole("link", { name: /voltar ao topo/i }).getAttribute("href"), "#inicio");
   assert.equal(
     screen.getByRole("link", { name: "(88) 3646-1174" }).getAttribute("href"),
     "tel:+558836461174",

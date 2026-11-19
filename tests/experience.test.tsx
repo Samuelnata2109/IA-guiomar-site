@@ -125,7 +125,7 @@ test("all five course cards open correct modals; Escape and backdrop close and r
       `Focus must return to ${course.name}; actual: ${document.activeElement?.tagName} ${document.activeElement?.getAttribute("aria-label")}`,
     );
   }
-  fireEvent.click(screen.getByRole("button", { name: "Explorar Redes" }));
+  fireEvent.click(screen.getByRole("button", { name: "Explorar Automação e Agentes de IA" }));
   fireEvent.click(document.querySelector(".modal-backdrop")!);
   await waitFor(() =>
     assert.ok(!document.querySelector("dialog[open]"), "Dialog must close"),
@@ -134,8 +134,8 @@ test("all five course cards open correct modals; Escape and backdrop close and r
 });
 test("gallery navigation and enlarged view work with explicitly identified placeholders", async () => {
   render(<Showcase />);
-  fireEvent.click(screen.getByRole("button", { name: "Explorar Robótica" }));
-  const dialog = screen.getByRole("dialog", { name: "01 / Robótica" });
+  fireEvent.click(screen.getByRole("button", { name: "Explorar Introdução à Inteligência Artificial" }));
+  const dialog = screen.getByRole("dialog", { name: "01 / Introdução à Inteligência Artificial" });
   fireEvent.click(
     within(dialog).getByRole("button", { name: "Próxima fotografia" }),
   );
@@ -143,13 +143,13 @@ test("gallery navigation and enlarged view work with explicitly identified place
   fireEvent.click(
     within(dialog).getByRole("button", { name: "Ampliar fotografia" }),
   );
-  const enlarged = screen.getByRole("dialog", { name: "Galeria — Robótica" });
+  const enlarged = screen.getByRole("dialog", { name: "Galeria — Introdução à Inteligência Artificial" });
   assert.ok(within(enlarged).getByText("FOTO REAL EM BREVE"));
   fireEvent.click(
     within(enlarged).getByRole("button", { name: "Fechar janela" }),
   );
   await waitFor(() =>
-    assert.ok(!screen.queryByRole("dialog", { name: "Galeria — Robótica" })),
+    assert.ok(!screen.queryByRole("dialog", { name: "Galeria — Introdução à Inteligência Artificial" })),
   );
   assert.equal(document.documentElement.style.overflow, "hidden");
 });
@@ -173,7 +173,7 @@ test("theme follows initial system preference, persists manual selection and sur
   fireEvent.click(screen.getByRole("button", { name: "Ativar tema claro" }));
   assert.equal(
     document.querySelector('meta[name="theme-color"]')?.getAttribute("content"),
-    "#f5f0fb",
+    "#f0f5fb",
   );
 });
 const ADVENTURE_KEY='ds-code-quest-adventure-v1';
