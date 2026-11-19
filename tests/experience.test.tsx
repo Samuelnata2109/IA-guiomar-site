@@ -234,11 +234,11 @@ test('guide and tutorial preserve edits; closing during execution prevents compl
  await act(async()=>{await new Promise(r=>setTimeout(r,30));});
  assert.deepEqual(JSON.parse(sessionStorage.getItem(ADVENTURE_KEY)!).completed,[]);
 });
-test('new adventure starts at original landing CTA and restores focus on close',async()=>{
+test('AI adventure starts at the landing CTA and restores focus on close',async()=>{
  const {default:Entry}=await import('../src/sections/CodeQuest/CodeQuestSection');
  render(<Entry/>);
  const button=screen.getByRole('button',{name:'INICIAR DESAFIO'});button.focus();fireEvent.click(button);
- const dialog=await screen.findByRole('dialog',{name:'CODE QUEST 3D'});
+ const dialog=await screen.findByRole('dialog',{name:'CODE QUEST 3D · IA'});
  fireEvent.click(within(dialog).getByRole('button',{name:'Fechar janela'}));
  await waitFor(()=>assert.ok(!document.querySelector('dialog[open]')));
  assert.ok(document.activeElement===button);

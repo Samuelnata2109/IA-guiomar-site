@@ -9,7 +9,7 @@
 | 03 — Hero e apresentação do curso | Concluída, build aprovado | Conteúdo institucional adaptado para IA; captura visual em navegador limitada pelo Chromium headless. |
 | 04 — Adaptação dos cinco cards | Conteúdo adaptado; build pendente | Cinco áreas da matriz aplicadas, com Machine Learning I e II no mesmo card. Build requer dependências já instaladas, conforme restrição da etapa. |
 | 05 — Elementos gráficos dos cards e correção de composição | Concluída | Cinco ilustrações temáticas e composição validada em desktop e mobile. |
-| 06 — Adaptação do Code Quest | Não iniciada | |
+| 06 — Adaptação do Code Quest | Concluída | Seis missões de IA, com progressão, selos e modo JavaScript disponível. |
 | 07 — Laboratório interativo | Não iniciada | |
 | 08 — Projetos e informações institucionais | Não iniciada | |
 | 09 — Responsividade e otimização | Não iniciada | O vídeo cobre somente a apresentação em desktop. |
@@ -65,3 +65,24 @@
 - A composição interna reserva espaços para a arte e o texto. O card de abertura usa colunas em desktop, e os demais mantêm a arte acima do texto com enquadramento individual. A grade externa, a numeração e os controles existentes foram preservados.
 - `npm ci` instalou as dependências do lockfile. `npm run build` gerou a distribuição com os cinco SVGs. Permaneceu o aviso do Vite sobre chunks acima de 500 kB.
 - Em Chromium headless, os cinco SVGs carregaram e os títulos couberam sem sobreposição com a arte em 1440, 1024, 768, 390 e 320 px. As capturas de 1440 e 390 px foram revisadas e os cinco modais abriram e fecharam. A conferência foi feita com a preferência de movimento reduzido para medir a composição estática.
+
+## Etapa 06 — Code Quest de Inteligência Artificial
+
+O Code Quest já usava um modal carregado sob demanda, um tabuleiro React Three Fiber com o Byte animado e uma alternativa 2D. O modo JavaScript mantinha dez fases, código e progresso por sessão, com desbloqueio após chegar ao portal, sem pontuação numérica. A execução incluía editor, console, dicas, pausa e avanço por instrução. Esses recursos continuam disponíveis em **Aventura JavaScript**.
+
+O modo principal reutiliza o cenário, o personagem, as animações, o portal e o ajuste da divisão dos painéis por teclado ou ponteiro. Cada missão concluída rende um selo e leva Byte à próxima casa. O jogador pode refazer as atividades, rever dicas e retomar os selos da mesma sessão. Em telas estreitas, o tabuleiro fica acima dos comandos e a área da atividade pode rolar com o botão de ação visível.
+
+| Missão | Mecânica |
+| --- | --- |
+| Primeiro contato | Classificar sistemas que aprendem padrões e sistemas que seguem regras fixas. |
+| Organizando os dados | Montar um conjunto variado e corretamente rotulado, evitando dados pessoais. |
+| Ensinando a máquina | Escolher exemplos, executar o classificador por vizinho mais próximo e comparar as previsões ao inserir um rótulo trocado. |
+| Olhos inteligentes | Classificar quadros desenhados e encaminhar o contorno oculto para revisão. |
+| Mestre dos prompts | Montar a instrução com objetivo, contexto, detalhes e limites e comparar respostas simuladas. |
+| Agente inteligente | Ordenar leitura, verificação, treino, classificação, encaminhamento e aviso. O fluxo testa uma imagem nítida e uma borrada, que exige revisão humana. |
+
+As regras e o conteúdo ficam em `aiMissions.ts`. Os resultados são didáticos e locais. O jogo não usa serviços externos de IA.
+
+- `npm ci` e `npm run build` passaram com o lockfile existente. O Vite manteve o aviso de chunks acima de 500 kB.
+- No Chromium, as seis missões passaram no fluxo completo com WebGL por software. Foram conferidos acertos, erros, reinício, bloqueio de missões, selos, retomada após fechar o jogo e acesso ao modo JavaScript. Tabuleiro e controles couberam em 1440, 390 e 320 px. Com WebGL desativado, a primeira missão também passou no tabuleiro 2D com movimento reduzido e tema escuro.
+- A suíte em execução sequencial teve 35 de 40 testes aprovados, incluindo os do Code Quest e da animação do Byte. As cinco falhas de cards, galerias, tema e projetos também ocorreram na `main`.
