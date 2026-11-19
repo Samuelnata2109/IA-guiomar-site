@@ -114,12 +114,12 @@ export function Footer() {
             src="./assets/logo-ds-guiomar.png"
             width="44"
             height="44"
-            alt="Logo do curso"
+            alt="Identidade visual da EEEP Guiomar Belchior Aguiar"
           />
           <span>
-            DESENVOLVIMENTO
+            INTELIGÊNCIA ARTIFICIAL
             <small>
-              DE SISTEMAS <i /> GUIOMAR
+              CURSO TÉCNICO <i /> GUIOMAR
             </small>
           </span>
         </a>
@@ -135,7 +135,7 @@ export function Footer() {
       <div className="footer-bottom">
         <span>EEEP Guiomar Belchior Aguiar · Cariré–CE</span>
         <a href={officialSite} target="_blank" rel="noopener noreferrer">
-          Site original do curso <ArrowUpRight size={13} />
+          Site institucional da escola <ArrowUpRight size={13} />
         </a>
         <span>
           FEITO PARA QUEM QUER CRIAR <span className="purple-dot">✳</span>

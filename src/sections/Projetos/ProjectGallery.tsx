@@ -59,8 +59,10 @@ export default function ProjectGallery() {
                       dialog.current?.showModal();
                     }}
                   >
-                    {p.image ? (
-                      <img src={p.image} alt={p.title} loading="lazy" />
+                    {p.media?.[0]?.type === "image" ? (
+                      <img src={p.media[0].src} alt={p.media[0].alt} loading="lazy" />
+                    ) : p.media?.[0]?.type === "video" ? (
+                      <video src={p.media[0].src} poster={p.media[0].poster} aria-label={p.media[0].alt} />
                     ) : (
                       <span>Imagem ainda não disponibilizada</span>
                     )}
@@ -132,10 +134,14 @@ export default function ProjectGallery() {
           <>
             <span className="eyebrow">{selected.category}</span>
             <h3>{selected.title}</h3>
-            {selected.image && (
-              <img src={selected.image} alt={selected.title} />
-            )}
+            {selected.media?.map((media) => media.type === "image" ? (
+              <figure key={media.src}><img src={media.src} alt={media.alt} loading="lazy" />{media.caption && <figcaption>{media.caption}</figcaption>}</figure>
+            ) : (
+              <figure key={media.src}><video controls preload="metadata" src={media.src} poster={media.poster} aria-label={media.alt} />{media.caption && <figcaption>{media.caption}</figcaption>}</figure>
+            ))}
             <p>{selected.description}</p>
+            {selected.technologies?.length ? <p><strong>Tecnologias:</strong> {selected.technologies.join(", ")}</p> : null}
+            {selected.details?.map((detail) => <p key={detail}>{detail}</p>)}
             {selected.url && (
               <a href={selected.url} target="_blank" rel="noopener noreferrer">
                 Abrir projeto <ArrowUpRight />

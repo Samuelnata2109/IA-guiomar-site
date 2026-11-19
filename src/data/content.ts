@@ -7,8 +7,17 @@ export type Project = {
   title: string;
   category: string;
   description: string;
-  image?: string;
+  media?: ProjectMedia[];
+  technologies?: string[];
+  details?: string[];
   url?: string;
 };
-// A fonte institucional tinha uma lista vazia em 10/11/2026. Inserir somente projetos verificados.
+export type ProjectMedia = {
+  type: "image" | "video";
+  src: string;
+  alt: string;
+  caption?: string;
+  poster?: string;
+};
+// Cadastre somente projetos de IA confirmados pela escola.
 export const projects: Project[] = [];
