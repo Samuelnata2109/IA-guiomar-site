@@ -15,6 +15,7 @@
 | 09 — Responsividade e otimização | Concluída | Build sem avisos de chunks acima de 500 kB, 46 testes aprovados e dez larguras verificadas no Chromium. |
 | 10 — Testes e documentação final | Entrega validada localmente | Build e suíte aprovados. Revisão em Firefox e WebKit e implantação pública pendentes. |
 | 11.2.1 — Sistema de rotas | Concluída | Página inicial preservada e cinco rotas provisórias disponíveis no HashRouter. |
+| 11.2.2 — Reestruturação da Home | Concluída | Home reduzida à Hero, banner de matrículas e seção da escola; páginas provisórias mantidas. |
 
 ## Registro da etapa 01
 
@@ -168,3 +169,9 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 - A validação desta etapa confirma a imagem no localhost e o funcionamento das rotas, sem alterações nos componentes da Hero ou nas funcionalidades das etapas anteriores.
 - `npm.cmd run build` passou na branch de rotas. O Chrome exibiu no localhost o notebook, o processador, o controle e o robô estático da imagem original. A validação das seis rotas e das âncoras desta branch permanece aprovada conforme a etapa 11.2.1.
 - Os arquivos e manifestos alterados pela tentativa Spline foram restaurados no checkout local separado. Ali, `npm.cmd ci` encontrou `EPERM` ao substituir um módulo nativo mantido aberto pelo Windows. `npm.cmd install` reparou a instalação e removeu os pacotes Spline excedentes, com avisos de limpeza dos diretórios nativos em uso. `npm.cmd ls` confirmou que Spline não está instalado como dependência direta.
+
+## Etapa 11.2.2 — Reestruturação da Home
+
+- `HomePage.tsx` renderiza somente a Hero original, o banner `Enrollment` e `SchoolLocation`. `SiteLayout` mantém cabeçalho e rodapé compartilhados. Os componentes retirados da Home permanecem no repositório para as próximas etapas.
+- O layout compartilhado encaminha os links atuais das seções retiradas para as rotas provisórias correspondentes. A âncora da escola e o atalho para o conteúdo continuam funcionais. Os espaçamentos existentes entre Hero, banner e escola foram mantidos após conferência.
+- `npm.cmd run build` passou. A suíte isolada aprovou 46 de 46 testes. Uma execução simultânea com o build teve uma falha temporária no teste de pausa da Aventura JavaScript, que passou na repetição isolada. O Chrome confirmou apenas três seções em `main` e validou o botão da Hero para `/curso` e o link da escola para a seção mantida.

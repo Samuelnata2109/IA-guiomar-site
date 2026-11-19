@@ -10,6 +10,13 @@ import { isHomeAnchor } from "./homeAnchors";
 import Navigation from "./Navigation";
 import { ThemeProvider } from "./ThemeProvider";
 
+const pageForAnchor: Record<string, string> = {
+  "#curso": "/curso",
+  "#areas": "/areas",
+  "#code-quest": "/code-quest",
+  "#projetos": "/projetos",
+};
+
 export default function SiteLayout() {
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
@@ -23,6 +30,10 @@ export default function SiteLayout() {
   }, [navigate]);
 
   useLayoutEffect(() => {
+    if (home && pageForAnchor[hash]) {
+      navigate(pageForAnchor[hash], { replace: true });
+      return;
+    }
     const target = (home && isHomeAnchor(hash)) || hash === "#conteudo"
       ? document.getElementById(hash.slice(1))
       : null;
@@ -37,7 +48,7 @@ export default function SiteLayout() {
       target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
     }
     target.focus({ preventScroll: true });
-  }, [home, pathname, hash, key]);
+  }, [home, pathname, hash, key, navigate]);
 
   function handleAnchor(event: MouseEvent<HTMLDivElement>) {
     if (
@@ -49,6 +60,11 @@ export default function SiteLayout() {
     const link = event.target.closest<HTMLAnchorElement>("a[href]");
     const anchor = link?.getAttribute("href");
     if (!anchor || !isHomeAnchor(anchor) || link?.target || link?.hasAttribute("download")) return;
+    if (pageForAnchor[anchor]) {
+      event.preventDefault();
+      navigate(pageForAnchor[anchor]);
+      return;
+    }
     // On the home page, Lenis handles scrolling before updating the URL.
     if (home && !paused && !reducedMotion) return;
 
@@ -63,7 +79,7 @@ export default function SiteLayout() {
           <SmoothScroll onAnchorComplete={navigateToAnchor} />
           <div className={paused ? "app motion-paused" : "app"} onClick={handleAnchor}>
             {home ? (
-              <a className="skip-link" href="#curso">Pular para o conteúdo</a>
+              <a className="skip-link" href="#/#conteudo">Pular para o conteúdo</a>
             ) : (
               <a className="skip-link" href={`#${pathname}#conteudo`}>Pular para o conteúdo</a>
             )}
