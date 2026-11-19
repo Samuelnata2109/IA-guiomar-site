@@ -31,6 +31,10 @@ export default function SiteLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname, hash, key } = location;
+  const isHome = pathname === "/";
+  const layoutClass = ["app", isHome && "app-home", paused && "motion-paused"]
+    .filter(Boolean)
+    .join(" ");
 
   useEffect(() => {
     document.title = `${pageTitles[pathname] ?? "Página não encontrada"} | Inteligência Artificial · Guiomar`;
@@ -67,7 +71,7 @@ export default function SiteLayout() {
       <AmbientMotionContext.Provider value={paused}>
         <MotionConfig reducedMotion="user">
           <SmoothScroll />
-          <div className={paused ? "app motion-paused" : "app"}>
+          <div className={layoutClass}>
             <Link className="skip-link" to={{ pathname, hash: "#conteudo" }}>
               Pular para o conteúdo
             </Link>

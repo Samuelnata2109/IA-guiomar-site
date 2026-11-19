@@ -206,3 +206,8 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 - No Chrome com WebGL por software, as seis rotas passaram em acesso direto e atualização. Em 1440, 390 e 320 px, não houve rolagem horizontal. Foram conferidos Home, temas, histórico, item ativo, menu mobile, Hero, rodapé, matrículas, mapa e os cinco modais com abas de mídia.
 - A primeira missão de IA, a primeira fase JavaScript e o primeiro treinamento do robô passaram no navegador. Os dois jogos mantiveram progresso após atualização na mesma aba. A captura confirmou o robô de frente. O botão da tela final foi verificado com progresso de teste no navegador. O build do Pages serviu os recursos locais sem falhas e não registrou erros de console.
 - A suíte cobre as demais fases e tarefas, a alternativa 2D e as galerias com dados de teste. Os catálogos públicos continuam sem mídias institucionais autorizadas. A rodada foi feita em Chrome, com dimensões de mobile emuladas.
+
+## Correção global do cabeçalho
+
+- O cabeçalho compartilhado passa a ocupar seu espaço no fluxo nas páginas internas, usando a altura responsiva já definida na navbar. A Home mantém o posicionamento absoluto sobre a Hero. A faixa de disciplinas fica abaixo do cabeçalho sem espaçamento adicional.
+- `npm.cmd run build` passou e a suíte aprovou 46 de 46 testes. No Chrome, as seis páginas passaram em 1920, 1440, 1024, 768, 390 e 320 px, nos temas claro e escuro. As 72 combinações ficaram sem sobreposição indevida nem rolagem horizontal. O menu mobile continuou alinhado ao cabeçalho e fechou ao navegar.
