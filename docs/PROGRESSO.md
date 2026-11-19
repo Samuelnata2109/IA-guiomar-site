@@ -15,6 +15,9 @@
 | 09 — Responsividade e otimização | Concluída | Build sem avisos de chunks acima de 500 kB, 46 testes aprovados e dez larguras verificadas no Chromium. |
 | 10 — Testes e documentação final | Entrega validada localmente | Build e suíte aprovados. Revisão em Firefox e WebKit e implantação pública pendentes. |
 | 11.2.1 — Sistema de rotas | Concluída | Página inicial preservada e cinco rotas provisórias disponíveis no HashRouter. |
+| 11.2.2 — Reestruturação da Home | Concluída | Home reduzida à Hero, banner de matrículas e seção da escola; páginas provisórias mantidas. |
+| 11.2.3 — Páginas independentes | Concluída | Cinco rotas reutilizam as seções existentes, com layout compartilhado. |
+| 11.2.6 — Validação final multipáginas | Build e suíte aprovados | Validação no Chrome sobre o build do Pages. A publicação depende do merge e da confirmação do GitHub Actions. |
 
 ## Registro da etapa 01
 
@@ -160,3 +163,46 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 - `react-router-dom@7.18.6` fornece o `HashRouter`. O layout compartilhado mantém cabeçalho, rodapé, conteúdo principal, tema, Lenis e pausa de movimento. `src/pages/HomePage.tsx` preserva as seções iniciais na mesma ordem.
 - As rotas `/curso`, `/areas`, `/code-quest`, `/projetos` e `/escola` abrem páginas provisórias. Os links atuais continuam levando às seções da página inicial. A URL `#/#curso` representa a âncora da seção e `#/curso` abre a rota.
 - `npm.cmd ci` e `npm.cmd run build` concluíram com sucesso. A suíte aprovou 46 de 46 testes. No Chrome, o build servido sob `/IA-guiomar-site/` abriu as seis rotas e a página de endereço desconhecido. Também foram conferidos o foco das âncoras com Lenis e movimento reduzido, a abertura direta de uma âncora antiga e o retorno de uma página provisória a uma seção inicial.
+
+## Etapa 11.2.1.1 — Restauração da Hero original
+
+- A branch de rotas já preservava `src/sections/Hero/CinematicHero.tsx`, `src/styles/global.css`, `index.html` e `public/assets/hero.webp` iguais à `main` em `912d1ed`. A Hero mantém o pôster cinematográfico original, a composição, os gradientes, os objetos decorativos e as animações existentes.
+- `HomePage.tsx` renderiza a Hero original na rota `/`. O manifesto e o lockfile da branch contêm React Router e não incluem dependências Spline. A integração cancelada permanecia apenas como alterações locais em outra cópia de trabalho.
+- A validação desta etapa confirma a imagem no localhost e o funcionamento das rotas, sem alterações nos componentes da Hero ou nas funcionalidades das etapas anteriores.
+- `npm.cmd run build` passou na branch de rotas. O Chrome exibiu no localhost o notebook, o processador, o controle e o robô estático da imagem original. A validação das seis rotas e das âncoras desta branch permanece aprovada conforme a etapa 11.2.1.
+- Os arquivos e manifestos alterados pela tentativa Spline foram restaurados no checkout local separado. Ali, `npm.cmd ci` encontrou `EPERM` ao substituir um módulo nativo mantido aberto pelo Windows. `npm.cmd install` reparou a instalação e removeu os pacotes Spline excedentes, com avisos de limpeza dos diretórios nativos em uso. `npm.cmd ls` confirmou que Spline não está instalado como dependência direta.
+
+## Etapa 11.2.2 — Reestruturação da Home
+
+- `HomePage.tsx` renderiza somente a Hero original, o banner `Enrollment` e `SchoolLocation`. `SiteLayout` mantém cabeçalho e rodapé compartilhados. Os componentes retirados da Home permanecem no repositório para as próximas etapas.
+- O layout compartilhado encaminha os links atuais das seções retiradas para as rotas provisórias correspondentes. A âncora da escola e o atalho para o conteúdo continuam funcionais. Os espaçamentos existentes entre Hero, banner e escola foram mantidos após conferência.
+- `npm.cmd run build` passou. A suíte isolada aprovou 46 de 46 testes. Uma execução simultânea com o build teve uma falha temporária no teste de pausa da Aventura JavaScript, que passou na repetição isolada. O Chrome confirmou apenas três seções em `main` e validou o botão da Hero para `/curso` e o link da escola para a seção mantida.
+
+## Etapa 11.2.3 — Páginas independentes
+
+- `/curso` usa `Course`; `/areas` usa `InteractiveShowcase` com os cinco cards; `/code-quest` reúne `CodeQuestSection`, Aventura JavaScript e `InteractiveCodeDemo`; `/projetos` usa `ProjectGallery`; `/escola` reutiliza `SchoolLocation`, compartilhado com a Home. Cada rota possui um componente em `src/pages/` e conserva o `SiteLayout`.
+- Os componentes de jogos, cards e galerias não foram alterados. Code Quest e Aventura JavaScript continuam usando suas chaves existentes de `sessionStorage`; a arena do laboratório continua com heading inicial `0`.
+- `npm.cmd run build` passou. A suíte aprovou 46 de 46 testes. No Chrome, as cinco rotas renderizaram seus elementos principais e o link da escola no cabeçalho abriu `/escola`. A galeria de projetos permanece sem projetos publicados.
+
+## Etapa 11.2.4 — Navegação multipáginas
+
+- A marca, os seis itens da navbar, o menu mobile, os botões da Hero, o link do curso e os links internos do rodapé usam `Link` ou `NavLink` do React Router. O item ativo recebe `aria-current="page"` e indicação visual discreta. Os links externos foram preservados.
+- O botão “Quero fazer parte” abre `/#matriculas` pelo `HashRouter`, inclusive a partir de outra página. O layout compartilhado rola ao topo nas mudanças de rota e leva foco ao conteúdo ou ao banner quando solicitado. As âncoras antigas das seções convertidas redirecionam para as páginas correspondentes. O menu mobile fecha ao navegar.
+- `npm.cmd run build` passou e a suíte aprovou 46 de 46 testes na repetição isolada. Uma execução anterior teve duas falhas intermitentes na Aventura JavaScript, sem alterações no jogo. No Chrome local, foram conferidos destinos das seis rotas, indicador ativo, foco e topo em `/curso`, acesso ao banner a partir de `/curso`, histórico, atualização direta de `/curso` e menu mobile em 390 px sem overflow horizontal. A publicação no GitHub Pages depende do push desta branch; não houve PR nem merge.
+
+## Etapa 11.2.5 — Desempenho e transições
+
+- `HomePage` continua no carregamento inicial. As cinco páginas secundárias usam `React.lazy` e `Suspense`; os jogos, o editor e as cenas Three.js preservam seus carregamentos condicionados já existentes. Nenhuma biblioteca foi adicionada. A estrutura de rotas, o tema e as chaves de progresso foram mantidos.
+- O layout compartilhado atualiza `document.title` para cada rota. As animações existentes continuam montadas por seção e respeitam a preferência de movimento reduzido. Não foi necessária uma nova transição visual.
+- `npm.cmd run build` passou. O build gerou chunks separados para as cinco páginas, para o editor e para Three.js. Em uma abertura limpa da Home no Chrome, não houve canvas nem requisições aos chunks de jogos, editor ou Three.js. Na rota `/code-quest`, a cena do laboratório carregou ao entrar na área visível; ao retornar à Home por navegação interna, o canvas saiu do DOM sem recarregamento. O valor de `ds-code-quest-ai-v1` permaneceu na sessão. Também foram conferidos o título, o foco e a revelação de conteúdo após mudança de rota.
+- A repetição da suíte completa aprovou 46 de 46 testes. A primeira execução teve uma falha intermitente no teste de progressão guiada da Aventura JavaScript; o arquivo também passou isolado (12 de 12). Não houve alteração nas mecânicas dos jogos. A validação de liberação efetiva de memória da GPU em dispositivos físicos permanece pendente; a desmontagem do canvas foi confirmada no navegador.
+
+## Etapa 11.2.6 — Validação final multipáginas
+
+- A `main` remota já inclui a preparação das rotas pelo PR #14. A revisão comparou as alterações restantes desta branch com `origin/main`.
+- Corrigidos três problemas observados na revisão. A Aventura JavaScript voltava a aguardar um quadro quando WebGL usava renderização sob demanda. A atualização da posição passa a solicitar esse quadro. O botão de exploração da tela final abre Áreas, e o endereço antigo `#laboratorio` redireciona para `#/code-quest#laboratorio`.
+- As verificações da navbar cobrem destinos e item ativo, além de fechamento e retorno de foco no menu mobile. Os testes da aventura aguardam a gravação de progresso e a decoração da linha de erro, mantendo as asserções.
+- `npm.cmd ci` passou após reiniciar o Vite que mantinha um módulo nativo aberto no Windows. Os builds padrão e com base `/IA-guiomar-site/` passaram. A suíte aprovou 46 de 46 testes. O runner ainda emite um aviso de `act` na galeria.
+- No Chrome com WebGL por software, as seis rotas passaram em acesso direto e atualização. Em 1440, 390 e 320 px, não houve rolagem horizontal. Foram conferidos Home, temas, histórico, item ativo, menu mobile, Hero, rodapé, matrículas, mapa e os cinco modais com abas de mídia.
+- A primeira missão de IA, a primeira fase JavaScript e o primeiro treinamento do robô passaram no navegador. Os dois jogos mantiveram progresso após atualização na mesma aba. A captura confirmou o robô de frente. O botão da tela final foi verificado com progresso de teste no navegador. O build do Pages serviu os recursos locais sem falhas e não registrou erros de console.
+- A suíte cobre as demais fases e tarefas, a alternativa 2D e as galerias com dados de teste. Os catálogos públicos continuam sem mídias institucionais autorizadas. A rodada foi feita em Chrome, com dimensões de mobile emuladas.

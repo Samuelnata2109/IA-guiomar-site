@@ -2,9 +2,9 @@
 
 ## Títulos e informações institucionais
 
-1. Atualize o título da aba e a descrição do documento em `index.html`.
+1. Atualize os títulos das rotas em `src/components/layout/SiteLayout.tsx` e os metadados do documento em `index.html`.
 2. Edite a abertura em `src/sections/Hero/CinematicHero.tsx` e o texto de apresentação em `src/sections/SobreCurso/Course.tsx`.
-3. Use `src/components/layout/Navigation.tsx` para rótulos e links do cabeçalho. Ao ajustar um rótulo, confira o link da versão mobile e preserve o ID de destino.
+3. Use `src/components/layout/Navigation.tsx` para rótulos e links do cabeçalho. Ao ajustar um rótulo, confira o item ativo no desktop e no menu mobile. As rotas são definidas em `src/App.tsx`. Preserve os IDs das seções e teste abertura direta e atualização no subdiretório do Pages.
 4. Edite matrícula, telefone, endereço, mapa incorporado e rodapé em `src/sections/Escola/SchoolLocation.tsx`. O link externo do mapa é `mapLink` em `src/data/content.ts`. Mantenha os dois destinos do mapa coerentes.
 5. Confirme na escola os dados de matrícula, texto, uso de tecnologias e autorização de divulgação de mídias antes de publicá-los.
 

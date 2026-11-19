@@ -1,72 +1,76 @@
-import { useCallback, useLayoutEffect, useState } from "react";
-import type { MouseEvent } from "react";
-import { MotionConfig, useReducedMotion } from "motion/react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { MotionConfig } from "motion/react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "lenis/dist/lenis.css";
 import { Footer } from "../../sections/Escola/SchoolLocation";
 import { AmbientMotionContext } from "../animations/AmbientMotion";
 import SmoothScroll from "../animations/SmoothScroll";
-import { isHomeAnchor } from "./homeAnchors";
 import Navigation from "./Navigation";
 import { ThemeProvider } from "./ThemeProvider";
 
+const legacyRoutes: Record<string, string> = {
+  "#curso": "/curso",
+  "#areas": "/areas",
+  "#code-quest": "/code-quest",
+  "#laboratorio": "/code-quest#laboratorio",
+  "#projetos": "/projetos",
+  "#escola": "/escola",
+};
+
+const pageTitles: Record<string, string> = {
+  "/": "Início",
+  "/curso": "O curso",
+  "/areas": "Áreas",
+  "/code-quest": "Code Quest",
+  "/projetos": "Projetos",
+  "/escola": "A escola",
+};
+
 export default function SiteLayout() {
   const [paused, setPaused] = useState(false);
-  const reducedMotion = useReducedMotion();
   const navigate = useNavigate();
-  const { pathname, hash, key } = useLocation();
-  const home = pathname === "/";
-  const navigateToAnchor = useCallback((anchor: string) => {
-    if (window.location.hash !== `#/${anchor}`) {
-      navigate({ pathname: "/", hash: anchor });
-    }
-  }, [navigate]);
+  const location = useLocation();
+  const { pathname, hash, key } = location;
+
+  useEffect(() => {
+    document.title = `${pageTitles[pathname] ?? "Página não encontrada"} | Inteligência Artificial · Guiomar`;
+  }, [pathname]);
+
+  const legacyRoute = pathname === "/" && Object.hasOwn(legacyRoutes, hash) ? legacyRoutes[hash] : undefined;
+
+  useEffect(() => {
+    if (legacyRoute) navigate(legacyRoute, { replace: true });
+  }, [legacyRoute, navigate]);
 
   useLayoutEffect(() => {
-    const target = (home && isHomeAnchor(hash)) || hash === "#conteudo"
-      ? document.getElementById(hash.slice(1))
-      : null;
-    if (!target) {
-      window.scrollTo({ top: 0, behavior: "instant" });
-      return;
-    }
+    if (legacyRoute) return;
+    if (pathname === "/code-quest" && hash === "#laboratorio") return;
+    const target = hash === "#matriculas" && pathname === "/"
+      ? document.getElementById("matriculas")
+      : document.getElementById("conteudo");
 
-    target.scrollIntoView({ behavior: "instant" });
+    if (hash === "#matriculas" || hash === "#conteudo") {
+      target?.scrollIntoView({ behavior: "instant" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    if (!target) return;
     if (!target.hasAttribute("tabindex")) {
       target.setAttribute("tabindex", "-1");
       target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
     }
     target.focus({ preventScroll: true });
-  }, [home, pathname, hash, key]);
-
-  function handleAnchor(event: MouseEvent<HTMLDivElement>) {
-    if (
-      event.defaultPrevented || event.button !== 0 ||
-      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
-      !(event.target instanceof Element)
-    ) return;
-
-    const link = event.target.closest<HTMLAnchorElement>("a[href]");
-    const anchor = link?.getAttribute("href");
-    if (!anchor || !isHomeAnchor(anchor) || link?.target || link?.hasAttribute("download")) return;
-    // On the home page, Lenis handles scrolling before updating the URL.
-    if (home && !paused && !reducedMotion) return;
-
-    event.preventDefault();
-    navigate({ pathname: "/", hash: anchor }, { replace: home && hash === anchor });
-  }
+  }, [pathname, hash, key, legacyRoute]);
 
   return (
     <ThemeProvider>
       <AmbientMotionContext.Provider value={paused}>
         <MotionConfig reducedMotion="user">
-          <SmoothScroll onAnchorComplete={navigateToAnchor} />
-          <div className={paused ? "app motion-paused" : "app"} onClick={handleAnchor}>
-            {home ? (
-              <a className="skip-link" href="#curso">Pular para o conteúdo</a>
-            ) : (
-              <a className="skip-link" href={`#${pathname}#conteudo`}>Pular para o conteúdo</a>
-            )}
+          <SmoothScroll />
+          <div className={paused ? "app motion-paused" : "app"}>
+            <Link className="skip-link" to={{ pathname, hash: "#conteudo" }}>
+              Pular para o conteúdo
+            </Link>
             <Navigation paused={paused} setPaused={setPaused} />
             <main id="conteudo">
               <Outlet />

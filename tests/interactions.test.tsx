@@ -51,6 +51,7 @@ win.HTMLDialogElement.prototype.close = function () {
 };
 (globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;
 const React = await import("react");
+const { MemoryRouter } = await import("react-router-dom");
 const { render, screen, cleanup, fireEvent, within } = await import(
   "@testing-library/react"
 );
@@ -66,7 +67,10 @@ afterEach(() => {
   projects.splice(0);
 });
 test("mobile menu opens, closes on navigation, and Escape returns focus", () => {
-  render(<Navigation paused={false} setPaused={() => {}} />);
+  render(<MemoryRouter><Navigation paused={false} setPaused={() => {}} /></MemoryRouter>);
+  const desktop = within(screen.getByRole("navigation", { name: "Navegação principal" }));
+  assert.deepEqual(desktop.getAllByRole("link").map(link => link.getAttribute("href")), ["/", "/curso", "/areas", "/code-quest", "/projetos", "/escola"]);
+  assert.equal(desktop.getByRole("link", { name: "Início" }).getAttribute("aria-current"), "page");
   fireEvent.click(screen.getByRole("button", { name: "Abrir menu" }));
   assert.equal(
     screen
@@ -74,7 +78,9 @@ test("mobile menu opens, closes on navigation, and Escape returns focus", () => 
       .getAttribute("aria-expanded"),
     "true",
   );
-  fireEvent.click(screen.getByRole("link", { name: /05A escola/ }));
+  fireEvent.click(within(screen.getByRole("navigation", { name: "Navegação mobile" })).getByRole("link", { name: /A escola/ }));
+  assert.equal(desktop.getByRole("link", { name: "A escola" }).getAttribute("aria-current"), "page");
+  assert.equal(desktop.getByRole("link", { name: "Início" }).getAttribute("aria-current"), null);
   assert.equal(
     screen
       .getByRole("button", { name: "Abrir menu" })
@@ -90,7 +96,7 @@ test("mobile menu opens, closes on navigation, and Escape returns focus", () => 
 });
 test("ambient motion control emits requested state", () => {
   let paused = false;
-  render(<Navigation paused={false} setPaused={(v) => (paused = v)} />);
+  render(<MemoryRouter><Navigation paused={false} setPaused={(v) => (paused = v)} /></MemoryRouter>);
   fireEvent.click(
     screen.getByRole("button", { name: "Pausar movimento ambiente" }),
   );
@@ -212,17 +218,17 @@ test("gallery data supports filtered project details without publishing fixtures
 });
 test("institutional contact, map and enrollment link remain exact and secure", () => {
   render(
-    <>
+    <MemoryRouter>
       <School />
       <Enrollment />
       <Footer />
-    </>,
+    </MemoryRouter>,
   );
   const footer = within(screen.getByRole("contentinfo"));
   assert.ok(footer.getByRole("link", { name: /Inteligência Artificial/i }));
   assert.ok(footer.getByText(/EEEP Guiomar Belchior Aguiar/));
   assert.equal(footer.queryByText(/Desenvolvimento de Sistemas/i), null);
-  assert.equal(footer.getByRole("link", { name: /voltar ao topo/i }).getAttribute("href"), "#inicio");
+  assert.equal(footer.getByRole("link", { name: /voltar ao topo/i }).getAttribute("href"), "/");
   assert.equal(
     screen.getByRole("link", { name: "(88) 3646-1174" }).getAttribute("href"),
     "tel:+558836461174",

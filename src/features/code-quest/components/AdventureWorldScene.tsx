@@ -7,6 +7,7 @@ import type { Position, WorldProps } from './AdventureWorld';
 
 export function MovingByte({ world, state, active, reduced, onSettled }: { world: Position; state: ByteState; active: boolean; reduced: boolean; onSettled?: (world: Position) => void }) {
   const robot = useRef<Group>(null);
+  const invalidate = useThree(s => s.invalidate);
   const acknowledged = useRef<Position | null>(null);
   const from = useRef({ x: world.x, z: world.z, angle: Math.PI - world.direction * Math.PI / 2 });
   const age = useRef(0);
@@ -15,7 +16,8 @@ export function MovingByte({ world, state, active, reduced, onSettled }: { world
     if (!robot.current) return;
     from.current = { x: robot.current.position.x, z: robot.current.position.z, angle: robot.current.rotation.y };
     age.current = 0;
-  }, [world.x, world.z, world.direction]);
+    invalidate();
+  }, [world, invalidate]);
   useFrame((_, delta) => {
     if (!robot.current) return;
     age.current += delta;

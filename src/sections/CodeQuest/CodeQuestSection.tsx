@@ -36,7 +36,7 @@ class QuestLoadBoundary extends Component<
     );
   }
 }
-export default function CodeQuestSection() {
+export default function CodeQuestSection({ onExplore }: { onExplore?: () => void }) {
   const [loaded, setLoaded] = useState<"ai" | "javascript" | null>(null),
     [open, setOpen] = useState(false);
   const ActiveGame = loaded === "javascript" ? CodeQuestGame : AiQuestGame;
@@ -105,6 +105,7 @@ export default function CodeQuestSection() {
               open={open}
               onClose={() => setOpen(false)}
               onAfterClose={() => setLoaded(null)}
+              onExplore={onExplore}
             />
           </Suspense>
         </QuestLoadBoundary>

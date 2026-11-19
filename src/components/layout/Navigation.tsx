@@ -2,6 +2,7 @@ import { ThemeToggle } from "./ThemeProvider";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, BrainCircuit, Menu, X, Pause, Play } from "lucide-react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 export default function Navigation({
   paused,
   setPaused,
@@ -11,12 +12,14 @@ export default function Navigation({
 }) {
   const [open, setOpen] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
+  const location = useLocation();
   const links = [
-    ["O curso", "#curso"],
-    ["Áreas", "#areas"],
-    ["Code Quest", "#code-quest"],
-    ["Projetos", "#projetos"],
-    ["A escola", "#escola"],
+    ["Início", "/"],
+    ["O curso", "/curso"],
+    ["Áreas", "/areas"],
+    ["Code Quest", "/code-quest"],
+    ["Projetos", "/projetos"],
+    ["A escola", "/escola"],
   ];
   useEffect(() => {
     if (!open) return;
@@ -29,12 +32,15 @@ export default function Navigation({
     document.addEventListener("keydown", key);
     return () => document.removeEventListener("keydown", key);
   }, [open]);
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
   return (
     <header className="navigation">
       <div className="nav-inner">
-        <a
+        <Link
           className="brand"
-          href="#inicio"
+          to="/"
           aria-label="Inteligência Artificial — início"
         >
           <span className="brand-icon" aria-hidden="true">
@@ -46,12 +52,12 @@ export default function Navigation({
               CURSO TÉCNICO <i /> GUIOMAR
             </small>
           </span>
-        </a>
+        </Link>
         <nav aria-label="Navegação principal" className="desktop-nav">
           {links.map(([t, h]) => (
-            <a key={h} href={h}>
+            <NavLink key={h} to={h} end>
               {t}
-            </a>
+            </NavLink>
           ))}
         </nav>
         <div className="nav-actions">
@@ -66,9 +72,9 @@ export default function Navigation({
           >
             {paused ? <Play size={15} /> : <Pause size={15} />}
           </button>
-          <a className="nav-cta" href="#matriculas">
+          <Link className="nav-cta" to="/#matriculas">
             Quero fazer parte <ArrowUpRight size={16} />
-          </a>
+          </Link>
           <button
             ref={trigger}
             className="menu-button"
@@ -92,13 +98,18 @@ export default function Navigation({
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
           >
-            {[...links, ["Matrículas", "#matriculas"]].map(([t, h], i) => (
-              <a key={h} href={h} onClick={() => setOpen(false)}>
+            {links.map(([t, h], i) => (
+              <NavLink key={h} to={h} end onClick={() => setOpen(false)}>
                 <span>0{i + 1}</span>
                 {t}
                 <ArrowUpRight size={20} />
-              </a>
+              </NavLink>
             ))}
+            <Link to="/#matriculas" onClick={() => setOpen(false)}>
+              <span>07</span>
+              Matrículas
+              <ArrowUpRight size={20} />
+            </Link>
           </motion.nav>
         )}
       </AnimatePresence>
