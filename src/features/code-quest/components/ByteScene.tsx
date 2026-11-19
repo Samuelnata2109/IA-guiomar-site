@@ -1,5 +1,5 @@
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 import { Group, MathUtils } from "three";
 import type { ByteState } from "../game/types";
 export function ByteModel({ state, active }: { state: ByteState; active: boolean }) {
@@ -115,37 +115,5 @@ export function ByteModel({ state, active }: { state: ByteState; active: boolean
         </group>
       ))}
     </group>
-  );
-}
-function ContextGuard({ onFailure }: { onFailure: () => void }) {
-  const canvas = useThree((s) => s.gl.domElement);
-  useEffect(() => {
-    canvas.addEventListener("webglcontextlost", onFailure);
-    return () => canvas.removeEventListener("webglcontextlost", onFailure);
-  }, [canvas, onFailure]);
-  return null;
-}
-export default function ByteScene({
-  state,
-  active,
-  onFailure,
-}: {
-  state: ByteState;
-  active: boolean;
-  onFailure: () => void;
-}) {
-  return (
-    <Canvas
-      camera={{ position: [1.2, 1.1, 4.3], fov: 34 }}
-      dpr={[1, 1.25]}
-      gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
-      frameloop={active ? "always" : "demand"}
-    >
-      <ambientLight intensity={1.8} />
-      <directionalLight position={[2, 4, 3]} intensity={3} color="#dfecff" />
-      <pointLight position={[-2, 1, 1]} intensity={9} color="#337fea" />
-      <ByteModel state={state} active={active} />
-      <ContextGuard onFailure={onFailure} />
-    </Canvas>
   );
 }

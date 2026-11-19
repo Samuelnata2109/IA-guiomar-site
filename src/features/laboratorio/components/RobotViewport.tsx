@@ -1,5 +1,6 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { useReducedMotion } from "motion/react";
+import { supportsWebGL2 } from "../../../components/ui/webgl";
 import type { RobotFeedback, RobotState } from "../game/robotExecution";
 import type { Arena } from "./TrainingArena";
 import RobotFallback from "./RobotFallback";
@@ -23,41 +24,32 @@ export default function RobotViewport({ robot, paused, label, arena, ...feedback
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(!document.hidden);
   const [inView, setInView] = useState(false);
-  const [webgl, setWebgl] = useState(false);
+  const [webgl, setWebgl] = useState<boolean | null>(null);
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    try {
-      const context = document.createElement("canvas").getContext("webgl2");
-      setWebgl(!!context);
-      context?.getExtension("WEBGL_lose_context")?.loseContext();
-    } catch {
-      setWebgl(false);
-    }
-    let frame = 0;
-    const measure = () => {
-      frame = 0;
-      const bounds = ref.current?.getBoundingClientRect();
-      setInView(!!bounds && bounds.height > 0 && bounds.bottom >= -150 && bounds.top <= window.innerHeight + 150);
-    };
-    const scheduleMeasure = () => {
-      if (!frame) frame = requestAnimationFrame(measure);
-    };
-    const visibility = () => {
-      setVisible(!document.hidden);
-      scheduleMeasure();
-    };
-    measure();
-    window.addEventListener("scroll", scheduleMeasure, { passive: true });
-    window.addEventListener("resize", scheduleMeasure);
+    const stage = ref.current;
+    if (!stage) return;
+    const visibility = () => setVisible(!document.hidden);
     document.addEventListener("visibilitychange", visibility);
+
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return () => document.removeEventListener("visibilitychange", visibility);
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      setInView(entry.isIntersecting);
+    }, { rootMargin: "150px 0px" });
+    observer.observe(stage);
     return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleMeasure);
-      window.removeEventListener("resize", scheduleMeasure);
+      observer.disconnect();
       document.removeEventListener("visibilitychange", visibility);
     };
   }, []);
+
+  useEffect(() => {
+    if (webgl === null && inView && visible) setWebgl(supportsWebGL2());
+  }, [webgl, inView, visible]);
 
   const fail = useCallback(() => setWebgl(false), []);
   const animate = !paused && !reduced && inView && visible;
