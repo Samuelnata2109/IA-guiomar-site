@@ -14,6 +14,7 @@
 | 08 — Projetos e informações institucionais | Concluída, build aprovado | Conteúdo institucional alinhado a IA, galeria reutilizável e vazia até a escola fornecer projetos verificados. Confirmação dos dados institucionais listados abaixo depende da escola. |
 | 09 — Responsividade e otimização | Concluída | Build sem avisos de chunks acima de 500 kB, 46 testes aprovados e dez larguras verificadas no Chromium. |
 | 10 — Testes e documentação final | Entrega validada localmente | Build e suíte aprovados. Revisão em Firefox e WebKit e implantação pública pendentes. |
+| 11.2.1 — Sistema de rotas | Concluída | Página inicial preservada e cinco rotas provisórias disponíveis no HashRouter. |
 
 ## Registro da etapa 01
 
@@ -152,3 +153,10 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 - O navegador solicitava `/favicon.ico` automaticamente após a remoção da antiga identidade. A declaração de favicon vazio elimina o 404 no build servido sob o caminho do Pages. Títulos, logo do rodapé e chaves de armazenamento mantêm as decisões anteriores.
 - O README aponta para o mapa de arquitetura e para os guias de funcionalidades, manutenção, testes e publicação. Os registros da referência original e a matriz curricular foram preservados. O Git ignora dependências e saídas geradas.
 - O [relatório de testes](TESTES.md) reúne resultados, evidências de navegador e limites. O [guia de publicação](DEPLOY.md) descreve o gatilho de push na `main`. A confirmação de publicação depende do merge e da execução do GitHub Actions para o respectivo commit.
+
+## Etapa 11.2.1 — Sistema de rotas
+
+- A branch de navegação partiu de `origin/main` em `912d1ed`, em uma cópia de trabalho separada das alterações locais da Hero.
+- `react-router-dom@7.18.6` fornece o `HashRouter`. O layout compartilhado mantém cabeçalho, rodapé, conteúdo principal, tema, Lenis e pausa de movimento. `src/pages/HomePage.tsx` preserva as seções iniciais na mesma ordem.
+- As rotas `/curso`, `/areas`, `/code-quest`, `/projetos` e `/escola` abrem páginas provisórias. Os links atuais continuam levando às seções da página inicial. A URL `#/#curso` representa a âncora da seção e `#/curso` abre a rota.
+- `npm.cmd ci` e `npm.cmd run build` concluíram com sucesso. A suíte aprovou 46 de 46 testes. No Chrome, o build servido sob `/IA-guiomar-site/` abriu as seis rotas e a página de endereço desconhecido. Também foram conferidos o foco das âncoras com Lenis e movimento reduzido, a abertura direta de uma âncora antiga e o retorno de uma página provisória a uma seção inicial.
