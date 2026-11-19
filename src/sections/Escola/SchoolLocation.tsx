@@ -110,12 +110,6 @@ export function Footer() {
     <footer className="footer container">
       <div className="footer-main">
         <a className="brand" href="#inicio">
-          <img
-            src="./assets/logo-ds-guiomar.png"
-            width="44"
-            height="44"
-            alt="Identidade visual da EEEP Guiomar Belchior Aguiar"
-          />
           <span>
             INTELIGÊNCIA ARTIFICIAL
             <small>
