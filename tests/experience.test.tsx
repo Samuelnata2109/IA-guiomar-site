@@ -125,7 +125,7 @@ test("all five course cards open correct modals; Escape and backdrop close and r
       `Focus must return to ${course.name}; actual: ${document.activeElement?.tagName} ${document.activeElement?.getAttribute("aria-label")}`,
     );
   }
-  fireEvent.click(screen.getByRole("button", { name: "Explorar Redes" }));
+  fireEvent.click(screen.getByRole("button", { name: "Explorar Automação e Agentes de IA" }));
   fireEvent.click(document.querySelector(".modal-backdrop")!);
   await waitFor(() =>
     assert.ok(!document.querySelector("dialog[open]"), "Dialog must close"),
@@ -134,8 +134,8 @@ test("all five course cards open correct modals; Escape and backdrop close and r
 });
 test("gallery navigation and enlarged view work with explicitly identified placeholders", async () => {
   render(<Showcase />);
-  fireEvent.click(screen.getByRole("button", { name: "Explorar Robótica" }));
-  const dialog = screen.getByRole("dialog", { name: "01 / Robótica" });
+  fireEvent.click(screen.getByRole("button", { name: "Explorar Introdução à Inteligência Artificial" }));
+  const dialog = screen.getByRole("dialog", { name: "01 / Introdução à Inteligência Artificial" });
   fireEvent.click(
     within(dialog).getByRole("button", { name: "Próxima fotografia" }),
   );
@@ -143,13 +143,13 @@ test("gallery navigation and enlarged view work with explicitly identified place
   fireEvent.click(
     within(dialog).getByRole("button", { name: "Ampliar fotografia" }),
   );
-  const enlarged = screen.getByRole("dialog", { name: "Galeria — Robótica" });
+  const enlarged = screen.getByRole("dialog", { name: "Galeria — Introdução à Inteligência Artificial" });
   assert.ok(within(enlarged).getByText("FOTO REAL EM BREVE"));
   fireEvent.click(
     within(enlarged).getByRole("button", { name: "Fechar janela" }),
   );
   await waitFor(() =>
-    assert.ok(!screen.queryByRole("dialog", { name: "Galeria — Robótica" })),
+    assert.ok(!screen.queryByRole("dialog", { name: "Galeria — Introdução à Inteligência Artificial" })),
   );
   assert.equal(document.documentElement.style.overflow, "hidden");
 });
@@ -173,7 +173,7 @@ test("theme follows initial system preference, persists manual selection and sur
   fireEvent.click(screen.getByRole("button", { name: "Ativar tema claro" }));
   assert.equal(
     document.querySelector('meta[name="theme-color"]')?.getAttribute("content"),
-    "#f5f0fb",
+    "#f0f5fb",
   );
 });
 const ADVENTURE_KEY='ds-code-quest-adventure-v1';
@@ -261,10 +261,21 @@ test('all discipline galleries expose accessible photo/video tabs and honest emp
  const {default: Gallery}=await import('../src/components/ui/ActivityGallery');
  for(const course of courses){const view=render(<Gallery course={course} active/>);fireEvent.click(screen.getByRole('tab',{name:'Vídeos'}));assert.ok(screen.getByText('Em breve, vídeos das nossas atividades práticas!'));assert.equal(document.querySelector('video'),null);fireEvent.keyDown(screen.getByRole('tab',{name:'Vídeos'}),{key:'ArrowLeft'});assert.equal(screen.getByRole('tab',{name:'Fotografias'}).getAttribute('aria-selected'),'true');view.unmount();}
 });
-test('selected video uses native controls and pauses on closing parent', async()=>{
+test('selected video retains its source in Strict Mode and pauses on closing parent', async()=>{
  const {default: Gallery}=await import('../src/components/ui/ActivityGallery');const {courseMedia}=await import('../src/data/courseMedia');let pauses=0;win.HTMLMediaElement.prototype.pause=function(){pauses++;};win.HTMLMediaElement.prototype.load=function(){};
  courseMedia.robotica=[{id:'test-only',type:'video',src:'media/robotica/videos/test.webm',title:'Teste de player',caption:'Fixture de teste'}];
- try{const view=render(<Gallery course={courses[0]} active/>);fireEvent.click(screen.getByRole('tab',{name:'Vídeos'}));assert.equal(document.querySelector('video'),null);fireEvent.click(screen.getByRole('button',{name:'Reproduzir Teste de player'}));const video=document.querySelector('video')!;assert.ok(video.controls);assert.equal(video.autoplay,false);assert.equal(video.preload,'metadata');view.rerender(<Gallery course={courses[0]} active={false}/>);assert.ok(pauses>0);}finally{courseMedia.robotica=[];}
+ try{const view=render(<React.StrictMode><Gallery course={courses[0]} active/></React.StrictMode>);
+ fireEvent.click(screen.getByRole('tab',{name:'Vídeos'}));
+ assert.equal(document.querySelector('video'),null);
+ fireEvent.click(screen.getByRole('button',{name:'Reproduzir Teste de player'}));
+ const video=document.querySelector('video')!;
+ assert.match(video.src, /test\.webm$/);
+ assert.ok(video.controls);
+ assert.equal(video.autoplay,false);
+ assert.equal(video.preload,'metadata');
+ const pausesBeforeClose = pauses;
+ view.rerender(<React.StrictMode><Gallery course={courses[0]} active={false}/></React.StrictMode>);
+ assert.ok(pauses > pausesBeforeClose);}finally{courseMedia.robotica=[];}
 });
 
 test('workspace keeps scene editor controls and console together, with collapsible tools and keyboard resize',()=>{

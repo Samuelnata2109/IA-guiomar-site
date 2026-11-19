@@ -2,7 +2,7 @@ import React from 'react';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import ReactThreeTestRenderer from '@react-three/test-renderer';
-import { MovingByte } from '../src/features/code-quest/components/AdventureWorld';
+import { MovingByte } from '../src/features/code-quest/components/AdventureWorldScene';
 (globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;
 (globalThis as any).self = { requestAnimationFrame: () => 0, cancelAnimationFrame: () => {} };
 
