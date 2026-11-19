@@ -12,7 +12,7 @@
 | 06 — Adaptação do Code Quest | Concluída | Seis missões de IA, com progressão, selos e modo JavaScript disponível. |
 | 07 — Laboratório interativo | Concluída | Seis tarefas de treinamento, métricas e cena 3D com alternativa 2D. |
 | 08 — Projetos e informações institucionais | Concluída, build aprovado | Conteúdo institucional alinhado a IA, galeria reutilizável e vazia até a escola fornecer projetos verificados. Confirmação dos dados institucionais listados abaixo depende da escola. |
-| 09 — Responsividade e otimização | Não iniciada | O vídeo cobre somente a apresentação em desktop. |
+| 09 — Responsividade e otimização | Concluída | Build sem avisos de chunks acima de 500 kB, 46 testes aprovados e dez larguras verificadas no Chromium. |
 | 10 — Testes e documentação final | Não iniciada | |
 
 ## Registro da etapa 01
@@ -124,3 +124,24 @@ O motor em `training.ts` calcula as etapas localmente. As métricas de classific
 - Na `main` mais recente, o único arquivo de logo é `public/assets/logo-ds-guiomar.png`, sem logo de IA nem arquivo separado da Guiomar. Removi a imagem DS do rodapé, mantendo apenas a identificação textual do curso, e removi o favicon que reutilizava esse mesmo arquivo.
 - Busca restrita às seções institucionais não encontrou outros textos de Desenvolvimento de Sistemas. Mantive intactas a chave de tema, os jogos, os cards e a Hero Section.
 - `npm run build` passou. O Vite apresentou aviso de bundles acima de 500 kB.
+
+## Etapa 09 — Otimização, responsividade e correção de bugs
+
+- O Vite separa GSAP, CodeMirror, React Three Fiber, o núcleo de Three.js e o renderizador WebGL sem alterar o limite do aviso. O cenário 3D do Code Quest é carregado após detectar WebGL2. A alternativa 2D funciona sem baixar Three.js. O pôster da Hero continua com prioridade de carregamento.
+- A detecção de WebGL2 é compartilhada e adiada até o primeiro uso. O laboratório usa `IntersectionObserver` no lugar de medições a cada rolagem e desmonta o canvas fora da faixa de 150 px ao redor da área visível ou quando a aba está oculta. O Code Quest usa renderização sob demanda quando o cenário está fora da área visível, com movimento reduzido, em pausa ou com a aba oculta. A renderização passa a confirmar movimentos diretamente quando a animação está suspensa. A configuração e o progresso dos jogos ficam fora dos canvases.
+- A faixa de disciplinas quebra linhas em tablets. Em Chromium a 768 px, a largura rolável caiu de 816 para 753 px, igual à largura útil. Foram verificadas as larguras de 1920, 1440, 1366, 1024, 820, 768, 430, 390, 360 e 320 px sem rolagem horizontal na página. Em 320 × 568 px, o cenário e o botão de execução da aventura JavaScript ficaram visíveis juntos.
+- Ajustei os contrastes dos rótulos, das abas e do foco em tema claro. O modal de projeto recebeu um nome acessível, um botão de fechamento maior e limites de tamanho para os vídeos. Os cards de projetos exibem a capa estática, quando disponível, e só carregam o vídeo no modal.
+- Corrigi a perda da fonte de vídeo na galeria de disciplinas quando o React Strict Mode repete a limpeza de efeitos. O player ainda pausa ao fechar. Atualizei as cinco expectativas da suíte que usavam os nomes das antigas áreas, a cor antiga de tema claro ou o texto anterior do estado vazio.
+- Chromium com WebGL por software e com WebGL desativado confirmou a primeira missão de IA, a recuperação do selo ao reabrir, a conclusão da primeira fase JavaScript e a primeira tarefa no laboratório. A conferência com WebGL também confirmou a desmontagem do canvas do laboratório após a rolagem e a preservação do resultado. Os percursos registraram zero exceções de JavaScript e zero erros de console.
+- Chromium confirmou os temas, o menu mobile, as âncoras, o rodapé, as abas, a galeria ampliada, o retorno de foco e o estado vazio de projetos. Fixtures temporárias, sem registro no catálogo, confirmaram o carregamento de imagem e a reprodução WebM nos modais de projeto e de disciplina. O rodapé usa a identificação textual aprovada e os arquivos do projeto não oferecem uma logo institucional separada. O axe não apontou violações nas regras WCAG selecionadas para a página nos dois temas e para os modais de curso e IA inspecionados.
+
+| Métrica | Antes, `5302edc` | Depois |
+| --- | ---: | ---: |
+| Maior chunk JS minificado | 882,15 kB | 430,44 kB |
+| Chunks JS acima de 500 kB | 3 | 0 |
+| JS inicial sem compressão, incluindo preloads | 558,60 kB | 557,20 kB |
+| Testes aprovados | 41 de 46 | 46 de 46 |
+
+O build de TypeScript e Vite passou. A comparação usa o tamanho dos arquivos locais e os recursos observados no Chromium com cache desativado. As medições não incluem Web Vitals de campo nem consumo de GPU em aparelhos reais.
+
+Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celulares físicos e a conferência com tecnologias assistivas. O proxy bloqueou a checagem externa dos destinos da SEDUC e do Maps. Os endereços no site foram conferidos. A confirmação de dados, projetos e mídias institucionais segue com a escola.

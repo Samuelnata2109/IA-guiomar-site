@@ -1,4 +1,4 @@
-import { Component, lazy, Suspense, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+import { Component, lazy, Suspense, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useReducedMotion } from 'motion/react';
 import { ByteFallback } from './ByteCharacter';
 import type { ByteState } from '../game/types';
@@ -33,7 +33,10 @@ class WorldBoundary extends Component<{ children: ReactNode; fallback: ReactNode
 }
 
 export default function AdventureWorld(props: WorldProps) {
-  const [webgl, setWebgl] = useState<boolean | null>(null), [visible, setVisible] = useState(!document.hidden);
+  const board = useRef<HTMLDivElement>(null);
+  const [webgl, setWebgl] = useState<boolean | null>(null);
+  const [visible, setVisible] = useState(!document.hidden);
+  const [inView, setInView] = useState(true);
   const reduced = !!useReducedMotion();
   useEffect(() => {
     if (webgl === null && props.active) setWebgl(supportsWebGL2());
@@ -43,12 +46,18 @@ export default function AdventureWorld(props: WorldProps) {
     document.addEventListener('visibilitychange', visibility);
     return () => document.removeEventListener('visibilitychange', visibility);
   }, []);
+  useEffect(() => {
+    if (!board.current || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    observer.observe(board.current);
+    return () => observer.disconnect();
+  }, []);
   const paused = useContext(AmbientMotionContext);
-  const active = props.active && visible && !paused;
+  const active = props.active && visible && inView && !paused;
   const onFailure = useCallback(() => setWebgl(false), []);
   const fallback = <MapFallback {...props} active={active && !reduced} />;
   const loading = <MapFallback {...props} active={false} onSettled={undefined} />;
-  return <div className="adventure-world" role="img" aria-label={`Cenário: BYTE na coluna ${props.world.x + 1}, linha ${props.world.z + 1}, olhando para ${['cima', 'direita', 'baixo', 'esquerda'][props.world.direction]}. Portal na coluna ${props.level.goal[0] + 1}, linha ${props.level.goal[1] + 1}. Obstáculos: ${props.level.obstacles.map(([x,z]) => `coluna ${x+1}, linha ${z+1}`).join('; ') || 'nenhum'}.`}>
+  return <div ref={board} className="adventure-world" role="img" aria-label={`Cenário: BYTE na coluna ${props.world.x + 1}, linha ${props.world.z + 1}, olhando para ${['cima', 'direita', 'baixo', 'esquerda'][props.world.direction]}. Portal na coluna ${props.level.goal[0] + 1}, linha ${props.level.goal[1] + 1}. Obstáculos: ${props.level.obstacles.map(([x,z]) => `coluna ${x+1}, linha ${z+1}`).join('; ') || 'nenhum'}.`}>
     {webgl ? (
       <WorldBoundary fallback={fallback}>
         <Suspense fallback={loading}>
