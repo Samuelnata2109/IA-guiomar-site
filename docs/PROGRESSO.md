@@ -211,3 +211,10 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 
 - O cabeçalho compartilhado passa a ocupar seu espaço no fluxo nas páginas internas, usando a altura responsiva já definida na navbar. A Home mantém o posicionamento absoluto sobre a Hero. A faixa de disciplinas fica abaixo do cabeçalho sem espaçamento adicional.
 - `npm.cmd run build` passou e a suíte aprovou 46 de 46 testes. No Chrome, as seis páginas passaram em 1920, 1440, 1024, 768, 390 e 320 px, nos temas claro e escuro. As 72 combinações ficaram sem sobreposição indevida nem rolagem horizontal. O menu mobile continuou alinhado ao cabeçalho e fechou ao navegar.
+
+## Etapa 12.1 — Design system global
+
+- A branch partiu de `origin/main` em `4de84ca`, com a navegação multipáginas e a correção do cabeçalho integradas pelos PRs #15 e #16.
+- Os tokens de tema, hierarquia tipográfica, espaçamento, largura, controles, foco, bordas, sombras, movimento e camadas vivem em `src/styles/tokens.css`. Os valores da interface existente e os aliases consumidos pelas seções e jogos foram preservados. Os pontos de quebra continuam em CSS nativo.
+- O [design system](DESIGN_SYSTEM.md) define como preparar futuras integrações com o 21st.dev em `src/components/ui/`, incluindo temas, teclado, foco, contraste, movimento reduzido e custo de carregamento. A etapa usa apenas as dependências do lockfile.
+- `npm.cmd ci` e `npm.cmd run build` passaram. A suíte aprovou 46 de 46 testes. No Chrome sem janela, dimensões e estilos calculados dos elementos amostrados coincidiram com a referência em 144 combinações de rota, tema e largura, mais quatro comparações do diálogo. O foco visível e o menu mobile também passaram. A folha de estilos passou de 19,35 kB para 19,91 kB em gzip.
