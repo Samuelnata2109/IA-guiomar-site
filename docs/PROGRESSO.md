@@ -16,6 +16,7 @@
 | 10 — Testes e documentação final | Entrega validada localmente | Build e suíte aprovados. Revisão em Firefox e WebKit e implantação pública pendentes. |
 | 11.2.1 — Sistema de rotas | Concluída | Página inicial preservada e cinco rotas provisórias disponíveis no HashRouter. |
 | 11.2.2 — Reestruturação da Home | Concluída | Home reduzida à Hero, banner de matrículas e seção da escola; páginas provisórias mantidas. |
+| 11.2.3 — Páginas independentes | Concluída | Cinco rotas reutilizam as seções existentes, com layout compartilhado. |
 
 ## Registro da etapa 01
 
@@ -175,3 +176,9 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 - `HomePage.tsx` renderiza somente a Hero original, o banner `Enrollment` e `SchoolLocation`. `SiteLayout` mantém cabeçalho e rodapé compartilhados. Os componentes retirados da Home permanecem no repositório para as próximas etapas.
 - O layout compartilhado encaminha os links atuais das seções retiradas para as rotas provisórias correspondentes. A âncora da escola e o atalho para o conteúdo continuam funcionais. Os espaçamentos existentes entre Hero, banner e escola foram mantidos após conferência.
 - `npm.cmd run build` passou. A suíte isolada aprovou 46 de 46 testes. Uma execução simultânea com o build teve uma falha temporária no teste de pausa da Aventura JavaScript, que passou na repetição isolada. O Chrome confirmou apenas três seções em `main` e validou o botão da Hero para `/curso` e o link da escola para a seção mantida.
+
+## Etapa 11.2.3 — Páginas independentes
+
+- `/curso` usa `Course`; `/areas` usa `InteractiveShowcase` com os cinco cards; `/code-quest` reúne `CodeQuestSection`, Aventura JavaScript e `InteractiveCodeDemo`; `/projetos` usa `ProjectGallery`; `/escola` reutiliza `SchoolLocation`, compartilhado com a Home. Cada rota possui um componente em `src/pages/` e conserva o `SiteLayout`.
+- Os componentes de jogos, cards e galerias não foram alterados. Code Quest e Aventura JavaScript continuam usando suas chaves existentes de `sessionStorage`; a arena do laboratório continua com heading inicial `0`.
+- `npm.cmd run build` passou. A suíte aprovou 46 de 46 testes. No Chrome, as cinco rotas renderizaram seus elementos principais e o link da escola no cabeçalho abriu `/escola`. A galeria de projetos permanece sem projetos publicados.

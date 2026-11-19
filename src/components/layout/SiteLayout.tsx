@@ -15,6 +15,7 @@ const pageForAnchor: Record<string, string> = {
   "#areas": "/areas",
   "#code-quest": "/code-quest",
   "#projetos": "/projetos",
+  "#escola": "/escola",
 };
 
 export default function SiteLayout() {
