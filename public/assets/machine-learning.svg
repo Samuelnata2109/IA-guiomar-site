@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" fill="none">
+  <defs>
+    <linearGradient id="metal" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#DCEAF5"/>
+      <stop offset=".38" stop-color="#76AFE3"/>
+      <stop offset="1" stop-color="#254D78"/>
+    </linearGradient>
+    <linearGradient id="face" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#254D78"/>
+      <stop offset="1" stop-color="#102039"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop stop-color="#427FB8" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#427FB8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="depth" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dy="15" stdDeviation="12" flood-color="#102039" flood-opacity=".65"/>
+    </filter>
+  </defs>
+  <ellipse cx="350" cy="264" rx="310" ry="218" fill="url(#halo)"/>
+  <g stroke="#76AFE3" stroke-opacity=".19">
+    <ellipse cx="350" cy="352" rx="247" ry="65"/>
+    <ellipse cx="350" cy="352" rx="185" ry="43"/>
+  </g>
+  <path d="M101 167h10m-5-5v10m473 118h10m-5-5v10M520 83h8m-4-4v8" stroke="#A6CFF3" stroke-opacity=".55"/>
+  <g transform="translate(350 235) rotate(-8)" filter="url(#depth)">
+    <path d="m-195 115 335-30 65 40-332 39z" fill="url(#metal)"/>
+    <path d="m-195 115 68 49 332-39v16l-332 40-68-49z" fill="#254D78"/>
+    <g stroke="#76AFE3" stroke-width="2" stroke-opacity=".67">
+      <path d="M-151-67-18-127m-133 60 133 28m-133-28 133 115m-133-42 133-133m-133 133 133-45m-133 45 133 42m-133 29 133-116m-133 116 133-29M-18-127l158 28m-158-28L140 8M-18-39l158-60M-18-39 140 8M-18 48 140 8M-18 48l158-147"/>
+    </g>
+    <g fill="url(#metal)" stroke="#A6CFF3" stroke-width="2">
+      <circle cx="-151" cy="-67" r="17"/><circle cx="-151" cy="6" r="17"/><circle cx="-151" cy="77" r="17"/>
+      <circle cx="-18" cy="-127" r="21"/><circle cx="-18" cy="-39" r="25"/><circle cx="-18" cy="48" r="21"/>
+      <circle cx="140" cy="-99" r="23"/><circle cx="140" cy="8" r="23"/>
+    </g>
+    <path d="M-24-44h.01m158-61h.01m-284 35h.01" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>
