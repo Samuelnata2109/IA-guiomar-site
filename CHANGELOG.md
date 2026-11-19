@@ -5,6 +5,7 @@
 - Atualizada a documentação da versão de Inteligência Artificial com guias de arquitetura, conteúdo, manutenção, testes e publicação.
 - Identificados explicitamente os registros históricos da referência de Desenvolvimento de Sistemas.
 - Arquivos gerados por npm, TypeScript e Vite foram incluídos na lista de exclusões do Git.
+- A página declara o favicon vazio para evitar a requisição automática a `/favicon.ico`. A identificação institucional permanece textual.
 
 ## Etapas 01 a 09
 
