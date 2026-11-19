@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, Braces, X } from "lucide-react";
-import { areas, projects, officialSite, type Project } from "../../data/content";
+import { areas, projects, type Project } from "../../data/content";
 import { SectionReveal, Eyebrow } from "../../components/animations/Shared";
 export default function ProjectGallery() {
   const [filter, setFilter] = useState("Todos");
@@ -59,10 +59,12 @@ export default function ProjectGallery() {
                       dialog.current?.showModal();
                     }}
                   >
-                    {p.image ? (
-                      <img src={p.image} alt={p.title} loading="lazy" />
+                    {p.media?.[0]?.type === "image" ? (
+                      <img src={p.media[0].src} alt={p.media[0].alt} loading="lazy" />
+                    ) : p.media?.[0]?.type === "video" ? (
+                      <video src={p.media[0].src} poster={p.media[0].poster} aria-label={p.media[0].alt} muted playsInline preload="metadata" />
                     ) : (
-                      <span>Imagem ainda não disponibilizada</span>
+                      <span>{p.media?.length ? "Prévia do vídeo" : "Mídia ainda não disponibilizada"}</span>
                     )}
                     <small>{p.category}</small>
                     <h3>{p.title}</h3>
@@ -93,20 +95,12 @@ export default function ProjectGallery() {
                   </h3>
                   <p>
                     {filter === "Todos"
-                      ? "Os projetos dos estudantes ainda não foram publicados no site do curso."
+                      ? "Os projetos de Inteligência Artificial ainda não foram publicados."
                       : "Ainda não há projetos de " +
                         filter.toLowerCase() +
                         " publicados no site do curso."}{" "}
                     Este espaço está reservado para as criações reais da turma.
                   </p>
-                  <a
-                    className="inline-link"
-                    href={officialSite + "#projetos"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Acompanhar o site do curso <ArrowUpRight size={18} />
-                  </a>
                 </div>
               </div>
             )}
@@ -132,10 +126,15 @@ export default function ProjectGallery() {
           <>
             <span className="eyebrow">{selected.category}</span>
             <h3>{selected.title}</h3>
-            {selected.image && (
-              <img src={selected.image} alt={selected.title} />
-            )}
+            {selected.media?.map((media) => (
+              <figure key={media.src}>
+                {media.type === "image" ? <img src={media.src} alt={media.alt} loading="lazy" /> : <video controls preload="metadata" src={media.src} poster={media.poster} aria-label={media.alt} />}
+                {media.caption && <figcaption>{media.caption}</figcaption>}
+              </figure>
+            ))}
             <p>{selected.description}</p>
+            {selected.technologies?.length ? <p><strong>Tecnologias:</strong> {selected.technologies.join(", ")}</p> : null}
+            {selected.details?.map((detail) => <p key={detail}>{detail}</p>)}
             {selected.url && (
               <a href={selected.url} target="_blank" rel="noopener noreferrer">
                 Abrir projeto <ArrowUpRight />
