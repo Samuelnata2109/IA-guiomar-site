@@ -191,7 +191,7 @@ test('beginner inserts a real command, runs it, reaches portal and retains code 
  fireEvent.click(screen.getByRole('button',{name:'EXECUTAR CÓDIGO'}));
  await waitFor(()=>assert.ok(screen.getByRole('button',{name:/Próxima fase/})),{timeout:3000});
  assert.ok(screen.getByRole('status').textContent?.includes('primeiro código JavaScript'));
- assert.deepEqual(JSON.parse(sessionStorage.getItem(ADVENTURE_KEY)!).completed,[0]);
+ await waitFor(() => assert.deepEqual(JSON.parse(sessionStorage.getItem(ADVENTURE_KEY)!).completed, [0]));
  fireEvent.click(screen.getByRole('button',{name:/Próxima fase/}));
  assert.ok(screen.getByRole('heading',{name:/02 \/ Uma ação depois da outra/}));
 });
@@ -200,7 +200,7 @@ test('syntax errors highlight actual line and help never rewrites code without i
  setCode('await byte.moverFrente(;');
  fireEvent.click(screen.getByRole('button',{name:'EXECUTAR CÓDIGO'}));
  await screen.findByRole('button',{name:'ME AJUDE A CORRIGIR'});
- assert.ok(document.querySelector('.adventure-error-line'));
+ await waitFor(() => assert.ok(document.querySelector('.adventure-error-line')));
  const code=editorView().state.doc.toString();
  fireEvent.click(screen.getByRole('button',{name:'ME AJUDE A CORRIGIR'}));
  assert.equal(editorView().state.doc.toString(),code);
@@ -218,7 +218,7 @@ test('guided assistance completes loop, conditional and final phases with real i
   fireEvent.click(screen.getByRole('button',{name:'Inserir solução explicada'}));
   fireEvent.click(screen.getByRole('button',{name:'EXECUTAR CÓDIGO'}));
   const next=await screen.findByRole('button',{name:stage===9?'ATIVAR NÚCLEO DIGITAL →':/Próxima fase/},{timeout:5000});
-  assert.ok(JSON.parse(sessionStorage.getItem(ADVENTURE_KEY)!).completed.includes(stage));
+  await waitFor(() => assert.ok(JSON.parse(sessionStorage.getItem(ADVENTURE_KEY)!).completed.includes(stage)));
   if(stage===9){fireEvent.click(next);assert.ok(screen.getByRole('heading',{name:'PARABÉNS! VOCÊ DESBLOQUEOU O FUTURO.'}));fireEvent.click(screen.getByRole('button',{name:'JOGAR NOVAMENTE'}));assert.ok(screen.getByRole('heading',{name:/01 \/ Primeiro portal/}));}
   view.unmount();
  }

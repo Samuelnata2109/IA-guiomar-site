@@ -2,6 +2,8 @@
 
 Site institucional do curso técnico de Inteligência Artificial da EEEP Guiomar Belchior Aguiar, em Cariré (CE). Apresenta o curso, as cinco áreas curriculares, as galerias, os projetos e duas experiências didáticas que rodam no navegador. [Site no GitHub Pages](https://samuelnata2109.github.io/IA-guiomar-site/)
 
+A Home reúne Hero, matrículas e localização. O menu abre as páginas do curso, áreas, Code Quest, projetos e escola. Os endereços usam fragmentos como `#/areas` para funcionar em acesso direto no GitHub Pages.
+
 ## Desenvolver
 
 Use Node.js 22.22.2 ou mais recente da série 22, como no GitHub Actions. A versão 24 também é compatível a partir de 24.15.0. O `package-lock.json` fixa as dependências.

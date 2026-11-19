@@ -12,6 +12,7 @@ const legacyRoutes: Record<string, string> = {
   "#curso": "/curso",
   "#areas": "/areas",
   "#code-quest": "/code-quest",
+  "#laboratorio": "/code-quest#laboratorio",
   "#projetos": "/projetos",
   "#escola": "/escola",
 };
@@ -35,11 +36,15 @@ export default function SiteLayout() {
     document.title = `${pageTitles[pathname] ?? "Página não encontrada"} | Inteligência Artificial · Guiomar`;
   }, [pathname]);
 
+  const legacyRoute = pathname === "/" && Object.hasOwn(legacyRoutes, hash) ? legacyRoutes[hash] : undefined;
+
+  useEffect(() => {
+    if (legacyRoute) navigate(legacyRoute, { replace: true });
+  }, [legacyRoute, navigate]);
+
   useLayoutEffect(() => {
-    if (pathname === "/" && legacyRoutes[hash]) {
-      navigate(legacyRoutes[hash], { replace: true });
-      return;
-    }
+    if (legacyRoute) return;
+    if (pathname === "/code-quest" && hash === "#laboratorio") return;
     const target = hash === "#matriculas" && pathname === "/"
       ? document.getElementById("matriculas")
       : document.getElementById("conteudo");
@@ -55,7 +60,7 @@ export default function SiteLayout() {
       target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
     }
     target.focus({ preventScroll: true });
-  }, [pathname, hash, key, navigate]);
+  }, [pathname, hash, key, legacyRoute]);
 
   return (
     <ThemeProvider>

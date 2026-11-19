@@ -1,6 +1,6 @@
 # Arquitetura do IA-guiomar-site
 
-O projeto é uma aplicação React de página única. `index.html` inicializa o tema e prioriza o pôster da Hero. `src/main.tsx` monta a aplicação em Strict Mode e `src/App.tsx` compõe as seções, o provedor de tema e o controle de movimento ambiente. Vite gera um site estático para o GitHub Pages.
+O projeto é uma aplicação React com seis páginas navegáveis. `index.html` inicializa o tema e prioriza o pôster da Hero. `src/main.tsx` monta a aplicação em Strict Mode, e `src/App.tsx` define as rotas. O Vite gera uma distribuição estática para o GitHub Pages.
 
 ## Tecnologias da entrega
 
@@ -19,7 +19,8 @@ Use `package.json` para os scripts e as dependências declaradas e `package-lock
 | Diretório ou arquivo | Responsabilidade |
 | --- | --- |
 | `src/sections/` | Hero, apresentação, cinco cards, entrada do Code Quest, projetos, escola, matrículas e rodapé |
-| `src/components/layout/` | Navegação e temas |
+| `src/components/layout/` | Layout compartilhado, navegação e temas |
+| `src/pages/` | Componentes que organizam as seções de cada rota |
 | `src/components/ui/` | Diálogos, galerias, mídia e detecção de WebGL |
 | `src/components/animations/` | Revelações, rolagem Lenis e movimento ambiente |
 | `src/data/` | Disciplinas em `courses.ts`, mídias em `courseMedia.ts` e `media.ts`, projetos e mapa em `content.ts` |
@@ -31,9 +32,24 @@ Use `package.json` para os scripts e as dependências declaradas e `package-lock
 
 As cinco entradas de `courses.ts` seguem a [matriz curricular](MATRIZ_IA.md). Seus IDs `robotica`, `programacao`, `design`, `manutencao` e `redes` são vínculos internos entre cards, estilos e mídia.
 
+## Páginas e navegação
+
+| Rota no React Router | URL no Pages após o subdiretório | Conteúdo |
+| --- | --- | --- |
+| `/` | `#/` | Hero, matrículas e localização |
+| `/curso` | `#/curso` | Apresentação do curso |
+| `/areas` | `#/areas` | Cinco cards de disciplinas, modais e galerias |
+| `/code-quest` | `#/code-quest` | Code Quest de IA, Aventura JavaScript e Ensine o Robô 3D |
+| `/projetos` | `#/projetos` | Galeria de projetos |
+| `/escola` | `#/escola` | Informações da escola e mapa, também presentes na Home |
+
+`SiteLayout.tsx` renderiza cabeçalho, rodapé, conteúdo principal e controles de tema, rolagem e movimento. O `Outlet` recebe a página atual. Os links internos usam `Link` e `NavLink`, e o item atual tem `aria-current="page"`. O layout atualiza o título, o foco e a rolagem quando o endereço muda. O link de matrículas usa `#/#matriculas`, e o atalho de teclado usa a âncora `#conteudo` na rota atual. As âncoras antigas das seções que viraram páginas redirecionam para suas rotas. O endereço antigo `#laboratorio` abre `#/code-quest#laboratorio` com foco na seção.
+
+O `HashRouter` mantém a rota no fragmento da URL. A abertura direta e a atualização sempre pedem o mesmo `index.html` ao GitHub Pages, sem depender de redirecionamento no servidor. Rotas desconhecidas exibem a página de endereço não encontrado. A Home está no carregamento inicial. As cinco páginas secundárias usam `React.lazy` e `Suspense`, além do carregamento separado dos jogos, editor e cenas 3D quando usados.
+
 ## Estado e temas
 
-`ThemeProvider.tsx` lê a preferência do sistema e grava a escolha manual em `localStorage` com a chave `ds-guiomar-theme`. O atributo `data-theme` e a meta `theme-color` refletem a escolha. Os tokens de tema pertencem a `global.css`. A pausa das animações ambientes pertence ao estado de `App.tsx`. As animações também consultam `prefers-reduced-motion`.
+`ThemeProvider.tsx` lê a preferência do sistema e grava a escolha manual em `localStorage` com a chave `ds-guiomar-theme`. O atributo `data-theme` e a meta `theme-color` refletem a escolha. Os tokens de tema pertencem a `global.css`. A pausa das animações ambientes pertence ao estado de `SiteLayout.tsx`. As animações também consultam `prefers-reduced-motion`.
 
 O Code Quest grava a quantidade de selos de IA em `sessionStorage` com `ds-code-quest-ai-v1`. A aventura JavaScript guarda fase, código, modo e fases resolvidas com `ds-code-quest-adventure-v1`. A divisão dos painéis usa `ds-quest-panel-width` em `localStorage`. No laboratório, o progresso e as métricas ficam em memória na página.
 

@@ -68,6 +68,9 @@ afterEach(() => {
 });
 test("mobile menu opens, closes on navigation, and Escape returns focus", () => {
   render(<MemoryRouter><Navigation paused={false} setPaused={() => {}} /></MemoryRouter>);
+  const desktop = within(screen.getByRole("navigation", { name: "Navegação principal" }));
+  assert.deepEqual(desktop.getAllByRole("link").map(link => link.getAttribute("href")), ["/", "/curso", "/areas", "/code-quest", "/projetos", "/escola"]);
+  assert.equal(desktop.getByRole("link", { name: "Início" }).getAttribute("aria-current"), "page");
   fireEvent.click(screen.getByRole("button", { name: "Abrir menu" }));
   assert.equal(
     screen
@@ -75,7 +78,9 @@ test("mobile menu opens, closes on navigation, and Escape returns focus", () => 
       .getAttribute("aria-expanded"),
     "true",
   );
-  fireEvent.click(screen.getByRole("link", { name: /06A escola/ }));
+  fireEvent.click(within(screen.getByRole("navigation", { name: "Navegação mobile" })).getByRole("link", { name: /A escola/ }));
+  assert.equal(desktop.getByRole("link", { name: "A escola" }).getAttribute("aria-current"), "page");
+  assert.equal(desktop.getByRole("link", { name: "Início" }).getAttribute("aria-current"), null);
   assert.equal(
     screen
       .getByRole("button", { name: "Abrir menu" })

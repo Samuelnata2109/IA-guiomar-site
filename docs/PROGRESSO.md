@@ -17,6 +17,7 @@
 | 11.2.1 — Sistema de rotas | Concluída | Página inicial preservada e cinco rotas provisórias disponíveis no HashRouter. |
 | 11.2.2 — Reestruturação da Home | Concluída | Home reduzida à Hero, banner de matrículas e seção da escola; páginas provisórias mantidas. |
 | 11.2.3 — Páginas independentes | Concluída | Cinco rotas reutilizam as seções existentes, com layout compartilhado. |
+| 11.2.6 — Validação final multipáginas | Build e suíte aprovados | Validação no Chrome sobre o build do Pages. A publicação depende do merge e da confirmação do GitHub Actions. |
 
 ## Registro da etapa 01
 
@@ -195,3 +196,13 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 - O layout compartilhado atualiza `document.title` para cada rota. As animações existentes continuam montadas por seção e respeitam a preferência de movimento reduzido. Não foi necessária uma nova transição visual.
 - `npm.cmd run build` passou. O build gerou chunks separados para as cinco páginas, para o editor e para Three.js. Em uma abertura limpa da Home no Chrome, não houve canvas nem requisições aos chunks de jogos, editor ou Three.js. Na rota `/code-quest`, a cena do laboratório carregou ao entrar na área visível; ao retornar à Home por navegação interna, o canvas saiu do DOM sem recarregamento. O valor de `ds-code-quest-ai-v1` permaneceu na sessão. Também foram conferidos o título, o foco e a revelação de conteúdo após mudança de rota.
 - A repetição da suíte completa aprovou 46 de 46 testes. A primeira execução teve uma falha intermitente no teste de progressão guiada da Aventura JavaScript; o arquivo também passou isolado (12 de 12). Não houve alteração nas mecânicas dos jogos. A validação de liberação efetiva de memória da GPU em dispositivos físicos permanece pendente; a desmontagem do canvas foi confirmada no navegador.
+
+## Etapa 11.2.6 — Validação final multipáginas
+
+- A `main` remota já inclui a preparação das rotas pelo PR #14. A revisão comparou as alterações restantes desta branch com `origin/main`.
+- Corrigidos três problemas observados na revisão. A Aventura JavaScript voltava a aguardar um quadro quando WebGL usava renderização sob demanda. A atualização da posição passa a solicitar esse quadro. O botão de exploração da tela final abre Áreas, e o endereço antigo `#laboratorio` redireciona para `#/code-quest#laboratorio`.
+- As verificações da navbar cobrem destinos e item ativo, além de fechamento e retorno de foco no menu mobile. Os testes da aventura aguardam a gravação de progresso e a decoração da linha de erro, mantendo as asserções.
+- `npm.cmd ci` passou após reiniciar o Vite que mantinha um módulo nativo aberto no Windows. Os builds padrão e com base `/IA-guiomar-site/` passaram. A suíte aprovou 46 de 46 testes. O runner ainda emite um aviso de `act` na galeria.
+- No Chrome com WebGL por software, as seis rotas passaram em acesso direto e atualização. Em 1440, 390 e 320 px, não houve rolagem horizontal. Foram conferidos Home, temas, histórico, item ativo, menu mobile, Hero, rodapé, matrículas, mapa e os cinco modais com abas de mídia.
+- A primeira missão de IA, a primeira fase JavaScript e o primeiro treinamento do robô passaram no navegador. Os dois jogos mantiveram progresso após atualização na mesma aba. A captura confirmou o robô de frente. O botão da tela final foi verificado com progresso de teste no navegador. O build do Pages serviu os recursos locais sem falhas e não registrou erros de console.
+- A suíte cobre as demais fases e tarefas, a alternativa 2D e as galerias com dados de teste. Os catálogos públicos continuam sem mídias institucionais autorizadas. A rodada foi feita em Chrome, com dimensões de mobile emuladas.
