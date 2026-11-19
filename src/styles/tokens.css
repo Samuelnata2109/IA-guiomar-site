@@ -1,0 +1,148 @@
+/* Shared visual values. Section and game overrides stay with their styles. */
+:root {
+  color-scheme: dark;
+
+  /* Palette and semantic roles */
+  --blue-deep: #254d78;
+  --blue-brand: #427fb8;
+  --blue-mid: #76afe3;
+  --blue-soft: #a6cff5;
+  --blue-bright: #38bdf8;
+  --white: #fff;
+  --bg: #102039;
+  --surface: #142b48;
+  --panel: #1a3657;
+  --panel-soft: var(--panel);
+  --text: var(--white);
+  --muted: #c4dff3;
+  --line: rgba(118, 175, 227, 0.2);
+  --border: #5599f73d;
+  --overlay: #142b48b8;
+  --control: #16263d;
+  --heading-accent: var(--blue-soft);
+  --focus-color: var(--blue-bright);
+  --nav-active-color: var(--blue-bright);
+  --nav-background: linear-gradient(#142b48d9, #142b4830);
+  --nav-border: #84b6fc16;
+  --panel-shadow: 0 28px 100px #0005;
+
+  /* Legacy names used by the original sections and games */
+  --purple: var(--blue-brand);
+  --electric: var(--blue-deep);
+  --neon: var(--blue-brand);
+  --lavender: var(--blue-soft);
+  --cyan: var(--blue-bright);
+  --ink: var(--text);
+  --ink-soft: var(--muted);
+  --glow: 0 0 60px #427fb824;
+
+  /* Typography */
+  --font-title: "Space Grotesk Variable", sans-serif;
+  --font-body: "Inter Variable", sans-serif;
+  --text-body-size: 16px;
+  --text-body-line: 1.75;
+  --heading-weight: 600;
+  --heading-section-size: clamp(2.5rem, 4.6vw, 5rem);
+  --heading-section-line: 1.07;
+  --heading-section-tracking: -0.055em;
+  --heading-subsection-tracking: -0.04em;
+
+  /* Spacing, containers and corners */
+  --space-8: 8px;
+  --space: var(--space-8);
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --radius: 20px;
+  --container: 1440px;
+  --container-gutter: 56px;
+  --section-padding: 120px;
+  --nav-height: 100px;
+  --nav-menu-inset: var(--space-24);
+  --dialog-width: 1100px;
+  --dialog-inset: var(--space-24);
+  --dialog-radius: 24px;
+  --control-target: 44px;
+
+  /* Buttons and interaction states */
+  --button-height: 54px;
+  --button-padding: 17px 23px;
+  --button-gap: 22px;
+  --button-radius: 7px;
+  --button-font-size: 10px;
+  --button-font-weight: 700;
+  --button-tracking: 0.07em;
+  --button-primary-bg: linear-gradient(120deg, var(--blue-deep), var(--blue-brand) 58%, var(--blue-mid));
+  --gradient: var(--button-primary-bg);
+  --button-primary-text: var(--white);
+  --button-primary-shadow: 0 8px 38px #3a85ed30;
+  --button-primary-hover-shadow: 0 8px 40px #5599f75c;
+  --button-text-color: #d0dae9;
+  --button-outline-bg: #0d192a;
+  --button-outline-border: #667c9b70;
+  --button-white-text: #143d76;
+  --button-hover-lift: -3px;
+  --control-active-scale: 0.97;
+  --focus-width: 2px;
+  --focus-offset: 6px;
+
+  /* Motion and shared stacking order */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --micro: 220ms;
+  --reveal: 850ms;
+  --motion-fast: 200ms;
+  --motion-theme: 250ms;
+  --z-dialog-header: 10;
+  --z-nav: 30;
+  --z-skip-link: 100;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f2f6fb;
+  --surface: var(--white);
+  --panel: var(--white);
+  --panel-soft: #e6eefa;
+  --text: #112138;
+  --muted: #505e71;
+  --line: #426da82d;
+  --border: #547cb33d;
+  --overlay: #11233d66;
+  --control: #dce7f6;
+  --heading-accent: #3267b2;
+  --focus-color: #24589c;
+  --nav-active-color: #2565b5;
+  --nav-background: linear-gradient(#f0f5fbf0, #f0f5fb30);
+  --nav-border: var(--line);
+  --panel-shadow: 0 28px 90px #3b567c29;
+  --glow: 0 0 40px #3a85ed14;
+  --button-text-color: var(--text);
+  --button-outline-bg: #dee8f7;
+  --button-outline-text: #354d6f;
+}
+
+/* CSS custom properties do not participate in media query conditions. */
+@media (max-width: 1100px) {
+  :root {
+    --container-gutter: 36px;
+  }
+}
+
+@media (max-width: 1000px) {
+  :root {
+    --nav-height: 85px;
+    --section-padding: 90px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --container-gutter: var(--space-20);
+    --section-padding: 72px;
+    --nav-height: 78px;
+    --nav-menu-inset: var(--space-16);
+    --dialog-inset: 10px;
+    --dialog-radius: 18px;
+  }
+}

@@ -26,7 +26,7 @@ Use `package.json` para os scripts e as dependências declaradas e `package-lock
 | `src/data/` | Disciplinas em `courses.ts`, mídias em `courseMedia.ts` e `media.ts`, projetos e mapa em `content.ts` |
 | `src/features/code-quest/` | Interfaces, seis missões de IA, intérprete da aventura JavaScript, editor, cenário e estilos |
 | `src/features/laboratorio/` | Seis tarefas, motores didáticos, terminal, robô, arena e estilos |
-| `src/styles/global.css` | Layout, tokens, temas, estilos compartilhados e breakpoints |
+| `src/styles/` | Tokens e temas em `tokens.css`, layout e estilos compartilhados em `global.css` |
 | `public/` e `tests/` | Assets estáticos e suíte automatizada |
 | `.github/workflows/deploy.yml` | Build e implantação no GitHub Pages |
 
@@ -49,7 +49,7 @@ O `HashRouter` mantém a rota no fragmento da URL. A abertura direta e a atualiz
 
 ## Estado e temas
 
-`ThemeProvider.tsx` lê a preferência do sistema e grava a escolha manual em `localStorage` com a chave `ds-guiomar-theme`. O atributo `data-theme` e a meta `theme-color` refletem a escolha. Os tokens de tema pertencem a `global.css`. A pausa das animações ambientes pertence ao estado de `SiteLayout.tsx`. As animações também consultam `prefers-reduced-motion`.
+`ThemeProvider.tsx` lê a preferência do sistema e grava a escolha manual em `localStorage` com a chave `ds-guiomar-theme`. O atributo `data-theme` e a meta `theme-color` refletem a escolha. Os tokens de tema ficam em `src/styles/tokens.css`. Consulte o [design system](DESIGN_SYSTEM.md). A pausa das animações ambientes pertence ao estado de `SiteLayout.tsx`. As animações também consultam `prefers-reduced-motion`.
 
 O Code Quest grava a quantidade de selos de IA em `sessionStorage` com `ds-code-quest-ai-v1`. A aventura JavaScript guarda fase, código, modo e fases resolvidas com `ds-code-quest-adventure-v1`. A divisão dos painéis usa `ds-quest-panel-width` em `localStorage`. No laboratório, o progresso e as métricas ficam em memória na página.
 
