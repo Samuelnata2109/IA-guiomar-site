@@ -62,9 +62,7 @@ const { render, screen, cleanup, fireEvent, waitFor, within, act } =
 const { default: Showcase } = await import(
   "../src/sections/Disciplinas/InteractiveShowcase"
 );
-const { ThemeProvider, ThemeToggle, THEME_KEY } = await import(
-  "../src/components/layout/ThemeProvider"
-);
+const { ThemeProvider } = await import("../src/components/layout/ThemeProvider");
 const { default: Quest } = await import(
   "../src/features/code-quest/components/CodeQuestGame"
 );
@@ -153,24 +151,24 @@ test("gallery navigation and enlarged view work with explicitly identified place
   );
   assert.equal(document.documentElement.style.overflow, "hidden");
 });
-test("theme follows initial system preference, persists manual selection and survives remount", () => {
+test("light theme is permanent and clears a previously stored dark preference", () => {
+  localStorage.setItem("ds-guiomar-theme", "dark");
   const view = render(
     <ThemeProvider>
-      <ThemeToggle />
+      <div>Interface</div>
     </ThemeProvider>,
   );
   assert.equal(document.documentElement.dataset.theme, "light");
-  fireEvent.click(screen.getByRole("button", { name: "Ativar tema escuro" }));
-  assert.equal(document.documentElement.dataset.theme, "dark");
-  assert.equal(localStorage.getItem(THEME_KEY), "dark");
+  assert.equal(document.documentElement.style.colorScheme, "light");
+  assert.equal(localStorage.getItem("ds-guiomar-theme"), null);
+  assert.equal(screen.queryByRole("button", { name: /tema/i }), null);
   view.unmount();
   render(
     <ThemeProvider>
-      <ThemeToggle />
+      <div>Interface</div>
     </ThemeProvider>,
   );
-  assert.equal(document.documentElement.dataset.theme, "dark");
-  fireEvent.click(screen.getByRole("button", { name: "Ativar tema claro" }));
+  assert.equal(document.documentElement.dataset.theme, "light");
   assert.equal(
     document.querySelector('meta[name="theme-color"]')?.getAttribute("content"),
     "#f0f5fb",

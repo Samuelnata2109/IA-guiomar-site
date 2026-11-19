@@ -295,7 +295,6 @@ h3 {
 .nav-cta:hover {
   background: #3a85ed40;
 }
-.motion-toggle,
 .menu-button {
   background: transparent;
   color: #b3c5df;
@@ -2700,146 +2699,145 @@ body,
 .desktop-nav {
   gap: 24px;
 }
-[data-theme="light"] .hero {
+.hero {
   background: var(--bg);
 }
-[data-theme="light"] .hero-art {
+.hero-art {
   opacity: 0.86;
 }
-[data-theme="light"] .hero-art:after {
+.hero-art:after {
   background:
     linear-gradient(90deg, #f0f5fb 0%, #f0f5fbe8 27%, transparent 65%),
     linear-gradient(0deg, #f0f5fb, transparent 30%, transparent 85%, #f0f5fb);
 }
-[data-theme="light"] .navigation {
+.navigation {
   border-color: var(--nav-border);
 }
-[data-theme="light"] .hero h1,
-[data-theme="light"] h2,
-[data-theme="light"] h3 {
+.hero h1,
+h2,
+h3 {
   color: var(--text);
 }
-[data-theme="light"] .hero-invitation,
-[data-theme="light"] .text-lavender {
+.hero-invitation,
+.text-lavender {
   color: var(--heading-accent);
 }
-[data-theme="light"] .hero-badge,
-[data-theme="light"] .hero-description,
-[data-theme="light"] .hero-coordinate,
-[data-theme="light"] .hero-location,
-[data-theme="light"] .hero-location strong,
-[data-theme="light"] .scroll-cue,
-[data-theme="light"] .eyebrow,
-[data-theme="light"] .mini-label {
+.hero-badge,
+.hero-description,
+.hero-coordinate,
+.hero-location,
+.hero-location strong,
+.scroll-cue,
+.eyebrow,
+.mini-label {
   color: var(--muted);
 }
-[data-theme="light"] .brand small,
-[data-theme="light"] .desktop-nav a,
-[data-theme="light"] .motion-toggle,
-[data-theme="light"] .menu-button,
-[data-theme="light"] .nav-cta {
+.brand small,
+.desktop-nav a,
+.menu-button,
+.nav-cta {
   color: var(--text);
 }
-[data-theme="light"] .button-text {
+.button-text {
   color: var(--button-text-color);
 }
-[data-theme="light"] .desktop-nav a[aria-current="page"],
-[data-theme="light"] .mobile-nav a[aria-current="page"] {
+.desktop-nav a[aria-current="page"],
+.mobile-nav a[aria-current="page"] {
   color: var(--nav-active-color);
 }
-[data-theme="light"] .mobile-nav {
+.mobile-nav {
   background: #f0f5fbf5;
 }
-[data-theme="light"] .discipline-strip {
+.discipline-strip {
   background: #e2ebf8;
 }
-[data-theme="light"] .discipline-strip span,
-[data-theme="light"] .course-points strong {
+.discipline-strip span,
+.course-points strong {
   color: #4a6283;
 }
-[data-theme="light"] .section-no,
-[data-theme="light"] .footer-bottom {
+.section-no,
+.footer-bottom {
   color: #445d7f;
 }
-[data-theme="light"] .course-copy > .lead,
-[data-theme="light"] .footer-main > p {
+.course-copy > .lead,
+.footer-main > p {
   color: var(--text);
 }
-[data-theme="light"] .course-symbol {
+.course-symbol {
   color: #bacee9;
 }
-[data-theme="light"] .area-panel {
+.area-panel {
   background: linear-gradient(135deg, #eaf1fa, #d9e5f6);
   border-color: #6692d04a;
 }
-[data-theme="light"] .area-top,
-[data-theme="light"] .area-top svg,
-[data-theme="light"] .area-detail,
-[data-theme="light"] .chips > span,
-[data-theme="light"] .filters button,
-[data-theme="light"] .filters button.active {
+.area-top,
+.area-top svg,
+.area-detail,
+.chips > span,
+.filters button,
+.filters button.active {
   color: #445d7f;
 }
-[data-theme="light"] .chips > span {
+.chips > span {
   border-color: #547cb544;
 }
-[data-theme="light"] .area-watermark {
+.area-watermark {
   color: #3267b20b;
 }
-[data-theme="light"] .empty-projects {
+.empty-projects {
   background: linear-gradient(135deg, #dfe9f6, transparent);
 }
-[data-theme="light"] .lab-section {
+.lab-section {
   background:
     radial-gradient(ellipse at 80% 50%, #3a85ed0c, transparent 65%), #e8eff8;
 }
-[data-theme="light"] .code-lab,
-[data-theme="light"] .map-panel,
-[data-theme="light"] .project-dialog,
-[data-theme="light"] .project-card {
+.code-lab,
+.map-panel,
+.project-dialog,
+.project-card {
   background: var(--panel);
   color: var(--ink);
 }
-[data-theme="light"] .code-lines code {
+.code-lines code {
   color: #32588c;
 }
-[data-theme="light"] .code-lines .code-comment,
-[data-theme="light"] .code-lines > div > span,
-[data-theme="light"] .command-explanation,
-[data-theme="light"] .editor-top,
-[data-theme="light"] .preview-top,
-[data-theme="light"] .preview-status,
-[data-theme="light"] .preview-bottom,
-[data-theme="light"] .command-list button,
-[data-theme="light"] .command-list button.selected {
+.code-lines .code-comment,
+.code-lines > div > span,
+.command-explanation,
+.editor-top,
+.preview-top,
+.preview-status,
+.preview-bottom,
+.command-list button,
+.command-list button.selected {
   color: #54667e;
 }
-[data-theme="light"] .code-lines b {
+.code-lines b {
   color: #336ab8;
 }
-[data-theme="light"] .code-lines em {
+.code-lines em {
   color: #1c678f;
 }
-[data-theme="light"] .button-outline {
+.button-outline {
   color: var(--button-outline-text);
 }
-[data-theme="light"] .enrollment {
+.enrollment {
   background: linear-gradient(110deg, #dae7fa, #b3d0f8 58%, #d1e1f7);
 }
-[data-theme="light"] .enrollment .eyebrow,
-[data-theme="light"] .enrollment p,
-[data-theme="light"] .enrollment-note {
+.enrollment .eyebrow,
+.enrollment p,
+.enrollment-note {
   color: #334d71;
 }
-[data-theme="light"] .enrollment h2 span {
+.enrollment h2 span {
   color: #3267b2;
 }
-[data-theme="light"] .school address,
-[data-theme="light"] .map-top,
-[data-theme="light"] .map-bottom,
-[data-theme="light"] .footer-bottom,
-[data-theme="light"] .back-top,
-[data-theme="light"] .visual-caption {
+.school address,
+.map-top,
+.map-bottom,
+.footer-bottom,
+.back-top,
+.visual-caption {
   color: #586b85;
 }
 .map-panel iframe {
@@ -2891,7 +2889,7 @@ body,
   .nav-actions {
     gap: 3px;
   }
-  [data-theme="light"] .hero-art:after {
+  .hero-art:after {
     background:
       linear-gradient(#f0f5fb, transparent 22%, transparent 75%, #f0f5fb),
       linear-gradient(90deg, #f0f5fb, transparent 35%);
@@ -3821,13 +3819,13 @@ body,
 .button-primary {
   color: var(--button-primary-text);
 }
-[data-theme="light"] .school-city,
-[data-theme="light"] .course-points span,
-[data-theme="light"] .footer-main > p span,
-[data-theme="light"] .reset-button,
-[data-theme="light"] .pill,
-[data-theme="light"] .section-no,
-[data-theme="light"] .project-card small {
+  .school-city,
+  .course-points span,
+  .footer-main > p span,
+  .reset-button,
+  .pill,
+  .section-no,
+  .project-card small {
   color: #3a6198;
 }
 @media (hover: none) {

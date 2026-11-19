@@ -218,3 +218,8 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 - Os tokens de tema, hierarquia tipográfica, espaçamento, largura, controles, foco, bordas, sombras, movimento e camadas vivem em `src/styles/tokens.css`. Os valores da interface existente e os aliases consumidos pelas seções e jogos foram preservados. Os pontos de quebra continuam em CSS nativo.
 - O [design system](DESIGN_SYSTEM.md) define como preparar futuras integrações com o 21st.dev em `src/components/ui/`, incluindo temas, teclado, foco, contraste, movimento reduzido e custo de carregamento. A etapa usa apenas as dependências do lockfile.
 - `npm.cmd ci` e `npm.cmd run build` passaram. A suíte aprovou 46 de 46 testes. No Chrome sem janela, dimensões e estilos calculados dos elementos amostrados coincidiram com a referência em 144 combinações de rota, tema e largura, mais quatro comparações do diálogo. O foco visível e o menu mobile também passaram. A folha de estilos passou de 19,35 kB para 19,91 kB em gzip.
+
+## Etapa 12.1.1 — Remoção do seletor de temas
+
+- Removido o controle de tema da navbar. O tema claro fica fixo no HTML inicial, no provedor e nos tokens. Preferências antigas são apagadas do armazenamento local, e a preferência do sistema não altera a interface. O botão de pausa das animações, o CTA, a Hero e o indicador ativo permanecem.
+- Os estilos claros foram promovidos a estilos base para conservar a aparência, e os seletores escuros exclusivos do editor JavaScript foram removidos. O teste de tema agora verifica o tema claro permanente, a limpeza da chave antiga e a ausência de seletor.

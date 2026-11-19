@@ -4,11 +4,11 @@ A identidade do curso combina azul profundo e branco, tipografia editorial e ref
 
 ## Tokens e hierarquia
 
-Os valores compartilhados vivem em `src/styles/tokens.css`. `global.css` importa os tokens e aplica as classes existentes. O tema escuro é a base. `ThemeProvider` aplica `data-theme` no elemento raiz e conserva a preferência do usuário.
+Os valores compartilhados vivem em `src/styles/tokens.css`. `global.css` importa os tokens e aplica as classes existentes. O tema claro é permanente. `ThemeProvider` aplica `data-theme="light"` no elemento raiz e remove preferências de tema antigas do armazenamento local. Não há alternância por controle ou preferência do sistema.
 
 | Grupo | Padrão |
 | --- | --- |
-| Paleta | `--blue-deep` e `--blue-brand` são azuis de marca. Escolha cores de interface pelo papel, como `--bg`, `--surface`, `--panel`, `--text`, `--muted` e `--heading-accent`. |
+| Paleta | `--blue-deep` e `--blue-brand` são azuis de marca. Escolha cores de interface pelo papel, como `--bg`, `--surface`, `--panel`, `--text`, `--muted` e `--heading-accent`. Use sempre o tema claro permanente. |
 | Bordas e superfícies | Use `--line` para separadores, `--border` para contornos, `--control` para controles e `--panel-shadow` para superfícies elevadas. |
 | Tipografia | Inter para corpo e interface. Space Grotesk para títulos. O corpo parte de 16 px e os títulos de seção usam a escala fluida `--heading-section-size`. Use um título principal por página ou fluxo e preserve a ordem semântica dos subtítulos. |
 | Ritmo e largura | Use a família `--space-*` para espaçamento entre elementos. O contêiner compartilhado tem máximo de 1440 px e margens laterais de 56, 36 ou 20 px. `--section-padding` regula o respiro vertical, e `--radius` é o raio de referência para painéis. |
@@ -36,7 +36,7 @@ Em páginas internas, a navbar ocupa sua altura no fluxo. A Home mantém a sobre
 
 1. Avalie a origem, a licença e as dependências declaradas antes de incorporar código. O catálogo usa componentes React e TypeScript distribuídos em formato de registro shadcn. Revise os arquivos propostos antes de aplicar mudanças de configuração. O projeto já usa Tailwind via Vite. [Documentação do 21st.dev](https://docs.21st.dev/)
 2. Coloque componentes React reutilizáveis em `src/components/ui/`. Mantenha composição de página em `src/pages/` ou `src/sections/` e lógica de jogo em `src/features/`. Traga apenas o código necessário à interação aprovada. Prefira os componentes, utilitários e dependências que já existem.
-3. Mapeie cores, dimensões, sombras e tempo de transição aos tokens do projeto. Mantenha variáveis e seletores específicos do componente no seu próprio escopo. Confira o resultado com o atributo `data-theme` nos dois temas, em telas estreitas e sem suporte a hover.
+3. Mapeie cores, dimensões, sombras e tempo de transição aos tokens do projeto. Mantenha variáveis e seletores específicos do componente no seu próprio escopo. Confira o tema claro em telas estreitas e sem suporte a hover.
 4. Preserve a semântica de botões e links, nomes acessíveis, ordem de tabulação, foco visível e retorno de foco de diálogos. Para controles novos, use `--control-target` como referência de área clicável. Verifique contraste nos estados normal, hover, foco, ativo e desabilitado, e sinalize estados com mais de um recurso visual.
 5. Prefira efeitos breves e discretos, com alternativa para movimento reduzido. Compare os recursos iniciais antes e depois da integração e mantenha módulos pesados sob demanda. Em mudanças de página, confira o caminho de produção do GitHub Pages.
 
