@@ -14,7 +14,7 @@ type Frame = { id: number; step: Step | null; arena: Arena };
 type Run = { plan: Plan; index: number; id: number; applied: Arena };
 
 function startArena(barrier: boolean, destinations: boolean): Arena {
-  return { robot: origin, heading: Math.PI, barrier, destinations };
+  return { robot: origin, heading: 0, barrier, destinations };
 }
 
 function frameArena(previous: Arena, step: Step): Arena {

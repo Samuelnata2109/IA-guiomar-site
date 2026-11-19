@@ -105,3 +105,9 @@ O motor em `training.ts` calcula as etapas localmente. As métricas de classific
 - `npm ci` e `npm run build` passaram com o lockfile existente. O Vite manteve o aviso de chunks acima de 500 kB.
 - Dez testes específicos passaram, incluindo confirmação de movimento e rotação em 3D, transporte, classificação, desvio, ordem dos comandos e aprendizagem por recompensa. A suíte sequencial aprovou 41 de 46 testes, incluindo o Code Quest. As cinco falhas preexistentes abrangem cards, galeria, tema e projetos.
 - O Chromium com WebGL por software passou pelas seis tarefas, incluindo erro, sucesso, interrupção, reinício, avanço e conferência dos resultados. O cenário e os controles couberam em 1440, 768, 390 e 320 px. As capturas de 1440 e 390 px foram revisadas. A primeira tarefa foi executada também com WebGL desativado. O percurso completo usou movimento reduzido após o teste de interrupção. A interpolação das animações foi verificada nos testes do renderizador 3D.
+
+### Correção da orientação inicial do robô
+
+- A geometria do rosto está voltada para +Z e a câmera observa a cena pelo lado +Z. O estado inicial apontava para −Z (`Math.PI`), deixando o robô de costas. Ajustei somente o heading inicial da arena e da simulação para `0`; a rotação do modelo continua acompanhando o heading lógico nas tarefas, sem offset visual fixo.
+- `npm ci` foi executado sem alterar `package.json` ou `package-lock.json`; `npm run build` passou, com o aviso já conhecido de chunks acima de 500 kB. Capturas do cenário inicial em Chromium com WebGL por software confirmaram o rosto visível em desktop (1440 px) e mobile (390 px), sem overflow horizontal. A alteração também vale para reinício e troca de tarefa porque ambos recriam a arena por `startArena`.
+- Os 10 testes focados de movimento 3D e treinamento passaram. As animações e trajetórias existentes continuam determinadas pelos headings de cada passo.

@@ -91,7 +91,7 @@ function predict(sample: Sample, labels: Input["examples"]) {
 export function simulate(task: TaskId, input: Input, policy: Policy): Plan {
   const steps: Step[] = [];
   let position = origin;
-  let heading = Math.PI;
+  let heading = 0;
   let cargo: Sample | undefined;
   const add = (action: Action, message: string, extra: Partial<Step> = {}) =>
     steps.push({ position, heading, action, message, cargo, ...extra });
