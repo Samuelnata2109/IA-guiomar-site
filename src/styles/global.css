@@ -224,13 +224,16 @@ h3 {
   top: 12px;
 }
 .navigation {
+  position: relative;
+  z-index: 30;
+  border-bottom: 1px solid #84b6fc16;
+  background: linear-gradient(#142b48d9, #142b4830);
+}
+.app-home > .navigation {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 30;
-  border-bottom: 1px solid #84b6fc16;
-  background: linear-gradient(#142b48d9, #142b4830);
 }
 .nav-inner {
   width: calc(100% - 112px);
