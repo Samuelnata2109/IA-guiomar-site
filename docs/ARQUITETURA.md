@@ -1,37 +1,47 @@
 # Arquitetura do IA-guiomar-site
 
-A etapa 01.1 analisou a cópia do site de Desenvolvimento de Sistemas integrada no commit `9939841040ca48f035b8ddcea0e2781f2f56c8d5` de `IA-guiomar-site`. Esse SHA é a referência para comparações no repositório de IA. A origem Git da implementação em Desenvolvimento de Sistemas permanece sem SHA confirmado.
+O projeto é uma aplicação React de página única. `index.html` inicializa o tema e prioriza o pôster da Hero. `src/main.tsx` monta a aplicação em Strict Mode e `src/App.tsx` compõe as seções, o provedor de tema e o controle de movimento ambiente. Vite gera um site estático para o GitHub Pages.
 
-## Estrutura e dependências
+## Tecnologias da entrega
 
-`index.html` inicializa o tema antes da montagem. `src/main.tsx` monta React e importa as três folhas de estilo do projeto. `src/App.tsx` compõe a página única e os provedores de tema e movimento. `src/sections/` concentra as seções, `src/features/` as experiências interativas, `src/components/` a infraestrutura visual compartilhada e `src/data/` o conteúdo e os catálogos de mídia. `public/` contém os recursos estáticos. `tests/` contém as suítes existentes.
-
-O projeto usa React 19, TypeScript 5.9, Vite 7 e Tailwind CSS 4 com CSS próprio. Motion, GSAP com ScrollTrigger e Lenis cuidam das animações e da rolagem. Lucide fornece ícones e Fontsource fornece Space Grotesk e Inter. Three.js e React Three Fiber renderizam as cenas 3D. CodeMirror e Acorn apoiam a edição e análise de JavaScript no Code Quest. O `package.json` oferece `dev`, `build`, `preview` e `test`. O build executa `tsc -b && vite build`.
-
-## Seções e módulos
-
-| Área | Arquivos e responsabilidades |
+| Uso | Versões do lockfile |
 | --- | --- |
-| Navegação e animações compartilhadas | `src/components/layout/Navigation.tsx` reúne navegação e controles. `src/components/animations/SmoothScroll.tsx`, `Shared.tsx` e `AmbientMotion.ts` centralizam rolagem, revelações e pausa de movimento. |
-| Hero e apresentação | `src/sections/Hero/CinematicHero.tsx` renderiza a abertura e seus efeitos GSAP. `src/sections/SobreCurso/Course.tsx` apresenta o curso. `src/data/content.ts` reúne dados institucionais. |
-| Disciplinas | `src/data/courses.ts` define, nesta ordem, **Robótica, Programação, Design, Manutenção e Redes**. `src/sections/Disciplinas/InteractiveShowcase.tsx` monta a grade e os efeitos dos cards. `CourseModal.tsx`, `src/components/ui/Modal.tsx`, `ActivityGallery.tsx` e `PhotoGallery.tsx` compõem os detalhes e galerias. |
-| Code Quest | `src/sections/CodeQuest/CodeQuestSection.tsx` abre o jogo sob demanda. Em `src/features/code-quest/`, `components/CodeQuestGame.tsx` organiza a experiência, `game/adventure.ts` define fases e execução, `editor/AdventureEditor.tsx` integra o CodeMirror e `components/AdventureWorld.tsx` renderiza o tabuleiro. `AdventureHelp.tsx` contém a ajuda. |
-| Projetos | `src/sections/Projetos/ProjectGallery.tsx` concentra a apresentação de projetos. |
-| Laboratório | Em `src/features/laboratorio/`, `components/InteractiveCodeDemo.tsx` controla os exemplos e a execução, `game/robotExecution.ts` aplica os comandos ao estado e `components/RobotScene.tsx`, `RobotFallback.tsx` e `RobotParticles.tsx` compõem a visualização. |
-| Matrícula, escola e rodapé | `src/sections/Escola/SchoolLocation.tsx` contém as três áreas. |
+| Interface e build | React e React DOM 19.3.1, TypeScript 5.9.3, Vite 7.3.8, Tailwind CSS 4.3.5 |
+| Animação e rolagem | GSAP 3.15.1 com ScrollTrigger, Motion 12.43.0, Lenis 1.3.27 |
+| Cena 3D | Three.js 0.180.0, React Three Fiber 9.8.2 |
+| Editor e interpretação | CodeMirror 6, Acorn 8.19.0 |
+| Testes | Node.js, tsx 4.23.15, jsdom 31.0.0, Testing Library e React Three Test Renderer |
 
-## Paleta e estilos
+Use `package.json` para os scripts e as dependências declaradas e `package-lock.json` para as versões resolvidas. Lucide fornece os ícones e Fontsource serve Inter e Space Grotesk.
 
-- `src/styles/global.css` define tipografia, layout, estados, animações, cores literais e os tokens de tema. O tema escuro inclui `--purple: #7c3aed`, `--electric: #9333ea`, `--neon: #a855f7`, `--lavender: #c084fc`, fundo `#090514`, superfície `#140a24` e realce ciano `#38bdf8`. O seletor `:root[data-theme="light"]` sobrescreve tokens no tema claro.
-- `index.html` e `src/components/layout/ThemeProvider.tsx` sincronizam o fundo inicial, a preferência de tema e a cor do navegador.
-- `src/features/code-quest/styles/adventure.css` e `adventure-world.css` concentram as cores da interface do jogo, do editor e do tabuleiro alternativo. `AdventureWorld.tsx` e `ByteScene.tsx` declaram também materiais e luzes do 3D.
-- No laboratório, `RobotScene.tsx` define materiais, luzes e grade. `robotExecution.ts` e `InteractiveCodeDemo.tsx` associam as cores de interface aos exemplos e ao estado. O fundo e as ilustrações em `public/assets/` têm cores próprias.
+## Diretórios e responsabilidades
 
-## Recursos 3D e comportamento responsivo
+| Diretório ou arquivo | Responsabilidade |
+| --- | --- |
+| `src/sections/` | Hero, apresentação, cinco cards, entrada do Code Quest, projetos, escola, matrículas e rodapé |
+| `src/components/layout/` | Navegação e temas |
+| `src/components/ui/` | Diálogos, galerias, mídia e detecção de WebGL |
+| `src/components/animations/` | Revelações, rolagem Lenis e movimento ambiente |
+| `src/data/` | Disciplinas em `courses.ts`, mídias em `courseMedia.ts` e `media.ts`, projetos e mapa em `content.ts` |
+| `src/features/code-quest/` | Interfaces, seis missões de IA, intérprete da aventura JavaScript, editor, cenário e estilos |
+| `src/features/laboratorio/` | Seis tarefas, motores didáticos, terminal, robô, arena e estilos |
+| `src/styles/global.css` | Layout, tokens, temas, estilos compartilhados e breakpoints |
+| `public/` e `tests/` | Assets estáticos e suíte automatizada |
+| `.github/workflows/deploy.yml` | Build e implantação no GitHub Pages |
 
-O tabuleiro, o personagem Byte e o robô do laboratório são construídos em código com geometrias e materiais Three.js. `AdventureWorld.tsx`, `ByteCharacter.tsx` e `InteractiveCodeDemo.tsx` oferecem alternativas ao WebGL2. Não há arquivos de modelos 3D versionados. `src/data/media.ts` mapeia o pôster WebP do hero e as ilustrações SVG dos cards. `src/data/courseMedia.ts` inicia os catálogos das cinco galerias vazios.
+As cinco entradas de `courses.ts` seguem a [matriz curricular](MATRIZ_IA.md). Seus IDs `robotica`, `programacao`, `design`, `manutencao` e `redes` são vínculos internos entre cards, estilos e mídia.
 
-`global.css` ajusta contêineres, grade, navegação e modais em faixas que incluem 1600, 1100, 1000, 700, 420 e 380 px. O Code Quest usa regras específicas em 900, 800 e 600 px. `useAdventureLayout.ts` lê a altura do viewport visual e permite ajustar a divisão desktop por ponteiro ou teclado. Os estilos e componentes respeitam a preferência por movimento reduzido. O comportamento em dispositivos foi mapeado pelo código e ainda não foi verificado em navegador nesta etapa.
+## Estado e temas
+
+`ThemeProvider.tsx` lê a preferência do sistema e grava a escolha manual em `localStorage` com a chave `ds-guiomar-theme`. O atributo `data-theme` e a meta `theme-color` refletem a escolha. Os tokens de tema pertencem a `global.css`. A pausa das animações ambientes pertence ao estado de `App.tsx`. As animações também consultam `prefers-reduced-motion`.
+
+O Code Quest grava a quantidade de selos de IA em `sessionStorage` com `ds-code-quest-ai-v1`. A aventura JavaScript guarda fase, código, modo e fases resolvidas com `ds-code-quest-adventure-v1`. A divisão dos painéis usa `ds-quest-panel-width` em `localStorage`. No laboratório, o progresso e as métricas ficam em memória na página.
+
+## Carregamento e renderização
+
+Os jogos do Code Quest são carregados ao abrir o respectivo modo. `AdventureWorld.tsx` usa o mapa 2D enquanto a cena carrega ou quando WebGL2 fica indisponível. `RobotViewport.tsx` monta a cena quando a arena se aproxima da área visível e desmonta-a ao sair dessa faixa ou ocultar a aba. A cena e a versão 2D aplicam as ações ao mesmo estado de jogo. Interações em andamento usam confirmação de aplicação e permitem interrupção.
+
+`vite.config.ts` mantém o suporte a caminhos relativos e separa GSAP, editor e módulos 3D. O workflow usa o base path retornado pelo GitHub Pages. Consulte [publicação](DEPLOY.md).
 
 ## Registro visual da etapa 01
 
