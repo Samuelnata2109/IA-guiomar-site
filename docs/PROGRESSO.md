@@ -160,3 +160,11 @@ Para a etapa 10, ficam a verificação em Safari e Firefox, a medição em celul
 - `react-router-dom@7.18.6` fornece o `HashRouter`. O layout compartilhado mantém cabeçalho, rodapé, conteúdo principal, tema, Lenis e pausa de movimento. `src/pages/HomePage.tsx` preserva as seções iniciais na mesma ordem.
 - As rotas `/curso`, `/areas`, `/code-quest`, `/projetos` e `/escola` abrem páginas provisórias. Os links atuais continuam levando às seções da página inicial. A URL `#/#curso` representa a âncora da seção e `#/curso` abre a rota.
 - `npm.cmd ci` e `npm.cmd run build` concluíram com sucesso. A suíte aprovou 46 de 46 testes. No Chrome, o build servido sob `/IA-guiomar-site/` abriu as seis rotas e a página de endereço desconhecido. Também foram conferidos o foco das âncoras com Lenis e movimento reduzido, a abertura direta de uma âncora antiga e o retorno de uma página provisória a uma seção inicial.
+
+## Etapa 11.2.1.1 — Restauração da Hero original
+
+- A branch de rotas já preservava `src/sections/Hero/CinematicHero.tsx`, `src/styles/global.css`, `index.html` e `public/assets/hero.webp` iguais à `main` em `912d1ed`. A Hero mantém o pôster cinematográfico original, a composição, os gradientes, os objetos decorativos e as animações existentes.
+- `HomePage.tsx` renderiza a Hero original na rota `/`. O manifesto e o lockfile da branch contêm React Router e não incluem dependências Spline. A integração cancelada permanecia apenas como alterações locais em outra cópia de trabalho.
+- A validação desta etapa confirma a imagem no localhost e o funcionamento das rotas, sem alterações nos componentes da Hero ou nas funcionalidades das etapas anteriores.
+- `npm.cmd run build` passou na branch de rotas. O Chrome exibiu no localhost o notebook, o processador, o controle e o robô estático da imagem original. A validação das seis rotas e das âncoras desta branch permanece aprovada conforme a etapa 11.2.1.
+- Os arquivos e manifestos alterados pela tentativa Spline foram restaurados no checkout local separado. Ali, `npm.cmd ci` ficou impedido por `EPERM` ao substituir o módulo nativo `lightningcss.win32-x64-msvc.node`, mantido aberto pelo Windows. O lockfile versionado da branch de rotas não contém Spline.
